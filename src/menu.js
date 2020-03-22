@@ -16,6 +16,28 @@ const sidebarMenu = [
     key: 'home',  // route时url中的值
     name: '首页',  // 在菜单中显示的名称
   },
+  {
+    key: 'organization',
+    name: '组织架构',
+    child: [
+      {
+        key: 'userManagement',
+        name: '用户管理',
+      },
+      {
+        key: 'departmentManagement',
+        name: '部门管理',
+      },
+      {
+        key: 'jobManagement',
+        name: '岗位管理',
+      },
+      {
+        key: 'roleManagement',
+        name: '角色管理',
+      },
+    ],
+  },
   // {
   //   key: 'safety',
   //   name: '安全管理制度',
@@ -126,10 +148,10 @@ const sidebarMenu = [
   //     },
   //   ],
   // },
-  {
-    key: 'energy',
-    name: '能耗管理',
-  },
+  // {
+  //   key: 'energy',
+  //   name: '能耗管理',
+  // },
   // {
   //   key: 'emergency',
   //   name: '应急管理',
@@ -181,28 +203,28 @@ const sidebarMenu = [
   //     },
   //   ],
   // },
-  {
-    key: 'system',
-    name: '系统管理',
-    child: [
-      {
-        key: 'role',
-        name: '角色管理',
-      },
-      {
-        key: 'permission',
-        name: '权限分配',
-      },
-      {
-        key: 'password',
-        name: '密码设置',
-      },
-      {
-        key: 'other',
-        name: '其他',
-      },
-    ],
-  },
+  // {
+  //   key: 'system',
+  //   name: '系统管理',
+  //   child: [
+  //     {
+  //       key: 'role',
+  //       name: '角色管理',
+  //     },
+  //     {
+  //       key: 'permission',
+  //       name: '权限分配',
+  //     },
+  //     {
+  //       key: 'password',
+  //       name: '密码设置',
+  //     },
+  //     {
+  //       key: 'other',
+  //       name: '其他',
+  //     },
+  //   ],
+  // },
 ];
 
 export default sidebarMenu;
@@ -284,5 +306,5 @@ export const headerMenu = [
   {
     key: 'spectacular',
     name: '看板',
-  }
+  },
 ];
