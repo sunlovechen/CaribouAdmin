@@ -5,7 +5,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import { Router, Route, hashHistory } from 'react-router';
 import './utils/index.js';  // 引入各种prototype辅助方法
 import store from 'redux/store.js';  // redux store
 
@@ -15,6 +15,7 @@ import Welcome from './components/Welcome';
 import Error from './components/Error';
 import Hello from './components/Hello';
 import Spectacular from './components/spectacular';
+import UserManagement from './components/UserManagement';
 //import DBTable from './components/DBTable';
 
 // 将DBTable组件做成动态路由, 减小bundle size
@@ -32,30 +33,13 @@ const routes = (
   <Provider store={store}>
     <Router history={hashHistory}>
       <Route path="/" component={App}>
-        <IndexRoute component={Welcome} />
-
-        <Route path="index">
-          <Route path="option1" tableName="test" getComponent={DBTableContainer} />
-          <Route path="option2" tableName="testSms" getComponent={DBTableContainer} />
-          <Route path="option3" tableName="testAction" getComponent={DBTableContainer} />
-        </Route>
-
-        <Route path="daohang">
-          <Route path="home" component={Hello} />
-          <Route path="sanji">
-            <Route path="666" component={Hello} />
-            <Route path="777" component={Hello} />
-            <Route path="888" component={Hello} />
-            <Route path="999" component={Hello} />
-          </Route>
-        </Route>
-
-        <Route path="safety">
-          <Route path="lawsRegulations" component={Welcome} />
-        </Route>
-
-        <Route path="headerMenu4" component={Hello} />
+        {/* <IndexRoute component={Welcome} /> */}
+        <Route path="home" component={Welcome} />
         <Route path="spectacular" component={Spectacular} />
+
+        <Route path="organization">
+          <Route path="userManagement" component={UserManagement} />
+        </Route>
 
         <Route path="*" component={Error} />
 
