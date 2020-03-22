@@ -14,7 +14,7 @@ import App from './components/App';
 import Welcome from './components/Welcome';
 import Error from './components/Error';
 import Hello from './components/Hello';
-import Spectacular from './components/spectacular';
+import Spectacular from './components/Spectacular';
 //import DBTable from './components/DBTable';
 
 // 将DBTable组件做成动态路由, 减小bundle size
