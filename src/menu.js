@@ -1,14 +1,12 @@
 /**
  * 定义sidebar和header中的菜单项
  *
- * 一些约定:
  * 1.菜单最多3层;
  * 2.只有"叶子"节点才能跳转;
  * 3.所有的key都不能重复;
  */
 
 // 其实理论上可以嵌套更多层菜单的, 但是我觉得超过3层就不好看了
-// 可用的图标见这里: https://ant.design/components/icon-cn/
 
 // 定义siderbar菜单
 const sidebarMenu = [
@@ -241,67 +239,9 @@ export const headerMenu = [
         key: 'modifyUser',
         name: '修改用户信息',
         icon: 'bulb',
-        // 对于headerMenu的菜单项, 可以让它跳到外部地址, 如果设置了url属性, 就会打开一个新窗口
-        // 如果不设置url属性, 行为和sidebarMenu是一样的, 激活特定的组件, 注意在index.js中配置好路由, 否则会404
-        url: 'http://jxy.me',
-      },
-      {
-        key: 'user222',
-        name: '药药切克闹',
-        icon: 'rocket',
-      },
-      {
-        key: 'user333',
-        name: '选项3',
-        child: [
-          {
-            key: 'user333aaa',
-            name: 'user333aaa',
-            icon: 'windows',
-          },
-          {
-            key: 'user333bbb',
-            name: 'user333bbb',
-            url: 'http://jxy.me',
-          },
-        ],
+        // url: 'http://jxy.me',
       },
     ],
-  },
-  {
-    key: 'headerMenu2',
-    name: 'header菜单',
-    icon: 'team',
-    child: [
-      {
-        key: 'headerMenu111',
-        name: '菜单项1',
-        icon: 'windows',
-        url: 'http://jxy.me',
-      },
-      {
-        key: '菜单项2',
-        name: '短信表管理',
-        url: 'http://jxy.me',
-      },
-      {
-        key: '菜单项3',
-        name: '选项3',
-        icon: 'chrome',
-        url: 'http://jxy.me',
-      },
-    ],
-  },
-  {
-    key: 'headerMenu3',
-    name: '我没有子菜单',
-    icon: 'setting',
-    url: 'http://jxy.me',
-  },
-  {
-    key: 'headerMenu4',
-    name: '我也没有子菜单',
-    icon: 'shopping-cart',
   },
   {
     key: 'spectacular',

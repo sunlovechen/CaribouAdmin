@@ -2,8 +2,6 @@
  * 定义整个项目的全局配置
  */
 
-'use strict';
-
 // 约定优于配置
 // 我可以提供尽量多的配置, 但尽量不要太个性化, 接口的路径/名称/格式之类的
 // 遵循统一的规范, 好维护, 交给其他人也比较简单
@@ -45,7 +43,7 @@ module.exports = {
     // 2. 不使用sso, 使用我提供的一个登录界面
     validate: '/login',  // 校验用户信息, 表单的submit地址. 如果登录成功, 必须返回用户名
 
-    logout: '/logout',  // 退出的url, 用户点击退出时, 浏览器会直接跳转到这个链接
+    logout: '/',  // 退出的url, 用户点击退出时, 浏览器会直接跳转到这个链接
   },
 
   upload: {  // 上传相关配置
@@ -90,9 +88,8 @@ module.exports = {
   isCrossDomain() {
     if (this.api.host && this.api.host !== '') {
       return true;
-    } else {
-      return false;
     }
+    return false;
   },
 
   /**
@@ -103,9 +100,8 @@ module.exports = {
   isSSO() {
     if (this.login.sso && this.login.sso !== '') {
       return true;
-    } else {
-      return false;
     }
+    return false;
   },
 
   /**
@@ -129,10 +125,10 @@ module.exports = {
       while (tmp.charAt(index) === '/') {
         index--;
       }
-      if (index < 0)
+      if (index < 0) {
         paths.push('');
-      else
-        paths.push(tmp.substring(0, index + 1));
+      }
+      paths.push(tmp.substring(0, index + 1));
     } else {
       paths.push('');
     }
@@ -148,10 +144,10 @@ module.exports = {
       while (tmp.charAt(end) === '/') {
         end--;
       }
-      if (begin > end)
+      if (begin > end) {
         paths.push('');
-      else
-        paths.push(tmp.substring(begin, end + 1));
+      }
+      paths.push(tmp.substring(begin, end + 1));
     } else {
       paths.push('');
     }

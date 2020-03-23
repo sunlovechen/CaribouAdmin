@@ -72,7 +72,8 @@ class UserManagementMain extends React.PureComponent {
           visible={this.state.visible}
           onOk={this.handleOk}
           maskClosable={false}
-          onCancel={this.handleCancel}>
+          onCancel={this.handleCancel}
+        >
           <Form layout={'horizontal'}>
             <Form.Item label="用户类型" {...formItemLayout}>
               {getFieldDecorator('userType')(
