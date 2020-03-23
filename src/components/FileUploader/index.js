@@ -1,5 +1,5 @@
 import React from 'react';
-import {Upload, Icon, Modal, message, Button, Tooltip} from 'antd';
+import { Upload, Icon, Modal, message, Button, Tooltip } from 'antd';
 import globalConfig from '../../config.js';
 import Utils from '../../utils';
 import Logger from '../../utils/Logger.js';
@@ -24,7 +24,7 @@ class FileUploader extends React.Component {
   };
 
   componentWillMount() {
-    const {defaultValue, max, url, type} = this.props;
+    const { defaultValue, max, url, type } = this.props;
     // 当前是要上传图片还是普通图片? 会影响后续的很多东西
     const forImage = type === 'image';
     if (forImage) {
@@ -65,9 +65,6 @@ class FileUploader extends React.Component {
     } else if (forImage) {
       this.accept = '.jpg,.png,.gif,.jpeg';  // 上传图片时有默认的accept
     }
-
-    logger.debug('type = %s, upload url = %s, sizeLimit = %d, accept = %s', type, this.uploadUrl, this.sizeLimit, this.accept);
-
     this.forImage = forImage;
   }
 
@@ -81,7 +78,7 @@ class FileUploader extends React.Component {
     // 2. 外界直接setFieldValue, 直接改变这个组件的状态, 这种情况下需要更新
 
     if (this.needRender(nextProps)) {
-      const {value, max} = nextProps;
+      const { value, max } = nextProps;
       this.forceUpdateStateByValue(value, max);
     }
   }
@@ -93,7 +90,7 @@ class FileUploader extends React.Component {
    * @returns {boolean}
    */
   needRender(nextProps) {
-    const {value} = nextProps;
+    const { value } = nextProps;
     // 如果外界传过来的value是undefined或者空字符串, 需要清空文件上传列表
     if (!value) {   // 注意空字符串也是false
       return true;
@@ -103,12 +100,11 @@ class FileUploader extends React.Component {
     const fileArray = this.state.fileList.filter(file => file.status === 'done');
     // 外界传过来一个string
     if (Utils.isString(value)) {
-      if (fileArray.length !== 1 || value !== fileArray[0].url) {  // 当前没有上传文件, 或者已经上传的文件和外界传过来的不是同一个文件, 需要替换
+      if (fileArray.length !== 1 || value !== fileArray[0].url) { 
+        // 当前没有上传文件, 或者已经上传的文件和外界传过来的不是同一个文件, 需要替换
         return true;
       }
-    }
-    // 外界传过来一个数组
-    else if (value instanceof Array) {
+    } else if (value instanceof Array) {
       // 两个数组对应的文件url必须完全一样, 才认为是同样的数据, 不需更新
       if (value.length !== fileArray.length) {
         return true;
@@ -195,7 +191,7 @@ class FileUploader extends React.Component {
   /**
    * 预览界面点击取消按钮
    */
-  handleCancel = () => this.setState({previewVisible: false});
+  handleCancel = () => this.setState({ previewVisible: false });
 
   /**
    * 上传文件时的回调, 注意上传过程中会被调用多次
@@ -204,7 +200,7 @@ class FileUploader extends React.Component {
    *
    * @param fileList
    */
-  handleChange = ({file, fileList}) => {
+  handleChange = ({ file, fileList }) => {
     // 还要自己处理一下fileList
     for (const tmp of fileList) {
       if (tmp.status === 'done' && !tmp.url && tmp.response && tmp.response.success) {
@@ -312,7 +308,7 @@ class FileUploader extends React.Component {
 
 
   render() {
-    const {previewVisible, previewImage, fileList} = this.state;
+    const { previewVisible, previewImage, fileList } = this.state;
 
     // 我本来是写成accept="image/*"的, 但chrome下有些bug, 要很久才能弹出文件选择框
     // 只能用后缀名的写法了
@@ -333,7 +329,7 @@ class FileUploader extends React.Component {
         {/*只有上传图片时才需要这个预览modal*/}
         {this.forImage &&
         <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
-          <img alt="图片加载失败" style={{ width: '100%' }} src={previewImage}/>
+          <img alt="图片加载失败" style={{ width: '100%' }} src={previewImage} />
         </Modal>}
       </div>
     );

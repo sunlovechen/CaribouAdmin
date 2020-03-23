@@ -19,8 +19,8 @@ class Login extends React.PureComponent {
   // 一般而言公司内部都会提供基于LDAP的统一登录, 用到这个登录组件的场景应该挺少的
 
   state = {
-    username: '',  // 当前输入的用户名
-    password: '',  // 当前输入的密码
+    username: 'admin',  // 当前输入的用户名
+    password: '123456',  // 当前输入的密码
     requesting: false, // 当前是否正在请求服务端接口
   };
 

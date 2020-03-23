@@ -1,5 +1,5 @@
 import React from 'react';
-import {Icon} from 'antd';
+import { Icon } from 'antd';
 
 // 定义某个表的querySchema
 // schema的结构和含义参考下面的例子
@@ -70,7 +70,7 @@ module.exports = [
     title: '用户类型',
     dataType: 'varchar',   // 理论上来说, 这里的dataType可以是int/float/varchar甚至datetime, 反正对前端而言都是字符串, 只是后端反序列化时有区别
     showType: 'radio',  // 单选框, 和下拉框schema是一样的, 只是显示时有差别
-    options: [{key: 'typeA', value: '类型A'}, {key: 'typeB', value: '类型B'}],
+    options: [{ key: 'typeA', value: '类型A'}, {key: 'typeB', value: '类型B'}],
     defaultValue: 'typeB',
   },
   {

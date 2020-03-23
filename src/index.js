@@ -1,7 +1,3 @@
-/**
- * 程序的入口, 类似java中的main
- */
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
@@ -13,10 +9,8 @@ import store from 'redux/store.js';  // redux store
 import App from './components/App';
 import Welcome from './components/Welcome';
 import Error from './components/Error';
-import Hello from './components/Hello';
 import Spectacular from './components/Spectacular';
 import UserManagement from './components/UserManagement';
-//import DBTable from './components/DBTable';
 
 // 将DBTable组件做成动态路由, 减小bundle size
 // 注意不要再import DBTable了, 不然就没意义了
@@ -39,6 +33,8 @@ const routes = (
 
         <Route path="organization">
           <Route path="userManagement" component={UserManagement} />
+          <Route path="departmentManagement" component={UserManagement} />
+          <Route path="jobManagement" component={UserManagement} />
         </Route>
 
         <Route path="*" component={Error} />

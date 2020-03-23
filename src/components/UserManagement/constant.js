@@ -21,10 +21,32 @@ export const columns = [
   {
     title: '所在部门',
     dataIndex: 'department',
+    filters: [
+      {
+        text: '设备部',
+        value: '设备部',
+      },
+      {
+        text: '材料部',
+        value: '材料部',
+      },
+    ],
+    onFilter: (value, record) => record.department.indexOf(value) === 0,
   },
   {
     title: '所在岗位',
     dataIndex: 'post',
+    filters: [
+      {
+        text: '工程师',
+        value: '工程师',
+      },
+      {
+        text: '专员',
+        value: '专员',
+      },
+    ],
+    onFilter: (value, record) => record.post.indexOf(value) === 0,
   },
   {
     title: '状态',
@@ -85,7 +107,7 @@ export const data = [
     name: '陈老三',
     mail: '12123345@qq.com',
     phone: '16678761912',
-    department: '设备部',
+    department: '材料部',
     post: '工程师',
     status: '正常',
     createTime: '2020-1-13',
