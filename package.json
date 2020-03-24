@@ -53,6 +53,7 @@
     "webpack-dev-server": "1.16.2"
   },
   "dependencies": {
+    "echarts": "^4.7.0",
     "echarts-for-react": "^2.0.15-beta.1",
     "superagent": "2.3.0"
   },
