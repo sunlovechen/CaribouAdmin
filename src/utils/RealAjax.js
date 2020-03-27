@@ -87,7 +87,7 @@ class Ajax {
    * @returns {Promise}
    */
   requestWrapper(method, url, { params, data, headers } = {}) {
-    logger.debug('method=%s, url=%s, params=%o, data=%o, headers=%o', method, url, params, data, headers);
+    window.console.log('method=%s, url=%s, params=%o, data=%o, headers=%o', method, url, params, data, headers);
     return new Promise((resolve, reject) => {
       const tmp = superagent(method, url);
       // 是否是跨域请求
@@ -139,12 +139,12 @@ class Ajax {
   // 业务方法
 
   /**
-   * 获取当前登录的用户
+   * 测试接口
    *
    * @returns {*}
    */
-  getCurrentUser() {
-    return this.get(`${globalConfig.getAPIPath()}${globalConfig.login.getCurrentUser}`);
+  testApi() {
+    return this.get(`${globalConfig.getAPIPath()}/getArticleList`);
   }
 
   /**
@@ -155,7 +155,7 @@ class Ajax {
    */
   login(username, password) {
     const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
-    return this.post(`${globalConfig.getAPIPath()}${globalConfig.login.validate}`, { username, password }, { headers });
+    return this.post(`${globalConfig.getAPIPath()}/login`, { username, password }, { headers });
   }
 
   /**

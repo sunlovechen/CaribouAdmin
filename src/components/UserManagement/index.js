@@ -20,8 +20,8 @@ class UserManagementMain extends React.PureComponent {
     });
   };
 
-  handleOk = e => {
-    window.console.log(e);
+  handleOk = () => {
+    window.console.log(this.props.form.getFieldsValue());
     this.setState({
       visible: false,
     });
@@ -74,7 +74,7 @@ class UserManagementMain extends React.PureComponent {
           maskClosable={false}
           onCancel={this.handleCancel}
         >
-          <Form layout={'horizontal'}>
+          <Form>
             <Form.Item label="用户类型" {...formItemLayout}>
               {getFieldDecorator('userType')(
                 <Radio.Group>

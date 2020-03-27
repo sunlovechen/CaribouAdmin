@@ -9,14 +9,9 @@
 module.exports = {
   name: '后台管理系统',  // 项目的名字
   favicon: 'http://jxy.me/favicon.ico',  // 设置网页的favicon, 可以是外链, 也可以是本地
-  footer: '版权所有 © 2015-2099',  // footer中显示的字, 可以嵌入html标签
+  footer: '',  // footer中显示的字, 可以嵌入html标签
 
-  debug: true,  // 是否开启debug模式, 不会请求后端接口, 使用mock的数据
-
-  tabMode: {  // tab模式相关配置
-    enable: false,  // 是否开启tab模式
-    allowDuplicate: false,  // 同一个菜单项只允许一个tab
-  },
+  debug: false,  // 是否开启debug模式, 不会请求后端接口, 使用mock的数据
 
   log: {
     level: 'info',  // 日志级别, 类似slf4j中的root logger, 目前支持debug/info/warn/error 4种级别
@@ -28,8 +23,8 @@ module.exports = {
   },
 
   api: {  // 对后端请求的相关配置
-    host: 'http://localhost:12345',  // 调用ajax接口的地址, 默认值空, 如果是跨域的, 服务端要支持CORS
-    path: '/api',  // ajax请求的路径
+    host: 'https://apiblog.jspang.com',  // 调用ajax接口的地址, 默认值空, 如果是跨域的, 服务端要支持CORS
+    path: '/default',  // ajax请求的路径
     timeout: 15000,  // 请求的超时时间, 单位毫秒
   },
 
@@ -43,17 +38,17 @@ module.exports = {
     // 2. 不使用sso, 使用我提供的一个登录界面
     validate: '/login',  // 校验用户信息, 表单的submit地址. 如果登录成功, 必须返回用户名
 
-    logout: '/',  // 退出的url, 用户点击退出时, 浏览器会直接跳转到这个链接
+    logout: '',  // 退出的url, 用户点击退出时, 浏览器会直接跳转到这个链接
   },
 
-  upload: {  // 上传相关配置
-    // 上传图片和上传普通文件分别配置
-    image: '/uploadImage',  // 默认的上传图片接口
-    imageSizeLimit: 1500,  // 默认的图片大小限制, 单位KB
+  // upload: {  // 上传相关配置
+  //   // 上传图片和上传普通文件分别配置
+  //   image: '/uploadImage',  // 默认的上传图片接口
+  //   imageSizeLimit: 1500,  // 默认的图片大小限制, 单位KB
 
-    file: '/uploadFile',  // 默认的上传文件的接口
-    fileSizeLimit: 10240,  // 默认的文件大小限制, 单位KB
-  },
+  //   file: '/uploadFile',  // 默认的上传文件的接口
+  //   fileSizeLimit: 10240,  // 默认的文件大小限制, 单位KB
+  // },
 
   sidebar: {  // 侧边栏相关配置
     collapsible: false,  // 是否显示折叠侧边栏的按钮
@@ -110,51 +105,52 @@ module.exports = {
    * @returns {*}
    */
   getAPIPath() {
-    if (this.tmpApiPath) { // 缓存
-      return this.tmpApiPath;
-    }
+    // if (this.tmpApiPath) { // 缓存
+    //   return this.tmpApiPath;
+    // }
 
-    const paths = [];
+    // const paths = [];
 
-    // js的字符串处理真是麻烦
-    if (this.isCrossDomain()) {
-      // 去除结尾的'/'
-      const tmp = this.api.host;
-      let index = tmp.length - 1;
-      // 如果超出指定的 index 范围，charAt返回一个空字符串
-      while (tmp.charAt(index) === '/') {
-        index--;
-      }
-      if (index < 0) {
-        paths.push('');
-      }
-      paths.push(tmp.substring(0, index + 1));
-    } else {
-      paths.push('');
-    }
+    // // js的字符串处理真是麻烦
+    // if (this.isCrossDomain()) {
+    //   // 去除结尾的'/'
+    //   const tmp = this.api.host;
+    //   let index = tmp.length - 1;
+    //   // 如果超出指定的 index 范围，charAt返回一个空字符串
+    //   while (tmp.charAt(index) === '/') {
+    //     index--;
+    //   }
+    //   if (index < 0) {
+    //     paths.push('');
+    //   }
+    //   paths.push(tmp.substring(0, index + 1));
+    // } else {
+    //   paths.push('');
+    // }
 
-    if (this.api.path) {
-      const tmp = this.api.path;
-      let begin = 0;
-      let end = tmp.length - 1;
+    // if (this.api.path) {
+    //   const tmp = this.api.path;
+    //   let begin = 0;
+    //   let end = tmp.length - 1;
 
-      while (tmp.charAt(begin) === '/') {
-        begin++;
-      }
-      while (tmp.charAt(end) === '/') {
-        end--;
-      }
-      if (begin > end) {
-        paths.push('');
-      }
-      paths.push(tmp.substring(begin, end + 1));
-    } else {
-      paths.push('');
-    }
+    //   while (tmp.charAt(begin) === '/') {
+    //     begin++;
+    //   }
+    //   while (tmp.charAt(end) === '/') {
+    //     end--;
+    //   }
+    //   if (begin > end) {
+    //     paths.push('');
+    //   }
+    //   paths.push(tmp.substring(begin, end + 1));
+    // } else {
+    //   paths.push('');
+    // }
 
-    const tmpApiPath = paths.join('/');
-    this.tmpApiPath = tmpApiPath;
-    return tmpApiPath;
+    // const tmpApiPath = paths.join('/');
+    // this.tmpApiPath = tmpApiPath;
+    // return tmpApiPath;
+    return this.api.host + this.api.path;
   },
 
 };
