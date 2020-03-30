@@ -11,6 +11,9 @@ import Welcome from './components/Welcome';
 import Error from './components/Error';
 import Spectacular from './components/Spectacular';
 import UserManagement from './components/UserManagement';
+import DeviceList from './components/DeviceList';
+
+import './index.less';
 
 // 路由表, 只要menu.js中所有的叶子节点配置了路由就可以了
 // 我本来想根据menu.js自动生成路由表, 但那样太不灵活了, 还是自己配置好些
@@ -26,6 +29,10 @@ const routes = (
           <Route path="userManagement" component={UserManagement} />
           <Route path="departmentManagement" component={UserManagement} />
           <Route path="jobManagement" component={UserManagement} />
+        </Route>
+
+        <Route path="equipment">
+          <Route path="deviceList" component={DeviceList} />
         </Route>
 
         <Route path="*" component={Error} />

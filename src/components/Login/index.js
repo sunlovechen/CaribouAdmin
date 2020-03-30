@@ -16,8 +16,8 @@ const logger = Logger.getLogger('Login');
 class Login extends React.PureComponent {
 
   state = {
-    username: 'admin',  // 当前输入的用户名
-    password: '123456',  // 当前输入的密码
+    username: '',  // 当前输入的用户名
+    password: '',  // 当前输入的密码
     requesting: false, // 当前是否正在请求服务端接口
   };
 
@@ -75,11 +75,14 @@ class Login extends React.PureComponent {
           <h1>{globalConfig.name}</h1>
           <form onSubmit={this.handleSubmit}>
             <input className="login-input" type="text" value={this.state.username}
-              onChange={this.handleUsernameInput} placeholder="用户名" required="required" />
+              onChange={this.handleUsernameInput} placeholder="用户名" required="required"
+            />
             <input className="login-input" type="password" value={this.state.password}
-              onChange={this.handlePasswordInput} placeholder="密码" required="required" />
+              onChange={this.handlePasswordInput} placeholder="密码" required="required"
+            />
             <button className="btn btn-primary btn-block btn-large"
-              type="submit" disabled={this.state.requesting}>
+              type="submit" disabled={this.state.requesting}
+            >
               登录
             </button>
           </form>

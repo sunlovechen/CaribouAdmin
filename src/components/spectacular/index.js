@@ -74,7 +74,7 @@ class Spectacular extends React.PureComponent {
   render() {
     return <div className="spectacular">
       <Row>
-        <Col span={5}>
+        <Col span={6}>
           <div className="spectacular-child">
             <div className="child-title">
               {'储量统计'}
@@ -179,8 +179,8 @@ class Spectacular extends React.PureComponent {
             </div>
           </div>
         </Col>
-        <Col span={14}>col-16</Col>
-        <Col span={5}>col-4</Col>
+        <Col span={12}>col-16</Col>
+        <Col span={6}>col-4</Col>
       </Row>
     </div >;
   }

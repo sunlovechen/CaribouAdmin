@@ -43,7 +43,8 @@ class Header extends React.PureComponent {
     const logoutMenuItem = (
       <MenuItem key="logout">
         <Icon type="logout" />
-        <a href={`${globalConfig.getAPIPath()}/login`}>注销</a>
+        {/* <a href={`${globalConfig.getAPIPath()}/login`}>注销</a> */}
+        <a href={'http://localhost:8080/'}>注销</a>
       </MenuItem>
     );
 

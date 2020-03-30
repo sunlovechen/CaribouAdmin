@@ -48,6 +48,9 @@ class App extends React.Component {
    * App组件挂载后要先尝试去服务端获取已登录的用户
    */
   async componentDidMount() {
+    // this.state.tryingLogin = false;
+    // // App组件也可能触发loginSuccess action
+    // this.props.handleLoginSuccess('admin');
     if (!this.props.login) {
       const hide = message.loading('正在获取用户信息...', 0);
 
@@ -245,11 +248,12 @@ class App extends React.Component {
   }
 
   render() {
+    const spin = true;
     // 显示一个加载中
     if (this.state.tryingLogin) {
       return (
         <div className="center-div">
-          <Spin spinning={true} size="large" />
+          <Spin spinning={spin} size="large" />
         </div>
       );
     }

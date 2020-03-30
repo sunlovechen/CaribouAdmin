@@ -14,13 +14,12 @@ const logger = Logger.getLogger('FileUploader');
  * 这个组件可以配合antd的FormItem使用, 以后可以参考
  */
 class FileUploader extends React.Component {
-
   // 注意这个组件不能做成PureComponent, 会有bug, 因为上传的过程中会不断触发onChange, 进而导致状态不断变化
 
   state = {
-    previewVisible: false,  // 是否显示图片预览modal
-    previewImage: '',  // 要预览的图片
-    fileList: [],  // 已经上传的文件列表
+    previewVisible: false, // 是否显示图片预览modal
+    previewImage: '', // 要预览的图片
+    fileList: [], // 已经上传的文件列表
   };
 
   componentWillMount() {
@@ -28,9 +27,9 @@ class FileUploader extends React.Component {
     // 当前是要上传图片还是普通图片? 会影响后续的很多东西
     const forImage = type === 'image';
     if (forImage) {
-      this.listType = 'picture-card';  // 对于图片类型的上传, 要显示缩略图
+      this.listType = 'picture-card'; // 对于图片类型的上传, 要显示缩略图
     } else {
-      this.listType = 'text';  // 对于其他类型的上传, 只显示个文件名就可以了
+      this.listType = 'text'; // 对于其他类型的上传, 只显示个文件名就可以了
     }
 
     // 组件第一次加载的时候, 设置默认值
@@ -44,7 +43,7 @@ class FileUploader extends React.Component {
         this.uploadUrl = `${globalConfig.getAPIPath()}${url}`;
       }
     } else {
-      this.uploadUrl = `${globalConfig.getAPIPath()}${forImage ? globalConfig.upload.image : globalConfig.upload.file}`;  // 默认上传接口
+      this.uploadUrl = `${globalConfig.getAPIPath()}${forImage ? globalConfig.upload.image : globalConfig.upload.file}`; // 默认上传接口
     }
 
     // 上传时的文件大小限制
@@ -63,7 +62,7 @@ class FileUploader extends React.Component {
     if (this.props.accept) {
       this.accept = this.props.accept;
     } else if (forImage) {
-      this.accept = '.jpg,.png,.gif,.jpeg';  // 上传图片时有默认的accept
+      this.accept = '.jpg,.png,.gif,.jpeg'; // 上传图片时有默认的accept
     }
     this.forImage = forImage;
   }
@@ -92,7 +91,8 @@ class FileUploader extends React.Component {
   needRender(nextProps) {
     const { value } = nextProps;
     // 如果外界传过来的value是undefined或者空字符串, 需要清空文件上传列表
-    if (!value) {   // 注意空字符串也是false
+    if (!value) {
+      // 注意空字符串也是false
       return true;
     }
 
@@ -100,7 +100,7 @@ class FileUploader extends React.Component {
     const fileArray = this.state.fileList.filter(file => file.status === 'done');
     // 外界传过来一个string
     if (Utils.isString(value)) {
-      if (fileArray.length !== 1 || value !== fileArray[0].url) { 
+      if (fileArray.length !== 1 || value !== fileArray[0].url) {
         // 当前没有上传文件, 或者已经上传的文件和外界传过来的不是同一个文件, 需要替换
         return true;
       }
@@ -132,7 +132,7 @@ class FileUploader extends React.Component {
     if (Utils.isString(value) && value.length > 0) {
       this.state.fileList.push({
         uid: -1,
-        name: value.substr(value.lastIndexOf('/') + 1),  // 取url中的最后一部分作为文件名
+        name: value.substr(value.lastIndexOf('/') + 1), // 取url中的最后一部分作为文件名
         status: 'done',
         url: value,
       });
@@ -165,7 +165,7 @@ class FileUploader extends React.Component {
    * @param file
    * @returns {boolean}
    */
-  beforeUpload = (file) => {
+  beforeUpload = file => {
     if (this.sizeLimit) {
       if (file.size / 1024 > this.sizeLimit) {
         message.error(`${this.forImage ? '图片' : '文件'}过大，最大只允许${this.sizeLimit}KB`);
@@ -181,7 +181,7 @@ class FileUploader extends React.Component {
    *
    * @param file
    */
-  handlePreview = (file) => {
+  handlePreview = file => {
     this.setState({
       previewImage: file.url || file.thumbUrl,
       previewVisible: true,
@@ -204,7 +204,7 @@ class FileUploader extends React.Component {
     // 还要自己处理一下fileList
     for (const tmp of fileList) {
       if (tmp.status === 'done' && !tmp.url && tmp.response && tmp.response.success) {
-        tmp.url = tmp.response.data;  // 服务端返回的url
+        tmp.url = tmp.response.data; // 服务端返回的url
       }
     }
 
@@ -217,22 +217,23 @@ class FileUploader extends React.Component {
           uid: Date.now(),
           name: this.forImage ? 'avatar.jpg' : 'mapreduce-osdi04.pdf',
           status: 'done',
-          url: this.forImage ? 'http://jxy.me/about/avatar.jpg' : 'https://static.googleusercontent.com/media/research.google.com/zh-CN//archive/mapreduce-osdi04.pdf',
+          url: this.forImage
+            ? 'http://jxy.me/about/avatar.jpg'
+            : 'https://static.googleusercontent.com/media/research.google.com/zh-CN//archive/mapreduce-osdi04.pdf',
         });
         this.notifyFileChange();
       } else {
         message.error(`${file.name}上传失败`, 2.5);
       }
-    }
+    } else if (file.status === 'done' || file.status === 'removed') {
     // 上传成功 or 删除图片
-    else if (file.status === 'done' || file.status === 'removed') {
       this.notifyFileChange();
     }
     // 其实还有正在上传(uploading)/错误(error)的状态, 不过这里不关心
 
     // 注意对于controlled components而言, 这步setState必不可少
     // 见https://github.com/ant-design/ant-design/issues/2423
-    this.setState({fileList});
+    this.setState({ fileList });
 
     // 其实这里可能有点小问题
     // notifyFileChange方法会通知上层组件, 文件列表变化了, 对于antd的FormItem而言, 新的值又会通过props.value的形式回传, 导致re-render
@@ -244,7 +245,7 @@ class FileUploader extends React.Component {
    * 文件列表变化后, 通知上层
    */
   notifyFileChange = () => {
-    const {onChange, max} = this.props;
+    const { onChange, max } = this.props;
 
     if (onChange) {
       // 传给回调的参数可能是个string, 也可能是个array, 要判断一下
@@ -258,7 +259,8 @@ class FileUploader extends React.Component {
           res = '';
         }
       } else {
-        res = this.state.fileList.filter(file => file.status === 'done').map(file => file.url);  // 注意先filter再map, 因为map必须是一一对应的
+        res = this.state.fileList.filter(file => file.status === 'done').map(file => file.url); 4
+        // 注意先filter再map, 因为map必须是一一对应的
         // 如果res是undefined, 那对应的, 后端收到的就是null; 如果res是空的数组, 后端收到的就是一个空的List. 注意这两种区别.
       }
 
@@ -272,40 +274,49 @@ class FileUploader extends React.Component {
    * 上传按钮的样式, 跟文件类型/当前状态都有关
    */
   renderUploadButton() {
-    const {fileList} = this.state;
+    const { fileList } = this.state;
     const disabled = fileList.length >= this.props.max;
 
     if (this.forImage) {
-      const button = (<div>
-        <Icon type="plus"/>
-        <div className="ant-upload-text">上传图片</div>
-      </div>);
+      const button = (
+        <div>
+          <Icon type="plus" />
+          <div className="ant-upload-text">上传图片</div>
+        </div>
+      );
       // 对于图片而言, 如果文件数量达到max, 上传按钮直接消失
       if (disabled) {
         return null;
       }
       // 是否有提示语
       if (this.props.placeholder) {
-        return <Tooltip title={this.props.placeholder} mouseLeaveDelay={0}>
-          {button}
-        </Tooltip>;
+        return (
+          <Tooltip title={this.props.placeholder} mouseLeaveDelay={0}>
+            {button}
+          </Tooltip>
+        );
       } else {
         return button;
       }
     } else {
       // 对于普通文件而言, 如果数量达到max, 上传按钮不可用
-      const button = <Button disabled={disabled}><Icon type="upload"/> 上传</Button>;
+      const button = (
+        <Button disabled={disabled}>
+          <Icon type="upload" /> 上传
+        </Button>
+      );
       // 是否要有提示语
       if (this.props.placeholder && !disabled) {
-        return <Tooltip title={this.props.placeholder} mouseLeaveDelay={0}>
-          {button}
-        </Tooltip>;
+        return (
+          <Tooltip title={this.props.placeholder} mouseLeaveDelay={0}>
+            {button}
+          </Tooltip>
+        );
       } else {
         return button;
       }
     }
   }
-
 
   render() {
     const { previewVisible, previewImage, fileList } = this.state;
@@ -322,41 +333,42 @@ class FileUploader extends React.Component {
           onChange={this.handleChange}
           beforeUpload={this.beforeUpload}
           accept={this.accept}
-          withCredentials={globalConfig.isCrossDomain()}
-        >
+          withCredentials={globalConfig.isCrossDomain()}>
           {this.renderUploadButton()}
         </Upload>
         {/*只有上传图片时才需要这个预览modal*/}
-        {this.forImage &&
-        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
-          <img alt="图片加载失败" style={{ width: '100%' }} src={previewImage} />
-        </Modal>}
+        {this.forImage && (
+          <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+            <img alt="图片加载失败" style={{ width: '100%' }} src={previewImage} />
+          </Modal>
+        )}
       </div>
     );
   }
-
 }
 
 FileUploader.propTypes = {
-  max: React.PropTypes.number.isRequired,  // 最多可以上传文件数量
-  sizeLimit: React.PropTypes.number,  // 大小限制, 单位KB
-  onChange: React.PropTypes.func,  // 上传后的回调函数
-  defaultValue: React.PropTypes.oneOfType([  // 默认值, 可以是单个文件, 也可以是一组文件
+  max: React.PropTypes.number.isRequired, // 最多可以上传文件数量
+  sizeLimit: React.PropTypes.number, // 大小限制, 单位KB
+  onChange: React.PropTypes.func, // 上传后的回调函数
+  defaultValue: React.PropTypes.oneOfType([
+    // 默认值, 可以是单个文件, 也可以是一组文件
     React.PropTypes.string,
     React.PropTypes.array,
   ]),
-  value: React.PropTypes.oneOfType([  // 受控组件
+  value: React.PropTypes.oneOfType([
+    // 受控组件
     React.PropTypes.string,
     React.PropTypes.array,
   ]),
-  url: React.PropTypes.string,  // 自定义上传接口
-  type: React.PropTypes.string,  // type=image表示上传图片, 否则上传普通文件
-  accept: React.PropTypes.string,  // 上传时允许选择的文件类型, 例子:".jpg,.png,.gif"
-  placeholder: React.PropTypes.string,  // 提示语
+  url: React.PropTypes.string, // 自定义上传接口
+  type: React.PropTypes.string, // type=image表示上传图片, 否则上传普通文件
+  accept: React.PropTypes.string, // 上传时允许选择的文件类型, 例子:".jpg,.png,.gif"
+  placeholder: React.PropTypes.string, // 提示语
 };
 
 FileUploader.defaultProps = {
-  max: 1,  // 默认只能上传一个文件
+  max: 1, // 默认只能上传一个文件
 };
 
 export default FileUploader;
