@@ -53,9 +53,9 @@
     "webpack-dev-server": "1.16.2"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "echarts": "^4.7.0",
     "echarts-for-react": "^2.0.15-beta.1",
-    "superagent": "2.3.0"
   },
   "scripts": {
     "build": "webpack --progress --colors --display-error-details",
