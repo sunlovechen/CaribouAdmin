@@ -55,7 +55,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "echarts": "^4.7.0",
-    "echarts-for-react": "^2.0.15-beta.1",
+    "echarts-for-react": "^2.0.15-beta.1"
   },
   "scripts": {
     "build": "webpack --progress --colors --display-error-details",

@@ -6,6 +6,7 @@ import Header from '../Header';
 import Footer from '../Footer';
 import Sidebar from '../Sidebar';
 import Login from '../Login';
+import Spectacular from '../Spectacular';
 import Breadcrumb from '../Breadcrumb';
 import './index.less';
 import globalConfig from 'config.js';
@@ -262,6 +263,10 @@ class App extends React.Component {
     // 跳转到登录界面
     if (!this.props.login) {
       return <Login />;
+    }
+
+    if (this.state.currentTabKey === 'spectacular') {
+      return <Spectacular />;
     }
 
     // 正常显示

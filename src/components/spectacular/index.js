@@ -1,9 +1,10 @@
 import React from 'react';
 import './index.less';
 import { Row, Col } from 'antd';
-import ReactEcharts from 'echarts-for-react';
-import echarts from 'echarts';
 import { Icon } from 'antd';
+import OilPlatform from './oilPlatform';
+
+const image = require('../../assets/overview.png');
 /**
  * 测试用
  */
@@ -45,7 +46,6 @@ class Spectacular extends React.PureComponent {
         type: 'value',
         boundaryGap: [0, 0.01],
         show: false,
-
       },
       yAxis: {
         // type: 'category',
@@ -53,7 +53,8 @@ class Spectacular extends React.PureComponent {
         splitLine: {
           show: false,
         },
-        axisTick: {       //y轴刻度线
+        axisTick: {
+          //y轴刻度线
           show: false,
         },
       },
@@ -72,117 +73,171 @@ class Spectacular extends React.PureComponent {
     return option;
   }
   render() {
-    return <div className="spectacular">
-      <Row>
-        <Col span={6}>
-          <div className="spectacular-child">
-            <div className="child-title">
-              {'储量统计'}
+    return (
+      <div className="spectacular">
+        <div className="main">
+          <div className="left-main">
+            <div className="spectacular-child">
+              <div className="child-title">{'储量统计'}</div>
+              <div className="child-content">
+                <Row>
+                  <Col span={3}>92号</Col>
+                  <Col span={16}>
+                    <div className="step">
+                      <div className="tip-content"></div>
+                      <div className="percent" style={{ width: `${this.state.len}%` }}></div>
+                    </div>
+                  </Col>
+                  <Col span={5}>5202.5吨</Col>
+                </Row>
+                <Row>
+                  <Col span={3}>92号</Col>
+                  <Col span={16}>
+                    <div className="step">
+                      <div className="tip-content"></div>
+                      <div className="percent" style={{ width: `${this.state.len}%` }}></div>
+                    </div>
+                  </Col>
+                  <Col span={5}>5202.5吨</Col>
+                </Row>
+                <Row>
+                  <Col span={3}>92号</Col>
+                  <Col span={16}>
+                    <div className="step">
+                      <div className="tip-content"></div>
+                      <div className="percent" style={{ width: `${this.state.len}%` }}></div>
+                    </div>
+                  </Col>
+                  <Col span={5}>5202.5吨</Col>
+                </Row>
+              </div>
             </div>
-            <div className="child-content">
-              {/* <ReactEcharts
-                className="chart-content"
-                option={this.getOption()}
-                notMerge={this.state.notMerge}
-                lazyUpdate={this.state.lazyUpdate}
-                theme={"theme_name"}
-                style={{width: '100%', height: '150px'}}
-              // onChartReady={this.onChartReadyCallback}
-              // onEvents={EventsDict}
-              /> */}
-              <Row>
-                <Col span={3}>
-                  92号
-                </Col>
-                <Col span={16}>
-                  <div className="step">
-                    <div className="tip-content"></div>
-                    <div className="percent" style={{ width: `${this.state.len}%` }}></div>
-                  </div>
-                </Col>
-                <Col span={5}>
-                  5202.5吨
-                </Col>
-              </Row>
-              <Row>
-                <Col span={3}>
-                  92号
-                </Col>
-                <Col span={16}>
-                  <div className="step">
-                    <div className="tip-content"></div>
-                    <div className="percent" style={{ width: `${this.state.len}%` }}></div>
-                  </div>
-                </Col>
-                <Col span={5}>
-                  5202.5吨
-                </Col>
-              </Row>
-              <Row>
-                <Col span={3}>
-                  92号
-                </Col>
-                <Col span={16}>
-                  <div className="step">
-                    <div className="tip-content"></div>
-                    <div className="percent" style={{ width: `${this.state.len}%` }}></div>
-                  </div>
-                </Col>
-                <Col span={5}>
-                  5202.5吨
-                </Col>
-              </Row>
+            <div className="spectacular-child">
+              <div className="child-title">{'报警信息'}</div>
+              <div className="child-content">
+                <Row>
+                  <Col span={8}>
+                    <p>
+                      危险源异常&nbsp;&nbsp;
+                      <Icon type="bulb" style={{ color: 'red' }} theme="twoTone" />
+                    </p>
+                    <p className="bottom-line">
+                      <i style={{ background: 'red' }}></i>
+                      <i></i>
+                      <i></i>
+                    </p>
+                  </Col>
+                  <Col span={8}>
+                    <p>
+                      危险源异常&nbsp;&nbsp;
+                      <Icon type="bulb" style={{ color: 'red' }} theme="twoTone" />
+                    </p>
+                    <p className="bottom-line">
+                      <i style={{ background: 'red' }}></i>
+                      <i></i>
+                      <i></i>
+                    </p>
+                  </Col>
+                  <Col span={8}>
+                    <p>
+                      危险源异常&nbsp;&nbsp;
+                      <Icon type="bulb" style={{ color: 'red' }} theme="twoTone" />
+                    </p>
+                    <p className="bottom-line">
+                      <i style={{ background: 'red' }}></i>
+                      <i style={{ background: 'red' }}></i>
+                      <i style={{ background: 'red' }}></i>
+                    </p>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={8}>
+                    <p>
+                      危险源异常&nbsp;&nbsp;
+                      <Icon type="bulb" style={{ color: '#eaaa00' }} theme="twoTone" />
+                    </p>
+                    <p className="bottom-line">
+                      <i style={{ background: '#eaaa00' }}></i>
+                      <i></i>
+                      <i></i>
+                    </p>
+                  </Col>
+                  <Col span={8}>
+                    <p>
+                      危险源异常&nbsp;&nbsp;
+                      <Icon type="bulb" style={{ color: '#eaaa00' }} theme="twoTone" />
+                    </p>
+                    <p className="bottom-line">
+                      <i style={{ background: '#eaaa00' }}></i>
+                      <i></i>
+                      <i></i>
+                    </p>
+                  </Col>
+                </Row>
+              </div>
+            </div>
+            <div className="spectacular-child">
+              <div className="child-title">
+                {'待办事项'} <Icon type="minus-circle" />
+              </div>
+              <div className="child-content">
+                <p className="wait">
+                  <Icon type="exclamation-circle" theme="filled" style={{ color: 'red' }} />
+                  &nbsp;&nbsp;仓库线路出现故障，要及时增派相关人员去现场
+                </p>
+                <p className="wait">
+                  <Icon type="exclamation-circle" theme="filled" style={{ color: 'red' }} />
+                  &nbsp;&nbsp;仓库线路出现故障，要及时增派相关人员去现场
+                </p>
+                <p className="wait">
+                  <Icon type="exclamation-circle" theme="filled" style={{ color: 'red' }} />
+                  &nbsp;&nbsp;仓库线路出现故障，要及时增派相关人员去现场
+                </p>
+                <p className="wait">
+                  <Icon type="exclamation-circle" theme="filled" style={{ color: 'red' }} />
+                  &nbsp;&nbsp;仓库线路出现故障，要及时增派相关人员去现场
+                </p>
+                <p className="wait">
+                  <Icon type="exclamation-circle" theme="filled" style={{ color: 'red' }} />
+                  &nbsp;&nbsp;仓库线路出现故障，要及时增派相关人员去现场
+                </p>
+                <p className="wait">
+                  <Icon type="clock-circle" theme="filled" style={{ color: '#66ccff' }} />
+                  &nbsp;&nbsp;仓库线路出现故障，要及时增派相关人员去现场
+                </p>
+                <p className="wait">
+                  <Icon type="clock-circle" theme="filled" style={{ color: '#66ccff' }} />
+                  &nbsp;&nbsp;仓库线路出现故障，要及时增派相关人员去现场
+                </p>
+                <p className="wait">
+                  <Icon type="clock-circle" theme="filled" style={{ color: '#66ccff' }} />
+                  &nbsp;&nbsp;仓库线路出现故障，要及时增派相关人员去现场
+                </p>
+                <p className="wait">
+                  <Icon type="clock-circle" theme="filled" style={{ color: '#66ccff' }} />
+                  &nbsp;&nbsp;仓库线路出现故障，要及时增派相关人员去现场
+                </p>
+                <p className="wait">
+                  <Icon type="clock-circle" theme="filled" style={{ color: '#66ccff' }} />
+                  &nbsp;&nbsp;仓库线路出现故障，要及时增派相关人员去现场
+                </p>
+              </div>
             </div>
           </div>
-          <div className="spectacular-child">
-            <div className="child-title">
-              {'报警信息'}
-            </div>
-            <div className="child-content">
-              <Row>
-                <Col span={8}>
-                  <p>危险源异常<Icon type="bulb" style={{ color: "red" }} theme="twoTone" /></p>
-                  <p className="bottom-line"><i style={{ background: "red" }}></i><i></i><i></i></p>
-                </Col>
-                <Col span={8}>
-                  <p>危险源异常<Icon type="bulb" style={{ color: "red" }} theme="twoTone" /></p>
-                  <p className="bottom-line"><i style={{ background: "red" }}></i><i></i><i></i></p>
-                </Col>
-                <Col span={8}>
-                  <p>危险源异常<Icon type="bulb" style={{ color: "red" }} theme="twoTone" /></p>
-                  <p className="bottom-line"><i style={{ background: "red" }}></i><i style={{ background: "red" }}></i><i style={{ background: "red" }}></i></p>
-                </Col>
-              </Row>
-              <Row>
-                <Col span={8}>
-                  <p>危险源异常<Icon type="bulb" style={{ color: "#eaaa00" }} theme="twoTone" /></p>
-                  <p className="bottom-line"><i style={{ background: "#eaaa00" }}></i><i></i><i></i></p>
-                </Col>
-                <Col span={8}>
-                  <p>危险源异常<Icon type="bulb" style={{ color: "#eaaa00" }} theme="twoTone" /></p>
-                  <p className="bottom-line"><i style={{ background: "#eaaa00" }}></i><i></i><i></i></p>
-                </Col>
-                <Col span={8}>
-                  <p>危险源异常<Icon type="bulb" style={{ color: "#eaaa00" }} theme="twoTone" /></p>
-                  <p className="bottom-line"><i style={{ background: "#eaaa00" }}></i><i style={{ background: "#eaaa00" }}></i><i style={{ background: "#eaaa00" }}></i></p>
-                </Col>
-              </Row>
+          <div className="vedio-main">
+            <img className="image" src={image} />
+          </div>
+          <div className="right-main">
+            <div className="spectacular-child">
+              <div className="child-title">{'发油台'}</div>
+              <div className="child-content">
+                <OilPlatform />
+              </div>
             </div>
           </div>
-          <div className="spectacular-child">
-            <div className="child-title">
-              {'待办事项'} <Icon type="minus-circle" />
-            </div>
-            <div className="child-content">
-              <p className="wait"><Icon type="exclamation-circle" theme="filled" style={{ color: "red"}}/>&nbsp;&nbsp;仓库线路出现故障，要及时增派相关人员去现场</p>
-              <p className="wait"><Icon type="clock-circle" theme="filled" style={{ color: "#66ccff"}}/>&nbsp;&nbsp;仓库线路出现故障，要及时增派相关人员去现场</p>
-            </div>
-          </div>
-        </Col>
-        <Col span={12}>col-16</Col>
-        <Col span={6}>col-4</Col>
-      </Row>
-    </div >;
+        </div>
+      </div>
+    );
   }
 }
 
