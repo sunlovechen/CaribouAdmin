@@ -12,6 +12,7 @@ import Error from './components/Error';
 import Spectacular from './components/Spectacular';
 import UserManagement from './components/UserManagement';
 import DeviceList from './components/DeviceList';
+import EnergyManagement from './components/EnergyManagement';
 
 import './index.less';
 
@@ -24,6 +25,7 @@ const routes = (
         {/* <IndexRoute component={Welcome} /> */}
         <Route path="home" component={Welcome} />
         <Route path="spectacular" component={Spectacular} />
+        <Route path="energymanagement" component={EnergyManagement} />
 
         <Route path="organization">
           <Route path="userManagement" component={UserManagement} />

@@ -8,6 +8,8 @@ import Sidebar from '../Sidebar';
 import Login from '../Login';
 import Spectacular from '../Spectacular';
 import Breadcrumb from '../Breadcrumb';
+import EnergyManagement from '../EnergyManagement';
+
 import './index.less';
 import globalConfig from 'config.js';
 import ajax from '../../utils/ajax';
@@ -261,12 +263,16 @@ class App extends React.Component {
     }
 
     // 跳转到登录界面
-    if (!this.props.login) {
+    if (!this.props.login || this.state.currentTabKey === '') {
       return <Login />;
     }
 
     if (this.state.currentTabKey === 'spectacular') {
       return <Spectacular />;
+    }
+
+    if (this.state.currentTabKey === 'energymanagement') {
+      return <EnergyManagement />;
     }
 
     // 正常显示

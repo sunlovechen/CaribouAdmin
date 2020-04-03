@@ -70,4 +70,8 @@ export const headerMenu = [
     key: 'spectacular',
     name: '看板',
   },
+  {
+    key: 'energymanagement',
+    name: '能源管理',
+  },
 ];
