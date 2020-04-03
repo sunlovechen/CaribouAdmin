@@ -16,8 +16,8 @@ const logger = Logger.getLogger('Login');
 class Login extends React.PureComponent {
 
   state = {
-    username: 'admin',  // 当前输入的用户名
-    password: '123456',  // 当前输入的密码
+    username: '',  // 当前输入的用户名
+    password: '',  // 当前输入的密码
     requesting: false, // 当前是否正在请求服务端接口
   };
 

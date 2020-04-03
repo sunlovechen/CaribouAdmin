@@ -85,7 +85,7 @@ class ElectricityStatistics extends React.PureComponent {
               '<div style="text-align:center"><span style="font-size:25px;color:' +
               ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') +
               '">{y}</span><br/>' +
-              '<span style="font-size:12px;color:silver">乙醛发油泵</span></div>',
+              '<span style="font-size:12px;color:silver"></span></div>',
           },
         },
       ],
