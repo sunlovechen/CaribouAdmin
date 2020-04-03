@@ -4,7 +4,7 @@ import { Row, Col } from 'antd';
 import { Icon } from 'antd';
 import OilPlatform from './oilPlatform';
 
-const image = require('../../assets/overview.png');
+const image = require('../../assets/kanban.png');
 /**
  * 测试用
  */
@@ -16,62 +16,10 @@ class Spectacular extends React.PureComponent {
       notMerge: true,
       lazyUpdate: true,
       len: '60',
+      list: [{}, {}, {}],
     };
   }
-  getOption() {
-    const option = {
-      title: {
-        text: '',
-      },
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow',
-        },
-      },
-      legend: {
-        data: [''],
-        textStyle: {
-          fontSize: 18, //字体大小
-          color: '#6c707b', //字体颜色
-        },
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true,
-      },
-      xAxis: {
-        type: 'value',
-        boundaryGap: [0, 0.01],
-        show: false,
-      },
-      yAxis: {
-        // type: 'category',
-        data: ['92号', '95', '0号'],
-        splitLine: {
-          show: false,
-        },
-        axisTick: {
-          //y轴刻度线
-          show: false,
-        },
-      },
-      series: [
-        {
-          name: '2011年',
-          type: 'bar',
-          data: [18203, 23489, 29034, 104970, 131744, 630230],
-          lineStyle: {
-            width: 0, // 线宽是0
-            color: '#189ba3', // 线的颜色是透明的
-          },
-        },
-      ],
-    };
-    return option;
-  }
+
   render() {
     return (
       <div className="spectacular">
@@ -149,8 +97,6 @@ class Spectacular extends React.PureComponent {
                       <i style={{ background: 'red' }}></i>
                     </p>
                   </Col>
-                </Row>
-                <Row>
                   <Col span={8}>
                     <p>
                       危险源异常&nbsp;&nbsp;
@@ -171,6 +117,50 @@ class Spectacular extends React.PureComponent {
                       <i style={{ background: '#eaaa00' }}></i>
                       <i></i>
                       <i></i>
+                    </p>
+                  </Col>
+                  <Col span={8}>
+                    <p>
+                      危险源异常&nbsp;&nbsp;
+                      <Icon type="bulb" style={{ color: '#eaaa00' }} theme="twoTone" />
+                    </p>
+                    <p className="bottom-line">
+                      <i style={{ background: '#eaaa00' }}></i>
+                      <i></i>
+                      <i></i>
+                    </p>
+                  </Col>
+                  <Col span={8}>
+                    <p>
+                      危险源异常&nbsp;&nbsp;
+                      <Icon type="bulb" style={{ color: '#eaaa00' }} theme="twoTone" />
+                    </p>
+                    <p className="bottom-line">
+                      <i style={{ background: '#eaaa00' }}></i>
+                      <i></i>
+                      <i></i>
+                    </p>
+                  </Col>
+                  <Col span={8}>
+                    <p>
+                      危险源异常&nbsp;&nbsp;
+                      <Icon type="bulb" style={{ color: '#eaaa00' }} theme="twoTone" />
+                    </p>
+                    <p className="bottom-line">
+                      <i style={{ background: '#eaaa00' }}></i>
+                      <i style={{ background: '#eaaa00' }}></i>
+                      <i></i>
+                    </p>
+                  </Col>
+                  <Col span={8}>
+                    <p>
+                      危险源异常&nbsp;&nbsp;
+                      <Icon type="bulb" style={{ color: '#eaaa00' }} theme="twoTone" />
+                    </p>
+                    <p className="bottom-line">
+                      <i style={{ background: '#eaaa00' }}></i>
+                      <i style={{ background: '#eaaa00' }}></i>
+                      <i style={{ background: '#eaaa00' }}></i>
                     </p>
                   </Col>
                 </Row>
@@ -231,7 +221,9 @@ class Spectacular extends React.PureComponent {
             <div className="spectacular-child">
               <div className="child-title">{'发油台'}</div>
               <div className="child-content">
-                <OilPlatform />
+                {this.state.list.map(_item => {
+                  return <OilPlatform />;
+                })}
               </div>
             </div>
           </div>

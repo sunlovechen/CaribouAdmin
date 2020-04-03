@@ -1,6 +1,7 @@
 @main-back: #171e31;
 @title-back: #323644;
 @text-color: #a1a1a1;
+@text-content: #dddddd;
 
 .spectacular {
   background-color: @main-back;
@@ -52,7 +53,12 @@
         .tip-content {
           width: 100%;
           height: 15px;
-          background-image: linear-gradient(90deg, rgb(124, 124, 124) 6px, transparent 0px, rgb(124, 124, 124) 6px, transparent 1px, transparent 2px);
+          background-image: linear-gradient(90deg,
+              rgb(124, 124, 124) 6px,
+              transparent 0px,
+              rgb(124, 124, 124) 6px,
+              transparent 1px,
+              transparent 2px);
           background-size: 10px 15px;
           background-repeat: repeat-x;
           position: absolute;
@@ -60,7 +66,12 @@
 
         .percent {
           background-size: 10px 15px;
-          background-image: linear-gradient(90deg, #169ea694 6px, transparent 0px, #169ea694 6px, transparent 1px, transparent 2px);
+          background-image: linear-gradient(90deg,
+              #169ea6 6px,
+              transparent 0px,
+              #169ea6 6px,
+              transparent 1px,
+              transparent 2px);
           height: 15px;
           position: absolute;
         }
@@ -87,17 +98,112 @@
   }
 
   .vedio-main {
-    width: calc(~'100vw - 707px');
+    width: calc(~'100vw - 817px');
     padding: 14px;
 
     .image {
       width: 100%;
     }
-
   }
 
   .right-main {
-    width: 350px;
+    width: 460px;
   }
 
+  .oil-platform {
+    display: flex;
+    padding: 14px 0;
+
+    .detail-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      width: 60%;
+
+      .content-left {
+        width: 35%;
+      }
+
+      .content-right {
+        width: 65%;
+        color: @text-content;
+      }
+    }
+
+    .circle {
+      position: relative;
+      margin: 0 auto;
+      width: 140px;
+      height: 140px;
+    }
+
+    .percent-circle {
+      position: absolute;
+      height: 100%;
+      background: #07bec9;
+      overflow: hidden;
+    }
+
+    .percent-circle-left {
+      left: 0;
+      width: 70px;
+      border-radius: 124px 0 0 124px;
+    }
+
+    .left-content {
+      position: absolute;
+      content: ' ';
+      width: 100%;
+      height: 100%;
+      transform-origin: right center;
+      border-radius: 150px 0 0 150px;
+      background: #e5edff;
+      transform: rotate(90deg);
+      /* 角度调节 */
+    }
+
+    .percent-circle-right {
+      right: 0;
+      width: 70px;
+      transform-origin: right center;
+      border-radius: 0 124px 124px 0;
+    }
+
+    .right-content {
+      position: absolute;
+      content: ' ';
+      width: 100%;
+      height: 100%;
+      transform-origin: left center;
+      border-radius: 0 124px 124px 0;
+      background: #e5edff;
+      transform: rotate(180deg);
+      /*  角度调节 */
+    }
+
+    .c-c-inside {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      width: 110px;
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 100%;
+      border: 2px solid @main-back;
+
+      .inside-content {
+        width: 102px;
+        height: 102px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        border-radius: 100%;
+        border: 2px dashed #169ea6;
+      }
+    }
+  }
 }
