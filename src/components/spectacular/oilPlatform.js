@@ -22,7 +22,7 @@ class OilPlatform extends React.PureComponent {
           <div className="percent-circle percent-circle-right">
             <div className="right-content"></div>
           </div>
-          <div className="c-c-inside">{/* <div className="inside-content"></div> */}</div>
+          <div className="c-c-inside"><div className="inside-content"></div></div>
         </div>
         <div className="detail-content">
           <div className="content-left">{'油品名称'}</div>

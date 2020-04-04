@@ -18,6 +18,14 @@ class WaterStatistics extends React.PureComponent {
       credits: {
         enabled: false,
       },
+      legend: {
+        itemStyle: {
+          color: '#dddddd',
+        },
+        itemHiddenStyle: {
+          color: '#666666',
+        },
+      },
       xAxis: {
         labels: {
           style: {
@@ -26,7 +34,7 @@ class WaterStatistics extends React.PureComponent {
         },
       },
       yAxis: {
-        gridLineDashStyl: 'ShortDash',
+        gridLineDashStyle: 'longdash',
         labels: {
           style: {
             color: '#dddddd',
@@ -56,7 +64,7 @@ class WaterStatistics extends React.PureComponent {
             ['03-04', 5],
             ['03-05', 2],
             ['03-06', 4],
-            ['03-07', 12],
+            ['03-07', 1],
             ['03-08', 5],
             ['03-09', 1],
           ],
@@ -82,7 +90,7 @@ class WaterStatistics extends React.PureComponent {
             ['03-05', 6],
             ['03-06', 1],
             ['03-07', 3],
-            ['03-08', 15],
+            ['03-08', 1],
             ['03-09', 7],
           ],
         },
@@ -92,10 +100,10 @@ class WaterStatistics extends React.PureComponent {
 
   render() {
     return (
-      <div className="detail-content">
+      <div className="detail-content" style={{ height: '48vh' }}>
         <div className="child-title">{'用水统计'}</div>
         <div className="child-content">
-          <div id="WaterStatistics" />
+          <div id="WaterStatistics" style={{ height: '40vh' }} />
         </div>
       </div>
     );

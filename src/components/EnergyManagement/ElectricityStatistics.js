@@ -7,8 +7,20 @@ require('highcharts/highcharts-more')(Highcharts);
  * 用电统计
  */
 class ElectricityStatistics extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      list: [11, 72, 80, 66, 79, 45, 49, 69],
+    };
+  }
   componentDidMount() {
-    Highcharts.chart('ElectricityStatistics', {
+    this.state.list.forEach((item, index) => {
+      this.setHightCharts(item, `ElectricityStatistics${index}`);
+    })
+  }
+
+  setHightCharts(value, id) {
+    Highcharts.chart(id, {
       chart: {
         type: 'gauge',
         backgroundColor: '#171e31',
@@ -35,6 +47,21 @@ class ElectricityStatistics extends React.PureComponent {
           },
         ],
       },
+      plotOptions: {
+        series: {
+          enableMouseTracking: false,
+        },
+        gauge: {
+          dial: {
+            radius: '70%',
+            backgroundColor: 'blue',
+          },
+          pivot: {
+            radius: 0,
+            backgroundColor: 'blue',
+          },
+        },
+      },
       yAxis: {
         min: 0,
         max: 100,
@@ -50,6 +77,7 @@ class ElectricityStatistics extends React.PureComponent {
         tickColor: '#666',
         labels: {
           step: 2,
+          enabled: false,
           // rotation: 'auto'
         },
         title: {
@@ -59,33 +87,34 @@ class ElectricityStatistics extends React.PureComponent {
           {
             from: 0,
             to: 25,
-            color: '#DDDF0D', // green
+            color: '#DDDF0D',
           },
           {
             from: 25,
             to: 75,
-            color: 'blue', // yellow
+            color: 'blue',
           },
           {
             from: 75,
             to: 100,
-            color: '#DF5353', // red
+            color: '#DF5353',
           },
         ],
       },
       series: [
         {
-          name: 'value',
-          data: [80],
+          name: '乙醇发油泵',
+          data: [value],
           tooltip: {
             valueSuffix: ' %',
           },
           dataLabels: {
-            format:
-              '<div style="text-align:center"><span style="font-size:25px;color:' +
-              ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') +
-              '">{y}</span><br/>' +
-              '<span style="font-size:12px;color:silver"></span></div>',
+            borderColor: 'transpant',
+            formatter: function () {
+              return '<div style="color:#dddddd; text-align: center;"><div style="font-size:14px; font-weight: bold">' + this.y + '%</div><div>' + this.series.name + '</div></div>';
+            },
+            useHTML: true,
+            y: 78,
           },
         },
       ],
@@ -94,10 +123,14 @@ class ElectricityStatistics extends React.PureComponent {
 
   render() {
     return (
-      <div className="detail-content">
+      <div className="detail-content" style={{ height: '48vh' }}>
         <div className="child-title">{'用电统计'}</div>
-        <div className="child-content">
-          <div id="ElectricityStatistics" />
+        <div className="child-content electricity-statistics-content">
+          {
+            this.state.list.map((_item, index) => {
+              return <div key={`ElectricityStatistics${index}`} id={`ElectricityStatistics${index}`} style={{ height: '20vh', width: '20vh' }} />
+            })
+          }
         </div>
       </div>
     );

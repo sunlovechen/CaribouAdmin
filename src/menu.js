@@ -62,7 +62,6 @@ export const headerMenu = [
         key: 'modifyUser',
         name: '修改用户信息',
         icon: 'bulb',
-        // url: 'http://jxy.me',
       },
     ],
   },

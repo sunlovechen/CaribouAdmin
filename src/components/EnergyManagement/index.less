@@ -27,5 +27,61 @@
     .child-content {
       padding: 10px 5px;
     }
+
+    .electricity-statistics-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    .gas-statistics-content {
+      display: flex;
+      justify-content: space-around;
+
+      .gas-detail {
+        width: 20px;
+        .gas-detail-content {
+          text-align: center;
+          height: 34vh;
+          margin-bottom: 6px;
+
+          .gas-progress {
+            height: 100%;
+            width:8px;
+            margin: 0 auto;
+
+            .warn {
+              background: yellow;
+              height: 33%;
+              margin: 2px 0;
+            }
+            .normal {
+              background: blue;
+              height: 33%;
+              margin: 2px 0;
+            }
+            .low {
+              background: rgb(149, 206, 255);
+              height: 33%;
+              margin: 2px 0;
+            }
+          }
+
+          .gas-progress-icon {
+            color: white;
+            display: flex;
+            font-size: 10px;
+
+            .anticon-caret-left {
+              margin-left: 16px;
+            }
+
+            .anticon-caret-right {
+              margin-left: -8px;
+            }
+          }
+        }
+      }
+    }
   }
 }
