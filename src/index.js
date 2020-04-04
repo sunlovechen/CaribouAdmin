@@ -13,6 +13,7 @@ import Spectacular from './components/Spectacular';
 import UserManagement from './components/UserManagement';
 import DeviceList from './components/DeviceList';
 import EnergyManagement from './components/EnergyManagement';
+import EquipmentCategory from './components/EquipmentCategory';
 
 import './index.less';
 
@@ -35,6 +36,7 @@ const routes = (
 
         <Route path="equipment">
           <Route path="deviceList" component={DeviceList} />
+          <Route path="equipmentCategory" component={EquipmentCategory} />
         </Route>
 
         <Route path="*" component={Error} />

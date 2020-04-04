@@ -44,6 +44,10 @@ const sidebarMenu = [
         key: 'deviceList',
         name: '设备列表',
       },
+      {
+        key: 'equipmentCategory',
+        name: '设备类别',
+      },
     ],
   },
 ];
