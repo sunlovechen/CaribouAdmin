@@ -55,8 +55,9 @@ class Login extends React.PureComponent {
         message.success('登录成功');
         // 如果登录成功, 触发一个loginSuccess的action, payload就是登录后的用户名
         this.props.handleLoginSuccess(res.data);
-        const href = window.location.href;
-        window.location.href = `${href}home`;
+        this.props.router.push('/home');
+        // const href = window.location.href;
+        // window.location.href = `${href}home`;
       } else {
         message.error(`登录失败: ${res.message}, 请联系管理员`);
         this.setState({ requesting: false });

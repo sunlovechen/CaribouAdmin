@@ -9,6 +9,7 @@ import store from 'redux/store.js'; // redux store
 import App from './components/App';
 import Welcome from './components/Welcome';
 import Error from './components/Error';
+import Login from './components/Login';
 import Spectacular from './components/Spectacular';
 import UserManagement from './components/UserManagement';
 import DeviceList from './components/DeviceList';
@@ -25,6 +26,7 @@ const routes = (
       <Route path="/" component={App}>
         {/* <IndexRoute component={Welcome} /> */}
         <Route path="home" component={Welcome} />
+        <Route path="login" component={Login} />
         <Route path="spectacular" component={Spectacular} />
         <Route path="energymanagement" component={EnergyManagement} />
 

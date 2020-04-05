@@ -71,7 +71,7 @@ class App extends React.Component {
           // App组件也可能触发loginSuccess action
           this.props.handleLoginSuccess(res.data);
         } else {
-          this.props.router.push('/');
+          this.props.router.push('/login');
           this.handleLoginError('获取用户信息失败, 请重新登录');
         }
       } catch (e) {
@@ -253,6 +253,7 @@ class App extends React.Component {
 
   render() {
     const spin = true;
+
     // 显示一个加载中
     if (this.state.tryingLogin) {
       return (
@@ -263,8 +264,8 @@ class App extends React.Component {
     }
 
     // 跳转到登录界面
-    if (!this.props.login || this.state.currentTabKey === '') {
-      return <Login />;
+    if (!this.props.login) {
+      return this.props.children;
     }
 
     if (this.state.currentTabKey === 'spectacular') {
