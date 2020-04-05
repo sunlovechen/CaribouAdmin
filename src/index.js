@@ -15,6 +15,9 @@ import UserManagement from './components/UserManagement';
 import DeviceList from './components/DeviceList';
 import EnergyManagement from './components/EnergyManagement';
 import EquipmentCategory from './components/EquipmentCategory';
+import DepartmentManagement from './components/DepartmentManagement';
+import JobManagement from './components/JobManagement';
+import RoleManagement from './components/RoleManagement';
 
 import './index.less';
 
@@ -32,8 +35,9 @@ const routes = (
 
         <Route path="organization">
           <Route path="userManagement" component={UserManagement} />
-          <Route path="departmentManagement" component={UserManagement} />
-          <Route path="jobManagement" component={UserManagement} />
+          <Route path="departmentManagement" component={DepartmentManagement} />
+          <Route path="jobManagement" component={JobManagement} />
+          <Route path="roleManagement" component={RoleManagement} />
         </Route>
 
         <Route path="equipment">
