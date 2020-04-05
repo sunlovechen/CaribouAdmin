@@ -52,6 +52,10 @@ const sidebarMenu = [
         key: 'equipmentFailure',
         name: '设备故障',
       },
+      {
+        key: 'equipmentService',
+        name: '设备保养',
+      },
     ],
   },
 ];
