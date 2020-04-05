@@ -75,7 +75,7 @@ class RoleManage extends React.PureComponent {
           <Table rowSelection={this.rowSelection} columns={columns} dataSource={data} />
         </div>
         <Modal
-          title="用户信息"
+          title="角色信息"
           visible={this.state.visible}
           onOk={this.handleOk}
           maskClosable={false}
