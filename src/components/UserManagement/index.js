@@ -202,7 +202,6 @@ class UserManagementMain extends React.PureComponent {
                   )}
                 </Form.Item>
 
-
                 <Form.Item label="状态" {...formItemLayout}>
                   {getFieldDecorator('status')(
                     <Radio.Group>
@@ -213,11 +212,6 @@ class UserManagementMain extends React.PureComponent {
                 </Form.Item>
               </Col>
             </Row>
-
-
-
-
-
           </Form>
         </Modal>
       </div>

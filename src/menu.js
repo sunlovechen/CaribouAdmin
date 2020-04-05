@@ -48,6 +48,10 @@ const sidebarMenu = [
         key: 'equipmentCategory',
         name: '设备类别',
       },
+      {
+        key: 'equipmentFailure',
+        name: '设备故障',
+      },
     ],
   },
 ];
