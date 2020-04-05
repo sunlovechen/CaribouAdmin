@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.less';
-import { Input, Button, Table, Modal, Form, Select, Radio } from 'antd';
+import { Input, Button, Table, Modal, Form, Select, Radio, Row, Col } from 'antd';
 import { data, columns } from './constant';
 
 const { Option } = Select;
@@ -73,140 +73,150 @@ class UserManagementMain extends React.PureComponent {
           onOk={this.handleOk}
           maskClosable={false}
           onCancel={this.handleCancel}
+          width={'688px'}
         >
           <Form>
-            <Form.Item label="用户类型" {...formItemLayout}>
-              {getFieldDecorator('userType')(
-                <Radio.Group>
-                  <Radio value="1">普通用户</Radio>
-                  <Radio value="2">系统管理员</Radio>
-                </Radio.Group>,
-              )}
-            </Form.Item>
+            <Row>
+              <Col span={12}>
+                <Form.Item label="用户类型" {...formItemLayout}>
+                  {getFieldDecorator('userType')(
+                    <Radio.Group>
+                      <Radio value="1">普通用户</Radio>
+                      <Radio value="2">系统管理员</Radio>
+                    </Radio.Group>,
+                  )}
+                </Form.Item>
 
-            <Form.Item label="用户名" {...formItemLayout}>
-              {getFieldDecorator('username', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please input your username',
-                  },
-                ],
-              })(<Input />)}
-            </Form.Item>
+                <Form.Item label="用户名" {...formItemLayout}>
+                  {getFieldDecorator('username', {
+                    rules: [
+                      {
+                        required: true,
+                        message: '请输入用户名',
+                      },
+                    ],
+                  })(<Input placeholder="请输入用户名" />)}
+                </Form.Item>
 
-             <Form.Item label="姓名" {...formItemLayout}>
-              {getFieldDecorator('name', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please input your name',
-                  },
-                ],
-              })(<Input />)}
-            </Form.Item>
+                <Form.Item label="姓名" {...formItemLayout}>
+                  {getFieldDecorator('name', {
+                    rules: [
+                      {
+                        required: true,
+                        message: '请输入姓名',
+                      },
+                    ],
+                  })(<Input placeholder="请输入姓名" />)}
+                </Form.Item>
 
-            <Form.Item label="密码" {...formItemLayout}>
-              {getFieldDecorator('password', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please input your password!',
-                  },
-                ],
-              })(<Input type="password" />)}
-           </Form.Item>
+                <Form.Item label="密码" {...formItemLayout}>
+                  {getFieldDecorator('password', {
+                    rules: [
+                      {
+                        required: true,
+                        message: '请输入密码',
+                      },
+                    ],
+                  })(<Input type="password" placeholder="请输入密码" />)}
+                </Form.Item>
 
-           <Form.Item label="确认密码" {...formItemLayout}>
-              {getFieldDecorator('confirmpassword', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please input your password!',
-                  },
-                ],
-              })(<Input type="password" />)}
-           </Form.Item>
+                <Form.Item label="确认密码" {...formItemLayout}>
+                  {getFieldDecorator('confirmpassword', {
+                    rules: [
+                      {
+                        required: true,
+                        message: '请输入确认密码',
+                      },
+                    ],
+                  })(<Input type="password" placeholder="请输入确认密码" />)}
+                </Form.Item>
 
-           <Form.Item label="邮箱" {...formItemLayout}>
-              {getFieldDecorator('mail', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please input your mail',
-                  },
-                ],
-              })(<Input />)}
-            </Form.Item>
+                <Form.Item label="邮箱" {...formItemLayout}>
+                  {getFieldDecorator('mail', {
+                    rules: [
+                      {
+                        required: true,
+                        message: '请输入邮箱',
+                      },
+                    ],
+                  })(<Input placeholder="请输入邮箱" />)}
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item label="手机号" {...formItemLayout}>
+                  {getFieldDecorator('phone', {
+                    rules: [
+                      {
+                        required: true,
+                        message: '请输入手机号',
+                      },
+                    ],
+                  })(<Input placeholder="请输入手机号" />)}
+                </Form.Item>
 
-            <Form.Item label="手机号" {...formItemLayout}>
-              {getFieldDecorator('phone', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please input your phone',
-                  },
-                ],
-              })(<Input />)}
-            </Form.Item>
+                <Form.Item label="部门" {...formItemLayout}>
+                  {getFieldDecorator('department', {
+                    rules: [
+                      {
+                        required: true,
+                        message: '请选择部门',
+                      },
+                    ],
+                  })(
+                    <Select placeholder="请选择部门">
+                      <Option value="设备部">设备部</Option>
+                      <Option value="材料部">材料部</Option>
+                    </Select>,
+                  )}
+                </Form.Item>
 
-            <Form.Item label="部门" {...formItemLayout}>
-              {getFieldDecorator('department', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please select your department',
-                  },
-                ],
-              })(
-                <Select placeholder="Please select department">
-                  <Option value="设备部">设备部</Option>
-                  <Option value="材料部">材料部</Option>
-                </Select>,
-              )}
-            </Form.Item>
+                <Form.Item label="岗位" {...formItemLayout}>
+                  {getFieldDecorator('post', {
+                    rules: [
+                      {
+                        required: true,
+                        message: '请选择岗位',
+                      },
+                    ],
+                  })(
+                    <Select placeholder="请选择岗位">
+                      <Option value="工程师">工程师</Option>
+                      <Option value="专员">专员</Option>
+                    </Select>,
+                  )}
+                </Form.Item>
 
-            <Form.Item label="岗位" {...formItemLayout}>
-              {getFieldDecorator('post', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please select your post',
-                  },
-                ],
-              })(
-                <Select placeholder="Please select post">
-                  <Option value="工程师">工程师</Option>
-                  <Option value="专员">专员</Option>
-                </Select>,
-              )}
-            </Form.Item>
-
-            <Form.Item label="角色" {...formItemLayout}>
-              {getFieldDecorator('jaiose', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please select your jaiose',
-                  },
-                ],
-              })(
-                <Select placeholder="Please jaiose">
-                  <Option value="角色1">角色1</Option>
-                  <Option value="角色2">角色2</Option>
-                </Select>,
-              )}
-            </Form.Item>
+                <Form.Item label="角色" {...formItemLayout}>
+                  {getFieldDecorator('jaiose', {
+                    rules: [
+                      {
+                        required: true,
+                        message: '请选择角色',
+                      },
+                    ],
+                  })(
+                    <Select placeholder="请选择角色">
+                      <Option value="角色1">角色1</Option>
+                      <Option value="角色2">角色2</Option>
+                    </Select>,
+                  )}
+                </Form.Item>
 
 
-            <Form.Item label="状态" {...formItemLayout}>
-              {getFieldDecorator('status')(
-                <Radio.Group>
-                  <Radio value="1">正常</Radio>
-                  <Radio value="2">禁用</Radio>
-                </Radio.Group>,
-              )}
-            </Form.Item>
+                <Form.Item label="状态" {...formItemLayout}>
+                  {getFieldDecorator('status')(
+                    <Radio.Group>
+                      <Radio value="1">正常</Radio>
+                      <Radio value="2">禁用</Radio>
+                    </Radio.Group>,
+                  )}
+                </Form.Item>
+              </Col>
+            </Row>
+
+
+
+
 
           </Form>
         </Modal>
