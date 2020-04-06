@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.less';
-import { Input, Button, Table, Modal, Form, Select, Radio, Row, Col } from 'antd';
+import { Input, Button, Table, Modal, Form, Select, Radio, Row, Col, message } from 'antd';
 import { data, columns } from './constant';
 
 const { Option } = Select;
@@ -11,7 +11,10 @@ const { Option } = Select;
 class UserManagementMain extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { visible: false };
+    this.state = {
+      visible: false,
+      item: {},
+    };
   }
 
   showModal = () => {
@@ -33,7 +36,21 @@ class UserManagementMain extends React.PureComponent {
       visible: false,
     });
   };
-
+  deleteConfirm = (e) => {
+    window.console.log(e);
+    message.success('删除成功');
+    message.error('删除失败');
+  }
+  deleteCancel = (e) => {
+    window.console.log(e);
+  }
+  editModal = (value) => {
+    window.console.log(value);
+    this.setState({
+      visible: true,
+      item: value,
+    });
+  }
   rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       window.console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -50,6 +67,7 @@ class UserManagementMain extends React.PureComponent {
       labelCol: { span: 6 },
       wrapperCol: { span: 16 },
     };
+    const { userType, username, name, password, confirmpassword, mail, phone, department, post, jaiose, status } = this.state.item;
     return (
       <div>
         <div className="user-management">
@@ -65,7 +83,7 @@ class UserManagementMain extends React.PureComponent {
               {'批量删除'}
             </Button>
           </div>
-          <Table rowSelection={this.rowSelection} columns={columns} dataSource={data} />
+          <Table rowSelection={this.rowSelection} columns={columns(this.deleteConfirm, this.deleteCancel, this.editModal)} dataSource={data} />
         </div>
         <Modal
           title="用户信息"
@@ -79,7 +97,7 @@ class UserManagementMain extends React.PureComponent {
             <Row>
               <Col span={12}>
                 <Form.Item label="用户类型" {...formItemLayout}>
-                  {getFieldDecorator('userType')(
+                  {getFieldDecorator('userType', { initialValue: userType })(
                     <Radio.Group>
                       <Radio value="1">普通用户</Radio>
                       <Radio value="2">系统管理员</Radio>
@@ -95,6 +113,7 @@ class UserManagementMain extends React.PureComponent {
                         message: '请输入用户名',
                       },
                     ],
+                    initialValue: username,
                   })(<Input placeholder="请输入用户名" />)}
                 </Form.Item>
 
@@ -106,6 +125,7 @@ class UserManagementMain extends React.PureComponent {
                         message: '请输入姓名',
                       },
                     ],
+                    initialValue: name,
                   })(<Input placeholder="请输入姓名" />)}
                 </Form.Item>
 
@@ -117,6 +137,7 @@ class UserManagementMain extends React.PureComponent {
                         message: '请输入密码',
                       },
                     ],
+                    initialValue: password,
                   })(<Input type="password" placeholder="请输入密码" />)}
                 </Form.Item>
 
@@ -128,6 +149,7 @@ class UserManagementMain extends React.PureComponent {
                         message: '请输入确认密码',
                       },
                     ],
+                    initialValue: confirmpassword,
                   })(<Input type="password" placeholder="请输入确认密码" />)}
                 </Form.Item>
 
@@ -139,6 +161,7 @@ class UserManagementMain extends React.PureComponent {
                         message: '请输入邮箱',
                       },
                     ],
+                    initialValue: mail,
                   })(<Input placeholder="请输入邮箱" />)}
                 </Form.Item>
               </Col>
@@ -151,6 +174,7 @@ class UserManagementMain extends React.PureComponent {
                         message: '请输入手机号',
                       },
                     ],
+                    initialValue: phone,
                   })(<Input placeholder="请输入手机号" />)}
                 </Form.Item>
 
@@ -162,6 +186,7 @@ class UserManagementMain extends React.PureComponent {
                         message: '请选择部门',
                       },
                     ],
+                    initialValue: department,
                   })(
                     <Select placeholder="请选择部门">
                       <Option value="设备部">设备部</Option>
@@ -178,6 +203,7 @@ class UserManagementMain extends React.PureComponent {
                         message: '请选择岗位',
                       },
                     ],
+                    initialValue: post,
                   })(
                     <Select placeholder="请选择岗位">
                       <Option value="工程师">工程师</Option>
@@ -194,6 +220,7 @@ class UserManagementMain extends React.PureComponent {
                         message: '请选择角色',
                       },
                     ],
+                    initialValue: jaiose,
                   })(
                     <Select placeholder="请选择角色">
                       <Option value="角色1">角色1</Option>
@@ -203,7 +230,9 @@ class UserManagementMain extends React.PureComponent {
                 </Form.Item>
 
                 <Form.Item label="状态" {...formItemLayout}>
-                  {getFieldDecorator('status')(
+                  {getFieldDecorator('status', {
+                    initialValue: status,
+                  })(
                     <Radio.Group>
                       <Radio value="1">正常</Radio>
                       <Radio value="2">禁用</Radio>

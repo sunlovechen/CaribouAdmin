@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.less';
-import { Input, Button, Table, Modal, Form, Select, Radio } from 'antd';
+import { Input, Button, Table, Modal, Form, Select, Radio, message } from 'antd';
 import { data, columns } from './constant';
 
 const { Option } = Select;
@@ -11,7 +11,7 @@ const { Option } = Select;
 class Department extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { visible: false };
+    this.state = { visible: false, item: {} };
   }
 
   showModal = () => {
@@ -19,7 +19,13 @@ class Department extends React.PureComponent {
       visible: true,
     });
   };
-
+  editModal = (value) => {
+    window.console.log(value);
+    this.setState({
+      visible: true,
+      item: value,
+    });
+  }
   handleOk = () => {
     window.console.log(this.props.form.getFieldsValue());
     this.setState({
@@ -33,7 +39,14 @@ class Department extends React.PureComponent {
       visible: false,
     });
   };
-
+  deleteConfirm = (e) => {
+    window.console.log(e);
+    message.success('删除成功');
+    message.error('删除失败');
+  }
+  deleteCancel = (e) => {
+    window.console.log(e);
+  }
   rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       window.console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -50,6 +63,7 @@ class Department extends React.PureComponent {
       labelCol: { span: 6 },
       wrapperCol: { span: 16 },
     };
+    const { userType, username, name, password, confirmpassword, mail, phone, department, post, jaiose, status } = this.state.item;
     return (
       <div>
         <div className="user-management">
@@ -65,7 +79,7 @@ class Department extends React.PureComponent {
               {'批量删除'}
             </Button>
           </div>
-          <Table rowSelection={this.rowSelection} columns={columns} dataSource={data} />
+          <Table rowSelection={this.rowSelection} columns={columns(this.deleteConfirm, this.deleteCancel, this.editModal)} dataSource={data} />
         </div>
         <Modal
           title="部门信息"
@@ -84,6 +98,7 @@ class Department extends React.PureComponent {
                     message: '请输入部门名称',
                   },
                 ],
+                initialValue: username,
               })(<Input placeholder="请输入部门名称" />)}
             </Form.Item>
 
@@ -95,6 +110,7 @@ class Department extends React.PureComponent {
                     message: '请输入部门职能',
                   },
                 ],
+                initialValue: name,
               })(<Input placeholder="请输入部门职能" />)}
             </Form.Item>
             <Form.Item label="联系方式" {...formItemLayout}>
@@ -105,15 +121,17 @@ class Department extends React.PureComponent {
                     message: '请输入联系方式',
                   },
                 ],
+                initialValue: mail,
               })(<Input placeholder="请输入联系方式" />)}
             </Form.Item>
             <Form.Item label="备注" {...formItemLayout}>
               {getFieldDecorator('phone', {
+                initialValue: phone,
               })(<Input placeholder="请输入备注" />)}
             </Form.Item>
 
             <Form.Item label="状态" {...formItemLayout}>
-              {getFieldDecorator('status')(
+              {getFieldDecorator('status', { initialValue: status })(
                 <Radio.Group>
                   <Radio value="1">正常</Radio>
                   <Radio value="2">禁用</Radio>

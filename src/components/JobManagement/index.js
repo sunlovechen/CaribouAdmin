@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.less';
-import { Input, Button, Table, Modal, Form, Select, Radio } from 'antd';
+import { Input, Button, Table, Modal, Form, Select, Radio, message } from 'antd';
 import { data, columns } from './constant';
 
 const { Option } = Select;
@@ -11,7 +11,7 @@ const { Option } = Select;
 class JobManage extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { visible: false };
+    this.state = { visible: false, item: {} };
   }
 
   showModal = () => {
@@ -19,7 +19,13 @@ class JobManage extends React.PureComponent {
       visible: true,
     });
   };
-
+  editModal = (value) => {
+    window.console.log(value);
+    this.setState({
+      visible: true,
+      item: value,
+    });
+  }
   handleOk = () => {
     window.console.log(this.props.form.getFieldsValue());
     this.setState({
@@ -33,7 +39,14 @@ class JobManage extends React.PureComponent {
       visible: false,
     });
   };
-
+  deleteConfirm = (e) => {
+    window.console.log(e);
+    message.success('删除成功');
+    message.error('删除失败');
+  }
+  deleteCancel = (e) => {
+    window.console.log(e);
+  }
   rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       window.console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -50,6 +63,7 @@ class JobManage extends React.PureComponent {
       labelCol: { span: 6 },
       wrapperCol: { span: 16 },
     };
+    const { userType, username, name, password, confirmpassword, mail, phone, department, post, jaiose, status } = this.state.item;
     return (
       <div>
         <div className="user-management">
@@ -65,7 +79,7 @@ class JobManage extends React.PureComponent {
               {'批量删除'}
             </Button>
           </div>
-          <Table rowSelection={this.rowSelection} columns={columns} dataSource={data} />
+          <Table rowSelection={this.rowSelection} columns={columns(this.deleteConfirm, this.deleteCancel, this.editModal)} dataSource={data} />
         </div>
         <Modal
           title="岗位信息"
@@ -84,15 +98,17 @@ class JobManage extends React.PureComponent {
                     message: '请输入岗位名称',
                   },
                 ],
+                initialValue: username,
               })(<Input placeholder="请输入岗位名称" />)}
             </Form.Item>
             <Form.Item label="备注" {...formItemLayout}>
               {getFieldDecorator('phone', {
+                initialValue: phone,
               })(<Input placeholder="请输入备注" />)}
             </Form.Item>
 
             <Form.Item label="状态" {...formItemLayout}>
-              {getFieldDecorator('status')(
+              {getFieldDecorator('status', { initialValue: status, })(
                 <Radio.Group>
                   <Radio value="1">正常</Radio>
                   <Radio value="2">禁用</Radio>

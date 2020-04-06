@@ -1,42 +1,54 @@
 import React from 'react';
-import { Tag } from 'antd';
+import { Tag, Popconfirm } from 'antd';
 
-export const columns = [
-  {
-    title: '部门名称',
-    dataIndex: 'username',
-  },
-  {
-    title: '部门职能',
-    dataIndex: 'name',
-  },
-  {
-    title: '联系方式',
-    dataIndex: 'mail',
-  },
-  {
-    title: '状态',
-    dataIndex: 'status',
-    render: text => {
-      return <Tag color={'blue'}>{text}</Tag>
+export const columns = (deleteConfirm, deleteCancel, editModal) => {
+  return [
+    {
+      title: '部门名称',
+      dataIndex: 'username',
     },
-  },
-  {
-    title: '备注',
-    dataIndex: 'department',
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'createTime',
-  },
-  {
-    title: '操作',
-    dataIndex: 'id',
-    render: () => {
-      return <div><a>修改 </a> <a> 删除</a></div>;
+    {
+      title: '部门职能',
+      dataIndex: 'name',
     },
-  },
-];
+    {
+      title: '联系方式',
+      dataIndex: 'mail',
+    },
+    {
+      title: '状态',
+      dataIndex: 'status',
+      render: text => {
+        return <Tag color={'blue'}>{text}</Tag>
+      },
+    },
+    {
+      title: '备注',
+      dataIndex: 'department',
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'createTime',
+    },
+    {
+      title: '操作',
+      dataIndex: 'id',
+      render: (value, item) => {
+        return <div><a onClick={() => editModal(item)}>修改 </a>
+          <Popconfirm
+            title="是否确认删除？"
+            onConfirm={deleteConfirm}
+            onCancel={deleteCancel}
+            okText="确定"
+            cancelText="取消"
+          >
+            <a href="#">删除</a>
+          </Popconfirm>
+          </div>;
+      },
+    },
+  ]
+};
 export const data = [
   {
     id: 1,
