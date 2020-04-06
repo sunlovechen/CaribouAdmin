@@ -8,7 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const babelLoaderConfig = {
   presets: ['latest', 'stage-0', 'react'],
-  plugins: [['import', {libraryName: 'antd', style: true}]],
+  plugins: [['import', { libraryName: 'antd', style: true }]],
   cacheDirectory: true,
 };
 
@@ -76,8 +76,8 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       minimize: true,
-      compress: {warnings: false},
-      output: {comments: false},
+      compress: { warnings: false },
+      output: { comments: false },
     }),
 
     new HtmlWebpackPlugin({
@@ -85,7 +85,7 @@ module.exports = {
       title: globalConfig.name,
       favIcon: globalConfig.favicon,
       hash: true,  // 引入js/css的时候加个hash, 防止cdn的缓存问题
-      minify: {removeComments: true, collapseWhitespace: true},
+      minify: { removeComments: true, collapseWhitespace: true },
     }),
 
     // 抽离公共部分, 要了解CommonsChunkPlugin的原理, 首先要搞清楚chunk的概念
@@ -117,7 +117,7 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
 
     // css单独抽出来
-    new ExtractTextPlugin('bundle.min.css', {allChunks: false}),
+    new ExtractTextPlugin('bundle.min.css', { allChunks: false }),
     // 压缩成gzip格式
     new CompressionPlugin({
       asset: "[path].gz[query]",
@@ -132,4 +132,15 @@ module.exports = {
       __DEV__: JSON.stringify(JSON.parse(process.env.NODE_ENV === 'production' ? 'false' : 'true')),
     }),
   ],
+
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://47.111.248.127:8081/',
+        pathRewrite: { '^/api': '' },
+        changeOrigin: true,     // target是域名的话，需要这个参数，
+        secure: false,          // 设置支持https协议的代理
+      },
+    },
+  },
 };

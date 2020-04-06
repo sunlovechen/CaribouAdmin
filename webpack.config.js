@@ -77,4 +77,15 @@ module.exports = {
       devMode: true,
     }),
   ],
+
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://47.111.248.127:8081/',
+        pathRewrite: { '^/api': '' },
+        changeOrigin: true,     // target是域名的话，需要这个参数，
+        secure: false,          // 设置支持https协议的代理
+      },
+    },
+  },
 };
