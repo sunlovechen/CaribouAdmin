@@ -75,8 +75,8 @@ class RoleManage extends React.PureComponent {
     };
     const { userType, username, name, password, confirmpassword, mail, phone, department, post, jaiose, status } = this.state.item;
     return (
-      <div>
-        <div className="user-management">
+      <div className="role-management">
+        <div>
           <div className="title">
             <Input className="title-input" placeholder="用户名字/显示名字" />
             <Button className="title-query" type="ghost">
@@ -109,7 +109,8 @@ class RoleManage extends React.PureComponent {
                   },
                 ],
                 initialValue: username,
-              })(<Input placeholder="请输入岗位名称" />)}
+              })(<Input placeholder="请输入角色名称" />)}
+
             </Form.Item>
             <Form.Item label="备注" {...formItemLayout}>
               {getFieldDecorator('phone', {
@@ -119,7 +120,7 @@ class RoleManage extends React.PureComponent {
             <Form.Item label="菜单授权" {...formItemLayout}>
               {getFieldDecorator('phone', {
                 initialValue: phone,
-              })(<Tree
+              })(<div className="role-management-tree-top"><Tree
                 checkable
                 defaultExpandedKeys={['0-0-0', '0-0-1']}
                 defaultSelectedKeys={['0-0-0', '0-0-1']}
@@ -127,16 +128,17 @@ class RoleManage extends React.PureComponent {
                 onSelect={this.onSelect}
                 onCheck={this.onCheck}
               >
-                <TreeNode title="公告管理" key="0-0"></TreeNode>
-                <TreeNode title="基础档案库" key="0-1"></TreeNode>
-                <TreeNode title="系统管理" key="0-2"></TreeNode>
-                <TreeNode title="流程管理" key="0-3"></TreeNode>
-              </Tree>)}
+                <TreeNode title="公告管理" key="0-0" />
+                <TreeNode title="基础档案库" key="0-1" />
+                <TreeNode title="系统管理" key="0-2" />
+                <TreeNode title="流程管理" key="0-3" />
+              </Tree></div>)}
             </Form.Item>
             <Form.Item label="资源授权" {...formItemLayout}>
               {getFieldDecorator('phone', {
-                initialValue: phone,
-              })(<Tree
+
+              })(<div className="role-management-tree-top"><Tree
+                className="role-management-tree-top"
                 checkable
                 defaultExpandedKeys={['0-0-0', '0-0-1']}
                 defaultSelectedKeys={['0-0-0', '0-0-1']}
@@ -144,10 +146,10 @@ class RoleManage extends React.PureComponent {
                 onSelect={this.onSelect}
                 onCheck={this.onCheck}
               >
-                <TreeNode title="公告管理" key="0-0"></TreeNode>
-                <TreeNode title="基础档案库" key="0-1"></TreeNode>
-                <TreeNode title="系统管理" key="0-2"></TreeNode>
-              </Tree>)}
+                <TreeNode title="公告管理" key="0-0" />
+                <TreeNode title="基础档案库" key="0-1" />
+                <TreeNode title="系统管理" key="0-2" />
+              </Tree></div>)}
             </Form.Item>
             <Form.Item label="状态" {...formItemLayout}>
               {getFieldDecorator('status', {
