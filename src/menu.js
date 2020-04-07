@@ -38,23 +38,15 @@ const sidebarMenu = [
   },
   {
     key: 'equipment',
-    name: '设备管理',
+    name: '设备',
     child: [
       {
         key: 'deviceList',
-        name: '设备列表',
+        name: '设备管理',
       },
       {
         key: 'equipmentCategory',
         name: '设备类别',
-      },
-      {
-        key: 'equipmentFailure',
-        name: '设备故障',
-      },
-      {
-        key: 'equipmentService',
-        name: '设备保养',
       },
     ],
   },

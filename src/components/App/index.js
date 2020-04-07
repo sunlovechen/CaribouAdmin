@@ -278,8 +278,8 @@ class App extends React.Component {
 
     // 正常显示
     return (
-      <div className="ant-layout-base">
-        <Spin spinning={this.props.spining} className="loadspinning" >
+      <Spin spinning={this.props.spining} size="large">
+        <div className="ant-layout-base app-main">
           {/*整个页面被一个ant-layout-base的div包围, 分为sidebar/header/footer/content等几部分*/}
           <Sidebar />
 
@@ -288,8 +288,8 @@ class App extends React.Component {
             {this.renderBody()}
             <Footer />
           </div>
-        </Spin>
-      </div>
+        </div>
+      </Spin>
     );
   }
 }

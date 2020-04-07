@@ -4,6 +4,9 @@ import { Input, Button, Table, Modal, Form, Select, Row, Col, TreeSelect, DatePi
 import { data, columns } from './constant';
 import ajax from '../../utils/ajax';
 import moment from 'moment';
+import { Tabs } from 'antd';
+
+const { TabPane } = Tabs;
 
 const { Option } = Select;
 const TreeSelectNode = TreeSelect.TreeNode;
@@ -22,7 +25,7 @@ class DeviceListMain extends React.PureComponent {
       title: '',
       page: {
         current: 1,
-        pageSize: 10,
+        pageSize: 5,
         total: 0,
       },
       queryMap: {
@@ -503,6 +506,22 @@ class DeviceListMain extends React.PureComponent {
             )}
           </Modal>
         )}
+
+        <Tabs defaultActiveKey="1">
+          <TabPane tab="保养计划" key="1">
+            {/* <EquipmentPlan /> */}
+            保养计划
+          </TabPane>
+          <TabPane tab="保养记录" key="2">
+            保养记录
+          </TabPane>
+          <TabPane tab="维修计划" key="3">
+            维修计划
+          </TabPane>
+          <TabPane tab="维修记录" key="4">
+            维修记录
+          </TabPane>
+        </Tabs>
       </div>
     );
   }
