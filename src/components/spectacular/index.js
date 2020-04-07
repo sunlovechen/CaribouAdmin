@@ -17,7 +17,7 @@ class Spectacular extends React.PureComponent {
       notMerge: true,
       lazyUpdate: true,
       len: '60',
-      list: [{}, {}, {}],
+      list: [{}, {}],
     };
   }
 
@@ -212,8 +212,9 @@ class Spectacular extends React.PureComponent {
               <div className="child-title">{'发油台'}</div>
               <div className="child-content">
                 {this.state.list.map(_item => {
-                  return <OilPlatform />;
+                  return <OilPlatform id={1} />;
                 })}
+                 <OilPlatform id={0} />;
               </div>
             </div>
           </div>

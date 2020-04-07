@@ -12,21 +12,16 @@ const { TreeNode } = Tree;
 class RoleManage extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { visible: false, item: {}  };
+    this.state = { visible: false, item: {} };
   }
 
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-  editModal = (value) => {
-    window.console.log(value);
+  showModal = (value = {}) => {
     this.setState({
       visible: true,
       item: value,
     });
-  }
+  };
+
   handleOk = () => {
     window.console.log(this.props.form.getFieldsValue());
     this.setState({
@@ -89,80 +84,82 @@ class RoleManage extends React.PureComponent {
               {'批量删除'}
             </Button>
           </div>
-          <Table rowSelection={this.rowSelection} columns={columns(this.deleteConfirm, this.deleteCancel, this.editModal)} dataSource={data} />
+          <Table rowSelection={this.rowSelection} columns={columns(this.deleteConfirm, this.deleteCancel, this.showModal)} dataSource={data} />
         </div>
-        <Modal
-          title="角色信息"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          maskClosable={false}
-          onCancel={this.handleCancel}
-          width={'688px'}
-        >
-          <Form>
-            <Form.Item label="角色名称" {...formItemLayout}>
-              {getFieldDecorator('username', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入角色名称',
-                  },
-                ],
-                initialValue: username,
-              })(<Input placeholder="请输入角色名称" />)}
+        {this.state.visible &&
+          <Modal
+            title="角色信息"
+            visible={this.state.visible}
+            onOk={this.handleOk}
+            maskClosable={false}
+            onCancel={this.handleCancel}
+            width={'688px'}
+          >
+            <Form>
+              <Form.Item label="角色名称" {...formItemLayout}>
+                {getFieldDecorator('username', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入角色名称',
+                    },
+                  ],
+                  initialValue: username,
+                })(<Input placeholder="请输入角色名称" />)}
 
-            </Form.Item>
-            <Form.Item label="备注" {...formItemLayout}>
-              {getFieldDecorator('phone', {
-                initialValue: phone,
-              })(<Input placeholder="请输入备注" />)}
-            </Form.Item>
-            <Form.Item label="菜单授权" {...formItemLayout}>
-              {getFieldDecorator('phone', {
-                initialValue: phone,
-              })(<div className="role-management-tree-top"><Tree
-                checkable
-                defaultExpandedKeys={['0-0-0', '0-0-1']}
-                defaultSelectedKeys={['0-0-0', '0-0-1']}
-                defaultCheckedKeys={['0-0-0', '0-0-1']}
-                onSelect={this.onSelect}
-                onCheck={this.onCheck}
-              >
-                <TreeNode title="公告管理" key="0-0" />
-                <TreeNode title="基础档案库" key="0-1" />
-                <TreeNode title="系统管理" key="0-2" />
-                <TreeNode title="流程管理" key="0-3" />
-              </Tree></div>)}
-            </Form.Item>
-            <Form.Item label="资源授权" {...formItemLayout}>
-              {getFieldDecorator('phone', {
+              </Form.Item>
+              <Form.Item label="备注" {...formItemLayout}>
+                {getFieldDecorator('phone', {
+                  initialValue: phone,
+                })(<Input placeholder="请输入备注" />)}
+              </Form.Item>
+              <Form.Item label="菜单授权" {...formItemLayout}>
+                {getFieldDecorator('phone', {
+                  initialValue: phone,
+                })(<div className="role-management-tree-top"><Tree
+                  checkable
+                  defaultExpandedKeys={['0-0-0', '0-0-1']}
+                  defaultSelectedKeys={['0-0-0', '0-0-1']}
+                  defaultCheckedKeys={['0-0-0', '0-0-1']}
+                  onSelect={this.onSelect}
+                  onCheck={this.onCheck}
+                >
+                  <TreeNode title="公告管理" key="0-0" />
+                  <TreeNode title="基础档案库" key="0-1" />
+                  <TreeNode title="系统管理" key="0-2" />
+                  <TreeNode title="流程管理" key="0-3" />
+                </Tree></div>)}
+              </Form.Item>
+              <Form.Item label="资源授权" {...formItemLayout}>
+                {getFieldDecorator('phone', {
 
-              })(<div className="role-management-tree-top"><Tree
-                className="role-management-tree-top"
-                checkable
-                defaultExpandedKeys={['0-0-0', '0-0-1']}
-                defaultSelectedKeys={['0-0-0', '0-0-1']}
-                defaultCheckedKeys={['0-0-0', '0-0-1']}
-                onSelect={this.onSelect}
-                onCheck={this.onCheck}
-              >
-                <TreeNode title="公告管理" key="0-0" />
-                <TreeNode title="基础档案库" key="0-1" />
-                <TreeNode title="系统管理" key="0-2" />
-              </Tree></div>)}
-            </Form.Item>
-            <Form.Item label="状态" {...formItemLayout}>
-              {getFieldDecorator('status', {
-                initialValue: status,
-              })(
-                <Radio.Group>
-                  <Radio value="1">正常</Radio>
-                  <Radio value="2">禁用</Radio>
-                </Radio.Group>,
-              )}
-            </Form.Item>
-          </Form>
-        </Modal>
+                })(<div className="role-management-tree-top"><Tree
+                  className="role-management-tree-top"
+                  checkable
+                  defaultExpandedKeys={['0-0-0', '0-0-1']}
+                  defaultSelectedKeys={['0-0-0', '0-0-1']}
+                  defaultCheckedKeys={['0-0-0', '0-0-1']}
+                  onSelect={this.onSelect}
+                  onCheck={this.onCheck}
+                >
+                  <TreeNode title="公告管理" key="0-0" />
+                  <TreeNode title="基础档案库" key="0-1" />
+                  <TreeNode title="系统管理" key="0-2" />
+                </Tree></div>)}
+              </Form.Item>
+              <Form.Item label="状态" {...formItemLayout}>
+                {getFieldDecorator('status', {
+                  initialValue: status,
+                })(
+                  <Radio.Group>
+                    <Radio value="正常">正常</Radio>
+                    <Radio value="禁用">禁用</Radio>
+                  </Radio.Group>,
+                )}
+              </Form.Item>
+            </Form>
+          </Modal>
+        }
       </div>
     );
   }

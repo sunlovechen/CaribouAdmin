@@ -68,7 +68,7 @@ class WaterStatistics extends React.PureComponent {
             ['03-08', 5],
             ['03-09', 1],
           ],
-          color: 'yellow',
+          color: '#ffff00',
           fillColor: {
             // 设置渐变的填充颜色
             linearGradient: {
@@ -77,7 +77,7 @@ class WaterStatistics extends React.PureComponent {
               x2: 0,
               y2: 1,
             },
-            stops: [[0, 'yellow'], [1, 'transparent']],
+            stops: [[0, '#ffff0085'], [1, 'transparent']],
           },
         },
         {
@@ -93,6 +93,17 @@ class WaterStatistics extends React.PureComponent {
             ['03-08', 1],
             ['03-09', 7],
           ],
+          color: '#01def9',
+          fillColor: {
+            // 设置渐变的填充颜色
+            linearGradient: {
+              x1: 0,
+              y1: 0,
+              x2: 0,
+              y2: 1,
+            },
+            stops: [[0, '#01def9'], [1, 'transparent']],
+          },
         },
       ],
     });

@@ -21,6 +21,7 @@ class CoalmakingStatistics extends React.PureComponent {
           color: '#dddddd',
         },
       },
+      colors: ['#574bff', '#00eeff', '#f0c', '#ffe600', '#ffb300', '#ff0000'],
       credits: {
         enabled: false,
       },

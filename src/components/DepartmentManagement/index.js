@@ -14,18 +14,12 @@ class Department extends React.PureComponent {
     this.state = { visible: false, item: {} };
   }
 
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-  editModal = (value) => {
-    window.console.log(value);
+  showModal = (value = {}) => {
     this.setState({
       visible: true,
       item: value,
     });
-  }
+  };
   handleOk = () => {
     window.console.log(this.props.form.getFieldsValue());
     this.setState({
@@ -79,67 +73,69 @@ class Department extends React.PureComponent {
               {'批量删除'}
             </Button>
           </div>
-          <Table rowSelection={this.rowSelection} columns={columns(this.deleteConfirm, this.deleteCancel, this.editModal)} dataSource={data} />
+          <Table rowSelection={this.rowSelection} columns={columns(this.deleteConfirm, this.deleteCancel, this.showModal)} dataSource={data} />
         </div>
-        <Modal
-          title="部门信息"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          maskClosable={false}
-          onCancel={this.handleCancel}
-          width={'688px'}
-        >
-          <Form>
-            <Form.Item label="部门名称" {...formItemLayout}>
-              {getFieldDecorator('username', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入部门名称',
-                  },
-                ],
-                initialValue: username,
-              })(<Input placeholder="请输入部门名称" />)}
-            </Form.Item>
+        {this.state.visible &&
+          <Modal
+            title="部门信息"
+            visible={this.state.visible}
+            onOk={this.handleOk}
+            maskClosable={false}
+            onCancel={this.handleCancel}
+            width={'688px'}
+          >
+            <Form>
+              <Form.Item label="部门名称" {...formItemLayout}>
+                {getFieldDecorator('username', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入部门名称',
+                    },
+                  ],
+                  initialValue: username,
+                })(<Input placeholder="请输入部门名称" />)}
+              </Form.Item>
 
-            <Form.Item label="部门职能" {...formItemLayout}>
-              {getFieldDecorator('name', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入部门职能',
-                  },
-                ],
-                initialValue: name,
-              })(<Input placeholder="请输入部门职能" />)}
-            </Form.Item>
-            <Form.Item label="联系方式" {...formItemLayout}>
-              {getFieldDecorator('mail', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入联系方式',
-                  },
-                ],
-                initialValue: mail,
-              })(<Input placeholder="请输入联系方式" />)}
-            </Form.Item>
-            <Form.Item label="备注" {...formItemLayout}>
-              {getFieldDecorator('phone', {
-                initialValue: phone,
-              })(<Input placeholder="请输入备注" />)}
-            </Form.Item>
+              <Form.Item label="部门职能" {...formItemLayout}>
+                {getFieldDecorator('name', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入部门职能',
+                    },
+                  ],
+                  initialValue: name,
+                })(<Input placeholder="请输入部门职能" />)}
+              </Form.Item>
+              <Form.Item label="联系方式" {...formItemLayout}>
+                {getFieldDecorator('mail', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入联系方式',
+                    },
+                  ],
+                  initialValue: mail,
+                })(<Input placeholder="请输入联系方式" />)}
+              </Form.Item>
+              <Form.Item label="备注" {...formItemLayout}>
+                {getFieldDecorator('phone', {
+                  initialValue: phone,
+                })(<Input placeholder="请输入备注" />)}
+              </Form.Item>
 
-            <Form.Item label="状态" {...formItemLayout}>
-              {getFieldDecorator('status', { initialValue: status })(
-                <Radio.Group>
-                  <Radio value="1">正常</Radio>
-                  <Radio value="2">禁用</Radio>
-                </Radio.Group>,
-              )}
-            </Form.Item>
-          </Form>
-        </Modal>
+              <Form.Item label="状态" {...formItemLayout}>
+                {getFieldDecorator('status', { initialValue: status })(
+                  <Radio.Group>
+                    <Radio value="正常">正常</Radio>
+                    <Radio value="禁用">禁用</Radio>
+                  </Radio.Group>,
+                )}
+              </Form.Item>
+            </Form>
+          </Modal>
+        }
       </div>
     );
   }

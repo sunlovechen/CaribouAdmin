@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tag, Popconfirm } from 'antd';
 
-export const columns = (deleteConfirm, deleteCancel, editModal) => {
+export const columns = (deleteConfirm, deleteCancel, showModal) => {
   return [
     {
       title: '用户名',
@@ -64,7 +64,7 @@ export const columns = (deleteConfirm, deleteCancel, editModal) => {
       title: '操作',
       dataIndex: 'id',
       render: (value, item) => {
-        return <div><a onClick={() => editModal(item)}>修改 </a>
+        return <div><a onClick={() => showModal(item)}>修改 </a>
           <Popconfirm
             title="是否确认删除？"
             onConfirm={deleteConfirm}
@@ -88,7 +88,7 @@ export const data = [
     phone: '手机号',
     department: '材料部',
     post: '岗位',
-    status: '状态',
+    status: '正常',
     createTime: '创建日期',
     userType: '1',
     confirmpassword: '1223223',

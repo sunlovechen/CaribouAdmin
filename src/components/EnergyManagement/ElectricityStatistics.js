@@ -54,11 +54,11 @@ class ElectricityStatistics extends React.PureComponent {
         gauge: {
           dial: {
             radius: '70%',
-            backgroundColor: 'blue',
+            backgroundColor: '#2287d7',
           },
           pivot: {
             radius: 0,
-            backgroundColor: 'blue',
+            backgroundColor: '#2287d7',
           },
         },
       },
@@ -87,17 +87,17 @@ class ElectricityStatistics extends React.PureComponent {
           {
             from: 0,
             to: 25,
-            color: '#DDDF0D',
+            color: '#ffe600',
           },
           {
             from: 25,
             to: 75,
-            color: 'blue',
+            color: '#2287d7',
           },
           {
             from: 75,
             to: 100,
-            color: '#DF5353',
+            color: '#ff0000',
           },
         ],
       },
