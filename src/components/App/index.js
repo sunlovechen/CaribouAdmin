@@ -278,16 +278,18 @@ class App extends React.Component {
 
     // 正常显示
     return (
-      <div className="ant-layout-base">
-        {/*整个页面被一个ant-layout-base的div包围, 分为sidebar/header/footer/content等几部分*/}
-        <Sidebar />
+      <Spin spinning={this.props.spining}>
+        <div className="ant-layout-base">
+          {/*整个页面被一个ant-layout-base的div包围, 分为sidebar/header/footer/content等几部分*/}
+          <Sidebar />
 
-        <div id="main-content-div" className={this.props.collapse ? 'ant-layout-main-collapse' : 'ant-layout-main'}>
-          <Header userName={this.props.userName} />
-          {this.renderBody()}
-          <Footer />
+          <div id="main-content-div" className={this.props.collapse ? 'ant-layout-main-collapse' : 'ant-layout-main'}>
+            <Header userName={this.props.userName} />
+            {this.renderBody()}
+            <Footer />
+          </div>
         </div>
-      </div>
+      </Spin>
     );
   }
 }
@@ -297,6 +299,7 @@ const mapStateToProps = state => {
     collapse: state.Sidebar.collapse, // 侧边栏是否折叠
     login: state.Login.login, // 是否登录
     userName: state.Login.userName, // 登录后的用户名
+    spining: state.Spin.spining,
   };
 };
 

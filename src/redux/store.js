@@ -3,6 +3,7 @@ import createLogger from 'redux-logger';
 import globalConfig from 'config.js';
 import Sidebar from './Sidebar.js';
 import Login from './Login.js';
+import Spin from './Spin.js';
 
 /* 这个文件用于生成store */
 
@@ -34,6 +35,7 @@ const enhancer = composeEnhancers(
 const initState = {
   Sidebar: Sidebar.initState,
   Login: Login.initState,
+  Spin: Spin.initState,
 };
 
 
@@ -42,6 +44,7 @@ const initState = {
 const reducers = {
   Sidebar: Sidebar.reducer,
   Login: Login.reducer,
+  Spin: Spin.reducer,
 };
 
 

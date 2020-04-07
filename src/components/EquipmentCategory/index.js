@@ -48,23 +48,40 @@ class EquipmentCategoryMain extends React.Component {
     window.console.log('selected', selectedKeys, info);
   };
 
+  onTreeSelectChange = e => {
+    window.console.log(e);
+    const { categoryDetail } = this.state;
+    const { categoryName } = categoryDetail;
+    this.setState({
+      categoryDetail: {
+        categoryName,
+        categoryPid: e,
+      },
+    });
+  }
+
   // 生成TreeNode
   getTreeNode = (list = []) => {
     return list.map(item => {
-      return <TreeNode title={item.categoryName} key={item.id}>
-        {item.soilCategoriesList && this.getTreeNode(item.soilCategoriesList)}
-      </TreeNode>
+      return (
+        <TreeNode title={item.categoryName} key={item.id}>
+          {item.soilCategoriesList && this.getTreeNode(item.soilCategoriesList)}
+        </TreeNode>
+      );
     });
-  }
+  };
 
   // 生成TreeSelectNode
   getTreeSelectNode = (list = []) => {
     return list.map(item => {
-      return <TreeSelectNode value={item.id} title={item.categoryName} key={item.id}>
-        {item.soilCategoriesList && this.getTreeNode(item.soilCategoriesList)}
-      </TreeSelectNode>
+      window.console.log(item);
+      return (
+        <TreeSelectNode value={item.id} title={item.categoryName} key={item.id}>
+          {item.soilCategoriesList && this.getTreeNode(item.soilCategoriesList)}
+        </TreeSelectNode>
+      );
     });
-  }
+  };
 
   render() {
     const formItemLayout = {
@@ -126,40 +143,44 @@ class EquipmentCategoryMain extends React.Component {
               </Col> */}
 
               <Col span={12}>
-                {/* <Row>
+                <Row>
                   <Col span={6} className="category-tree-select">
-                    <span>父设备</span>
+                    <span>所属设备</span>
                   </Col>
                   <Col span={16}>
                     <TreeSelect
                       dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                       placeholder="请选择所属设备"
-                      onChange={this.onChange}
+                      onChange={this.onTreeSelectChange}
+                      value={categoryPid}
                     >
-                      {this.getTreeSelectNode(categoryList)}
+                    <TreeSelectNode value={0} title={'父级设备'} key={0}>
+                        {this.getTreeSelectNode(categoryList)}
+                      </TreeSelectNode>
                     </TreeSelect>
                   </Col>
-                </Row> */}
-                <Form.Item label="所属设备" {...formItemLayout}>
+                </Row>
+                {/* <Form.Item label="所属设备" {...formItemLayout}>
                   {getFieldDecorator('categoryPid', {
-                    rules: [{
-                      required: true,
-                      message: '请选择所属设备',
-                    }],
+                    rules: [
+                      {
+                        required: true,
+                        message: '请选择所属设备',
+                      },
+                    ],
                     initialValue: categoryPid,
                   })(
-                    <div>
-                      <TreeSelect
-                        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                        placeholder="请选择所属设备"
-                        treeDefaultExpandAll
-                      >
-                        <TreeSelectNode value={''} title={'父级设备'} key={0}>
-                          {this.getTreeSelectNode(categoryList)}
-                        </TreeSelectNode>
-                      </TreeSelect></div>,
+                    <TreeSelect
+                      dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                      placeholder="请选择所属设备"
+                      treeDefaultExpandAll
+                    >
+                      <TreeSelectNode value={0} title={'父级设备'} key={0}>
+                        {this.getTreeSelectNode(categoryList)}
+                      </TreeSelectNode>
+                    </TreeSelect>,
                   )}
-                </Form.Item>
+                </Form.Item> */}
               </Col>
 
               {/* <Col span={12}>
