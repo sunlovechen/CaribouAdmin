@@ -12,9 +12,9 @@ const TreeSelectNode = TreeSelect.TreeNode;
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
 /**
- * 用户管理
+ * 故障列表
  */
-class DeviceListMain extends React.PureComponent {
+class EquipmentFailureMain extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -224,7 +224,7 @@ class DeviceListMain extends React.PureComponent {
     window.console.log(this.state.devicesList);
     return (
       <div>
-        <div className="device-list">
+        <div className="service-equipment-failure">
           <div className="title">
             <Input
               className="title-input"
@@ -511,6 +511,6 @@ class DeviceListMain extends React.PureComponent {
   }
 }
 
-const DeviceList = Form.create()(DeviceListMain);
+const EquipmentFailure = Form.create()(EquipmentFailureMain);
 
-export default DeviceList;
+export default EquipmentFailure;

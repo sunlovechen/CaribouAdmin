@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.less';
 import { Tabs } from 'antd';
-// import EquipmentPlan from './EquipmentPlan';
+import MaintenancePlan from './MaintenancePlan';
 
 const { TabPane } = Tabs;
 
@@ -20,11 +20,20 @@ class EquipmentService extends React.PureComponent {
       <div className="equipment-service">
         <Tabs defaultActiveKey="1">
           <TabPane tab="保养计划" key="1">
-            {/* <EquipmentPlan /> */}
+            {/* <MaintenancePlan /> */}
             保养计划
           </TabPane>
           <TabPane tab="保养记录" key="2">
-            保养记录
+              保养记录
+          </TabPane>
+          <TabPane tab="维修计划" key="3">
+            维修计划
+          </TabPane>
+          <TabPane tab="维修记录" key="4">
+            维修记录
+          </TabPane>
+          <TabPane tab="设备故障" key="5">
+            设备故障
           </TabPane>
         </Tabs>
       </div>

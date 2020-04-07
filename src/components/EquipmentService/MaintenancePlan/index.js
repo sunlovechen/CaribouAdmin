@@ -2,9 +2,8 @@ import React from 'react';
 import './index.less';
 import { Input, Button, Table, Modal, Form, Select, Row, Col, TreeSelect, DatePicker } from 'antd';
 import { columns } from './constant';
-import ajax from '../../utils/ajax';
+import ajax from '../../../utils/ajax';
 import moment from 'moment';
-import EquipmentService from '../EquipmentService';
 
 const { Option } = Select;
 const TreeSelectNode = TreeSelect.TreeNode;
@@ -12,58 +11,46 @@ const TreeSelectNode = TreeSelect.TreeNode;
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
 /**
- * 用户管理
+ * 保养计划
  */
-class DeviceListMain extends React.PureComponent {
+class MaintenancePlanMain extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       visible: false,
-      devicesList: [],
+      planListPageList: [],
       title: '',
       page: {
         current: 1,
-        pageSize: 5,
+        pageSize: 10,
         total: 0,
       },
       queryMap: {
-        devName: null,
-        devCode: null,
+        planType: 2, // 保养
       },
-      devicesItem: {},
+      planListPageItem: {},
       categoryList: [],
     };
   }
 
   componentWillMount() {
-    this.getDevices();
-    this.getCategorys();
+    this.planListPage();
   }
 
-  // 获取类别
-  getCategorys = async () => {
-    const res = await ajax.getCategorys();
-    if (res.code === '10001') {
-      this.setState({
-        categoryList: (res && res.data) || [],
-      });
-    }
-  };
-
-  // 设备故障列表
-  getDevices = async () => {
+  // 设备计划（维修和保养）列表信息
+  planListPage = async () => {
     const { page, queryMap } = this.state;
     const pageDetail = {
-      pageNum: page.current,
+      pageNo: page.current,
       pageSize: page.pageSize,
     };
     const detail = Object.assign({}, pageDetail, {
       queryMap,
     });
-    const res = await ajax.getDevices(detail);
+    const res = await ajax.planListPage(detail);
     if (res.code === '10001') {
       this.setState({
-        devicesList: res && res.data && res.data.list,
+        planListPageList: res && res.data && res.data.list,
         page: {
           current: page.current,
           pageSize: page.pageSize,
@@ -73,17 +60,17 @@ class DeviceListMain extends React.PureComponent {
     }
   };
 
-  showModal = (title, devicesItem) => {
+  showModal = (title, planListPageItem) => {
     this.setState({
       visible: true,
       title,
-      devicesItem,
+      planListPageItem,
     });
   };
 
   handleOk = () => {
     const { form } = this.props;
-    const { id } = this.state.devicesItem;
+    const { id } = this.state.planListPageItem;
     form.validateFieldsAndScroll((error, values) => {
       if (!error) {
         this.setState({
@@ -109,17 +96,6 @@ class DeviceListMain extends React.PureComponent {
       visible: false,
       title: '',
     });
-  };
-
-  rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      window.console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-    },
-    getCheckboxProps: record => ({
-      disabled: record.name === 'Disabled User', // Column configuration not to be checked
-      name: record.name,
-    }),
-    type: 'radio',
   };
 
   changeDevName = e => {
@@ -157,7 +133,7 @@ class DeviceListMain extends React.PureComponent {
   postDevice = async detail => {
     const res = await ajax.postDevice(detail);
     if (res.code === '10001') {
-      this.getDevices();
+      this.planListPage();
     }
   };
 
@@ -165,7 +141,7 @@ class DeviceListMain extends React.PureComponent {
   putDeviceById = async detail => {
     const res = await ajax.putDeviceById(detail);
     if (res.code === '10001') {
-      this.getDevices();
+      this.planListPage();
     }
   };
 
@@ -175,21 +151,9 @@ class DeviceListMain extends React.PureComponent {
         page: pagination,
       },
       () => {
-        this.getDevices();
+        this.planListPage();
       },
     );
-  };
-
-  // 报废
-  putDeviceStatusById = async id => {
-    const detail = {
-      id,
-      devStatus: '报废',
-    };
-    const res = await ajax.putDeviceStatusById(detail);
-    if (res.code === '10001') {
-      this.getDevices();
-    }
   };
 
   render() {
@@ -202,7 +166,7 @@ class DeviceListMain extends React.PureComponent {
       labelCol: { span: 4 },
       wrapperCol: { span: 20 },
     };
-    const { devicesList, queryMap, page, title, devicesItem, categoryList } = this.state;
+    const { planListPageList, queryMap, page, title, planListPageItem, categoryList } = this.state;
     const {
       devCompanyName,
       devOilName,
@@ -220,38 +184,20 @@ class DeviceListMain extends React.PureComponent {
       devCode,
       devUseDate,
       devManufactureDate,
-    } = devicesItem;
-    window.console.log(this.state.devicesList);
+    } = planListPageItem;
+    window.console.log(this.state.planListPageList);
     return (
       <div>
-        <div className="device-list">
+        <div className="service-equipment-failure">
           <div className="title">
-            <Input
-              className="title-input"
-              placeholder="设备名"
-              value={queryMap.devName}
-              onChange={this.changeDevName}
-            />
-            <Input
-              className="title-input"
-              placeholder="设备编号"
-              value={queryMap.devCode}
-              onChange={this.changeDevCode}
-            />
-            <Button className="title-query" type="ghost" onClick={this.getDevices}>
-              {'查询'}
-            </Button>
             <Button className="title-add" type="primary" onClick={() => this.showModal('新增设备', {})}>
               {'新增'}
             </Button>
-            {/* <Button className="title-delete" type="danger">
-              {'报废'}
-            </Button> */}
           </div>
           <Table
             rowSelection={this.rowSelection}
-            columns={columns(this.showModal, this.putDeviceStatusById)}
-            dataSource={devicesList}
+            columns={columns(this.showModal, () => {})}
+            dataSource={planListPageList}
             pagination={page}
             onChange={this.pageChange}
             scroll={{
@@ -266,7 +212,8 @@ class DeviceListMain extends React.PureComponent {
             onOk={this.handleOk}
             maskClosable={false}
             width={'728px'}
-            onCancel={this.handleCancel}>
+            onCancel={this.handleCancel}
+          >
             {this.state.visible && (
               <Form>
                 <Row className="device-list-row-flex">
@@ -396,7 +343,8 @@ class DeviceListMain extends React.PureComponent {
                         <TreeSelect
                           dropdownStyle={{ maxHeight: 320, overflow: 'auto' }}
                           placeholder="请选择所属设备"
-                          treeDefaultExpandAll>
+                          treeDefaultExpandAll
+                        >
                           {this.getTreeSelectNode(categoryList)}
                         </TreeSelect>,
                       )}
@@ -504,13 +452,11 @@ class DeviceListMain extends React.PureComponent {
             )}
           </Modal>
         )}
-
-        <EquipmentService />
       </div>
     );
   }
 }
 
-const DeviceList = Form.create()(DeviceListMain);
+const MaintenancePlan = Form.create()(MaintenancePlanMain);
 
-export default DeviceList;
+export default MaintenancePlan;

@@ -7,7 +7,7 @@ import store from 'redux/store.js'; // redux store
 
 // 开始引入各种自定义的组件
 import App from './components/App';
-import Welcome from './components/Welcome';
+import Home from './components/Home';
 import Error from './components/Error';
 import Login from './components/Login';
 import Spectacular from './components/Spectacular';
@@ -19,7 +19,6 @@ import DepartmentManagement from './components/DepartmentManagement';
 import JobManagement from './components/JobManagement';
 import RoleManagement from './components/RoleManagement';
 import EquipmentFailure from './components/EquipmentFailure';
-import EquipmentService from './components/EquipmentService';
 
 import './index.less';
 
@@ -29,8 +28,7 @@ const routes = (
   <Provider store={store}>
     <Router history={hashHistory}>
       <Route path="/" component={App}>
-        {/* <IndexRoute component={Welcome} /> */}
-        <Route path="home" component={Welcome} />
+        <Route path="home" component={Home} />
         <Route path="login" component={Login} />
         <Route path="spectacular" component={Spectacular} />
         <Route path="energymanagement" component={EnergyManagement} />
@@ -46,7 +44,6 @@ const routes = (
           <Route path="deviceList" component={DeviceList} />
           <Route path="equipmentCategory" component={EquipmentCategory} />
           <Route path="equipmentFailure" component={EquipmentFailure} />
-          <Route path="equipmentService" component={EquipmentService} />
         </Route>
 
         <Route path="*" component={Error} />

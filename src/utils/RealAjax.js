@@ -73,15 +73,6 @@ class Ajax {
   }
 
   /**
-   * 设备故障列表
-   * @param pageNum
-   * @param pageSize
-   */
-  getFaults(detail) {
-    return axios.post('/api/fault/getFaults', detail);
-  }
-
-  /**
    * 设备管理列表
    * @param pageNum
    * @param pageSize
@@ -112,6 +103,79 @@ class Ajax {
    */
   putDeviceStatusById(detail) {
     return axios.post('/api/dev/putDeviceStatusById', detail);
+  }
+
+  /**
+   * 设备故障列表
+   * @param pageNum
+   * @param pageSize
+   */
+  getFaults(detail) {
+    return axios.post('/api/fault/getFaults', detail);
+  }
+
+  /**
+   * 添加设备故障
+   * @param faultLevel
+   * @param faultDevId
+   * @param faultStatus
+   */
+  addFault(detail) {
+    return axios.post('/api/fault/addFault', detail);
+  }
+
+  /**
+   * 更新设备故障
+   * @param id
+   * @param faultCateId
+   * @param faultLevel
+   * @param faultDevId
+   * @param faultStatus
+   */
+  updateFault(detail) {
+    return axios.post('/api/fault/updateFault', detail);
+  }
+
+  /**
+   * 删除故障设备
+   * @param id
+   * @param isdel
+   */
+  getFaults(detail) {
+    return axios.post('/api/fault/delFaultRecord', detail);
+  }
+
+  /**
+   * 设备计划（维修和保养）列表信息
+   * @param pageSize
+   * @param pageNo
+   * @param queryMap planType
+   */
+  planListPage(detail) {
+    return axios.post('/api/dev/plan/listPage', detail);
+  }
+
+  /**
+   * 维修和保养 新增
+   */
+  planSave(detail) {
+    return axios.post('/api/dev/plan/save', detail);
+  }
+
+  /**
+   * 计划详情
+   * @param id
+   */
+  planDetail(id) {
+    return axios.post('/api/dev/plan/detail', id);
+  }
+
+   /**
+   * 计划删除
+   * @param id
+   */
+  planDel(id) {
+    return axios.post('/api/dev/plan/del', id);
   }
 }
 
