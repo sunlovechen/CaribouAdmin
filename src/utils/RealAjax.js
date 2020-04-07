@@ -22,8 +22,10 @@ class Ajax {
    * @param password
    */
   login(username, password) {
-    return axios.post('/api/login', { username, password },
-      { headers: { 'Content-Type': 'multipart/form-data' } });
+    const data = new FormData();
+    data.append('username', username);
+    data.append('password', password);
+    return axios.post('/api/login', data);
   }
 
   /**
@@ -39,6 +41,35 @@ class Ajax {
    */
   getCategoryById(id) {
     return axios.get(`/api/category/getCategoryById?id=${id}`);
+  }
+
+   /**
+   * 添加设备类别
+   * @param category_pid
+   * @param categoryName
+   */
+  postCategory(detail) {
+    return axios.post('/api/category/postCategory', detail);
+  }
+
+   /**
+   * 更新设备类别
+   * @param id
+   * @param category_pid
+   * @param categoryName
+   */
+  updateCategory(detail) {
+    return axios.post('/api/category/updateCategory', detail);
+  }
+
+
+   /**
+   * 根据id查询设备类别
+   * @param id
+   * @param isdel
+   */
+  delCategory(detail) {
+    return axios.post('/api/category/delCategory', detail);
   }
 }
 

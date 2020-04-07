@@ -4,7 +4,7 @@ import { Tree, Form, Input, Row, Col, Button, Select, TreeSelect } from 'antd';
 import ajax from '../../utils/ajax';
 
 const { TreeNode } = Tree;
-const { TreeSelectNode } = TreeSelect.TreeNode;
+const TreeSelectNode = TreeSelect.TreeNode;
 
 const Option = Select.Option;
 
@@ -18,17 +18,12 @@ class EquipmentCategoryMain extends React.Component {
     this.state = {
       categoryList: [],
       categoryDetail: {},
+      addOrEdit: 'add',
     };
   }
 
-  async componentWillMount() {
-    const res = await ajax.getCategorys();
-    if (res.code === '10001') {
-      this.setState({
-        categoryList: (res && res.data) || [],
-      });
-    }
-    window.console.log(res.data);
+  componentWillMount() {
+    this.getCategorys();
   }
 
   onSelect = async (selectedKeys, info) => {
@@ -37,11 +32,13 @@ class EquipmentCategoryMain extends React.Component {
       if (res.code === '10001') {
         this.setState({
           categoryDetail: res && res.data,
+          addOrEdit: 'edit',
         });
       }
     } else {
       this.setState({
         categoryDetail: {},
+        addOrEdit: 'add',
       });
     }
 
@@ -58,7 +55,7 @@ class EquipmentCategoryMain extends React.Component {
         categoryPid: e,
       },
     });
-  }
+  };
 
   // 生成TreeNode
   getTreeNode = (list = []) => {
@@ -74,12 +71,80 @@ class EquipmentCategoryMain extends React.Component {
   // 生成TreeSelectNode
   getTreeSelectNode = (list = []) => {
     return list.map(item => {
-      window.console.log(item);
       return (
         <TreeSelectNode value={item.id} title={item.categoryName} key={item.id}>
-          {item.soilCategoriesList && this.getTreeNode(item.soilCategoriesList)}
+          {item.soilCategoriesList && this.getTreeSelectNode(item.soilCategoriesList)}
         </TreeSelectNode>
       );
+    });
+  };
+
+  // 获取类别
+  getCategorys = async () => {
+    const res = await ajax.getCategorys();
+    if (res.code === '10001') {
+      this.setState({
+        categoryList: (res && res.data) || [],
+      });
+    }
+  };
+
+  // 更新
+  updateCategory = async () => {
+    const { form } = this.props;
+    form.validateFieldsAndScroll(async (error, values) => {
+      if (!error) {
+        const { categoryDetail } = this.state;
+        window.console.log(this.props.form.getFieldsValue(), categoryDetail);
+        const fromContent = this.props.form.getFieldsValue();
+        const detail = Object.assign({}, fromContent, {
+          id: categoryDetail.id,
+        });
+        const res = await ajax.updateCategory(detail);
+        if (res.code === '10001') {
+          this.getCategorys();
+          this.props.form.resetFields();
+        }
+      }
+    });
+  };
+
+  // 新增
+  postCategory = async () => {
+    const { form } = this.props;
+    form.validateFieldsAndScroll(async (error, values) => {
+      if (!error) {
+        window.console.log(this.props.form.getFieldsValue());
+        const fromContent = this.props.form.getFieldsValue();
+        const detail = {
+          categoryPid: fromContent.categoryPid,
+          categoryName: fromContent.categoryName,
+        };
+        const res = await ajax.postCategory(detail);
+        if (res.code === '10001') {
+          this.getCategorys();
+          this.props.form.resetFields();
+        }
+      }
+    });
+  };
+
+  // 删除
+  delCategory = async () => {
+    const { form } = this.props;
+    form.validateFieldsAndScroll(async (error, values) => {
+      if (!error) {
+        const { categoryDetail } = this.state;
+        const detail = {
+          id: categoryDetail.id,
+          isdel: 1,
+        };
+        const res = await ajax.delCategory(detail);
+        if (res.code === '10001') {
+          this.getCategorys();
+          this.props.form.resetFields();
+        }
+      }
     });
   };
 
@@ -89,21 +154,23 @@ class EquipmentCategoryMain extends React.Component {
       wrapperCol: { span: 16 },
     };
     const defaultExpandAll = true;
-    const formDisabled = true;
     const { getFieldDecorator } = this.props.form;
-    const { categoryList, categoryDetail } = this.state;
+    const { categoryList, categoryDetail, addOrEdit } = this.state;
     const { categoryPid, categoryName } = categoryDetail;
     window.console.log('asd', categoryList, categoryDetail);
     return (
       <div className="equipment-category">
-        <Tree
-          defaultExpandAll={defaultExpandAll}
-          className="equipment-category-tree"
-          defaultExpandedKeys={this.state.expandedKeys}
-          onSelect={this.onSelect}
-        >
-          {this.getTreeNode(categoryList)}
-        </Tree>
+        <div>
+          <p className="equipment-category-fom-title">类别架构树</p>
+          <Tree
+            defaultExpandAll={defaultExpandAll}
+            className="equipment-category-tree"
+            defaultExpandedKeys={this.state.expandedKeys}
+            onSelect={this.onSelect}
+          >
+            {this.getTreeNode(categoryList)}
+          </Tree>
+        </div>
         <div className="equipment-category-form">
           <p className="equipment-category-fom-title">类别属性</p>
           <Form>
@@ -143,7 +210,7 @@ class EquipmentCategoryMain extends React.Component {
               </Col> */}
 
               <Col span={12}>
-                <Row>
+                {/* <Row>
                   <Col span={6} className="category-tree-select">
                     <span>所属设备</span>
                   </Col>
@@ -153,14 +220,15 @@ class EquipmentCategoryMain extends React.Component {
                       placeholder="请选择所属设备"
                       onChange={this.onTreeSelectChange}
                       value={categoryPid}
+                      treeDefaultExpandAll
                     >
                     <TreeSelectNode value={0} title={'父级设备'} key={0}>
                         {this.getTreeSelectNode(categoryList)}
                       </TreeSelectNode>
                     </TreeSelect>
                   </Col>
-                </Row>
-                {/* <Form.Item label="所属设备" {...formItemLayout}>
+                </Row> */}
+                <Form.Item label="所属设备" {...formItemLayout}>
                   {getFieldDecorator('categoryPid', {
                     rules: [
                       {
@@ -171,16 +239,15 @@ class EquipmentCategoryMain extends React.Component {
                     initialValue: categoryPid,
                   })(
                     <TreeSelect
-                      dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                      dropdownStyle={{ maxHeight: 320, overflow: 'auto' }}
                       placeholder="请选择所属设备"
-                      treeDefaultExpandAll
-                    >
+                      treeDefaultExpandAll>
                       <TreeSelectNode value={0} title={'父级设备'} key={0}>
                         {this.getTreeSelectNode(categoryList)}
                       </TreeSelectNode>
                     </TreeSelect>,
                   )}
-                </Form.Item> */}
+                </Form.Item>
               </Col>
 
               {/* <Col span={12}>
@@ -217,8 +284,21 @@ class EquipmentCategoryMain extends React.Component {
             </Row>
           </Form>
           <div className="equipment-category-button-list">
-            <Button type="primary">{'保存'}</Button>
-            <Button type="primary">{'删除'}</Button>
+            {addOrEdit === 'add' && (
+              <Button type="primary" onClick={this.postCategory}>
+                {'新增'}
+              </Button>
+            )}
+            {addOrEdit === 'edit' && (
+              <Button type="primary" onClick={this.updateCategory}>
+                {'修改'}
+              </Button>
+            )}
+            {addOrEdit === 'edit' && (
+              <Button type="primary" onClick={this.delCategory}>
+                {'删除'}
+              </Button>
+            )}
           </div>
         </div>
       </div>

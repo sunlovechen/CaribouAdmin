@@ -52,15 +52,15 @@ class App extends React.Component {
    */
   async componentDidMount() {
     this.state.tryingLogin = false;
-    // App组件也可能触发loginSuccess action
-    this.props.handleLoginSuccess('admin');
+    // // App组件也可能触发loginSuccess action
+    // this.props.handleLoginSuccess('admin');
+    this.props.router.push('/login');
     // if (!this.props.login) {
     //   const hide = message.loading('正在获取用户信息...', 0);
 
     //   try {
     //     // 先去服务端验证下, 说不定已经登录了
     //     const res = await ajax.testApi();
-    //     window.console.log(res, 'asd');
     //     hide();
 
     //     // 注意这里, debug模式下每次刷新都必须重新登录
@@ -278,8 +278,8 @@ class App extends React.Component {
 
     // 正常显示
     return (
-      <Spin spinning={this.props.spining}>
-        <div className="ant-layout-base">
+      <div className="ant-layout-base">
+        <Spin spinning={this.props.spining} className="loadspinning" >
           {/*整个页面被一个ant-layout-base的div包围, 分为sidebar/header/footer/content等几部分*/}
           <Sidebar />
 
@@ -288,8 +288,8 @@ class App extends React.Component {
             {this.renderBody()}
             <Footer />
           </div>
-        </div>
-      </Spin>
+        </Spin>
+      </div>
     );
   }
 }
