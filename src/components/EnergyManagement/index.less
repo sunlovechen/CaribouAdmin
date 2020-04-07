@@ -6,15 +6,29 @@
 .energy-management {
   background-color: @main-back;
   color: @text-color;
-  min-height: 100vh;
+  min-height: calc(~"100vh - 82px");
   display: flex;
   flex-wrap: wrap;
 
   .detail-content {
     width: calc(~"50vw - 12px");
+    height: calc(~"50vh - 30px");
     padding: 3px;
     border: 1px solid #e9e9e9;
     margin: 6px;
+
+    #WaterStatistics {
+      height: calc(~"50vh - 80px");
+    }
+
+    .ElectricityStatistics {
+      height: calc(~"25vh - 32px");
+      width: calc(~"12.5vw - 18px");
+    }
+
+    #CoalmakingStatistics {
+      height: calc(~"50vh - 80px");
+    }
 
     .child-title {
       background: @title-back;
@@ -32,6 +46,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around;
+      padding: 0;
     }
 
     .gas-statistics-content {
@@ -42,7 +57,7 @@
         width: 20px;
         .gas-detail-content {
           text-align: center;
-          height: 34vh;
+          height: calc(~"50vh - 120px");
           margin-bottom: 6px;
 
           .gas-progress {

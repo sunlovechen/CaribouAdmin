@@ -1,9 +1,14 @@
 import React from 'react';
 import './index.less';
-import { Input, Button, Table, Modal, Form, Select, Row, Col } from 'antd';
+import { Input, Button, Table, Modal, Form, Select, Row, Col, TreeSelect, DatePicker } from 'antd';
 import { data, columns } from './constant';
+import ajax from '../../utils/ajax';
+import moment from 'moment';
 
 const { Option } = Select;
+const TreeSelectNode = TreeSelect.TreeNode;
+
+const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
 /**
  * 用户管理
@@ -11,22 +16,87 @@ const { Option } = Select;
 class DeviceListMain extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { visible: false };
+    this.state = {
+      visible: false,
+      devicesList: [],
+      title: '',
+      page: {
+        current: 1,
+        pageSize: 10,
+        total: 0,
+      },
+      queryMap: {
+        devName: null,
+        devCode: null,
+      },
+      devicesItem: {},
+      categoryList: [],
+    };
   }
 
-  showModal = () => {
+  componentWillMount() {
+    this.getDevices();
+    this.getCategorys();
+  }
+
+  // 获取类别
+  getCategorys = async () => {
+    const res = await ajax.getCategorys();
+    if (res.code === '10001') {
+      this.setState({
+        categoryList: (res && res.data) || [],
+      });
+    }
+  };
+
+  // 设备故障列表
+  getDevices = async () => {
+    const { page, queryMap } = this.state;
+    const pageDetail = {
+      pageNum: page.current,
+      pageSize: page.pageSize,
+    };
+    const detail = Object.assign({}, pageDetail, {
+      queryMap,
+    });
+    const res = await ajax.getDevices(detail);
+    if (res.code === '10001') {
+      this.setState({
+        devicesList: res && res.data && res.data.list,
+        page: {
+          current: page.current,
+          pageSize: page.pageSize,
+          total: res.data.total,
+        },
+      });
+    }
+  };
+
+  showModal = (title, devicesItem) => {
     this.setState({
       visible: true,
+      title,
+      devicesItem,
     });
   };
 
   handleOk = () => {
     const { form } = this.props;
+    const { id } = this.state.devicesItem;
     form.validateFieldsAndScroll((error, values) => {
       if (!error) {
         this.setState({
           visible: false,
+          title: '',
         });
+        if (!id) {
+          this.postDevice(values);
+        } else {
+          const detail = Object.assign({}, values, {
+            id,
+          });
+          this.putDeviceById(detail);
+        }
       }
       window.console.log(error, values);
     });
@@ -36,6 +106,7 @@ class DeviceListMain extends React.PureComponent {
     window.console.log(e);
     this.setState({
       visible: false,
+      title: '',
     });
   };
 
@@ -47,229 +118,391 @@ class DeviceListMain extends React.PureComponent {
       disabled: record.name === 'Disabled User', // Column configuration not to be checked
       name: record.name,
     }),
+    type: 'radio',
+  };
+
+  changeDevName = e => {
+    const { queryMap } = this.state;
+    this.setState({
+      queryMap: {
+        devName: e.target.value,
+        devCode: queryMap.devCode,
+      },
+    });
+  };
+
+  changeDevCode = e => {
+    const { queryMap } = this.state;
+    this.setState({
+      queryMap: {
+        devName: queryMap.devName,
+        devCode: e.target.value,
+      },
+    });
+  };
+
+  // 生成TreeSelectNode
+  getTreeSelectNode = (list = []) => {
+    return list.map(item => {
+      return (
+        <TreeSelectNode value={item.id} title={item.categoryName} key={item.id}>
+          {item.soilCategoriesList && this.getTreeSelectNode(item.soilCategoriesList)}
+        </TreeSelectNode>
+      );
+    });
+  };
+
+  // 添加设备
+  postDevice = async detail => {
+    const res = await ajax.postDevice(detail);
+    if (res.code === '10001') {
+      this.getDevices();
+    }
+  };
+
+  // 更新设备
+  putDeviceById = async detail => {
+    const res = await ajax.putDeviceById(detail);
+    if (res.code === '10001') {
+      this.getDevices();
+    }
+  };
+
+  pageChange = pagination => {
+    this.setState(
+      {
+        page: pagination,
+      },
+      () => {
+        this.getDevices();
+      },
+    );
+  };
+
+  // 报废
+  putDeviceStatusById = async id => {
+    const detail = {
+      id,
+      devStatus: '报废',
+    };
+    const res = await ajax.putDeviceStatusById(detail);
+    if (res.code === '10001') {
+      this.getDevices();
+    }
   };
 
   render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
-      labelCol: { span: 6 },
+      labelCol: { span: 8 },
       wrapperCol: { span: 16 },
     };
+    const formTextLayout = {
+      labelCol: { span: 4 },
+      wrapperCol: { span: 20 },
+    };
+    const { devicesList, queryMap, page, title, devicesItem, categoryList } = this.state;
+    const {
+      devCompanyName,
+      devOilName,
+      devOilCode,
+      devName,
+      devBrand,
+      devSpecifications,
+      devPower,
+      devCategoryId,
+      devPersonId,
+      devManufacturersName,
+      devSupplierName,
+      devDesc,
+      devStatus,
+      devCode,
+      devUseDate,
+      devManufactureDate,
+    } = devicesItem;
+    window.console.log(this.state.devicesList);
     return (
       <div>
         <div className="device-list">
           <div className="title">
-            <Input className="title-input" placeholder="设备名/设备编号" />
-            <Button className="title-query" type="ghost">
+            <Input
+              className="title-input"
+              placeholder="设备名"
+              value={queryMap.devName}
+              onChange={this.changeDevName}
+            />
+            <Input
+              className="title-input"
+              placeholder="设备编号"
+              value={queryMap.devCode}
+              onChange={this.changeDevCode}
+            />
+            <Button className="title-query" type="ghost" onClick={this.getDevices}>
               {'查询'}
             </Button>
-            <Button className="title-add" type="primary" onClick={() => this.showModal()}>
+            <Button className="title-add" type="primary" onClick={() => this.showModal('新增设备', {})}>
               {'新增'}
             </Button>
-            <Button className="title-delete" type="danger">
+            {/* <Button className="title-delete" type="danger">
               {'报废'}
-            </Button>
+            </Button> */}
           </div>
           <Table
             rowSelection={this.rowSelection}
-            columns={columns}
-            dataSource={data}
+            columns={columns(this.showModal, this.putDeviceStatusById)}
+            dataSource={devicesList}
+            pagination={page}
+            onChange={this.pageChange}
             scroll={{
               x: 1600,
             }}
           />
         </div>
+        {this.state.visible && (
           <Modal
-            title="设备属性"
+            title={title}
             visible={this.state.visible}
             onOk={this.handleOk}
             maskClosable={false}
-            width={'688px'}
-            onCancel={this.handleCancel}
-          >
-          {this.state.visible && (
-            <Form>
-              <Row className="device-list-row-flex">
-                <Col span={12}>
-                  <Form.Item label="市公司" {...formItemLayout}>
-                    {getFieldDecorator('username', {
-                      rules: [
-                        {
-                          required: true,
-                          message: '请输入市公司',
-                        },
-                      ],
-                    })(<Input placeholder={'请输入市公司'} />)}
-                  </Form.Item>
-                </Col>
+            width={'728px'}
+            onCancel={this.handleCancel}>
+            {this.state.visible && (
+              <Form>
+                <Row className="device-list-row-flex">
+                  <Col span={12}>
+                    <Form.Item label="市公司" {...formItemLayout}>
+                      {getFieldDecorator('devCompanyName', {
+                        rules: [
+                          {
+                            required: true,
+                            message: '请输入市公司',
+                          },
+                        ],
+                        initialValue: devCompanyName,
+                      })(<Input placeholder={'请输入市公司'} />)}
+                    </Form.Item>
+                  </Col>
 
-                <Col span={12}>
-                  <Form.Item label="油库" {...formItemLayout}>
-                    {getFieldDecorator('oilDepot', {
-                      rules: [
-                        {
-                          required: true,
-                          message: '请输入油库',
-                        },
-                      ],
-                    })(<Input placeholder={'请输入油库'} />)}
-                  </Form.Item>
-                </Col>
+                  <Col span={12}>
+                    <Form.Item label="油库" {...formItemLayout}>
+                      {getFieldDecorator('devOilName', {
+                        rules: [
+                          {
+                            required: true,
+                            message: '请输入油库',
+                          },
+                        ],
+                        initialValue: devOilName,
+                      })(<Input placeholder={'请输入油库'} />)}
+                    </Form.Item>
+                  </Col>
 
-                <Col span={12}>
-                  <Form.Item label="设备编号" {...formItemLayout}>
-                    {getFieldDecorator('deviceID', {
-                      rules: [
-                        {
-                          required: true,
-                          message: '请输入设备编号',
-                        },
-                      ],
-                    })(<Input placeholder={'请输入设备编号'} />)}
-                  </Form.Item>
-                </Col>
+                  <Col span={12}>
+                    <Form.Item label="油库编号" {...formItemLayout}>
+                      {getFieldDecorator('devOilCode', {
+                        rules: [
+                          {
+                            required: true,
+                            message: '请输入设备编号',
+                          },
+                        ],
+                        initialValue: devOilCode,
+                      })(<Input placeholder={'请输入设备编号'} />)}
+                    </Form.Item>
+                  </Col>
 
-                <Col span={12}>
-                  <Form.Item label="设备名称" {...formItemLayout}>
-                    {getFieldDecorator('equipment', {
-                      rules: [
-                        {
-                          required: true,
-                          message: '请输入设备名称',
-                        },
-                      ],
-                    })(<Input placeholder={'请输入设备名称'} />)}
-                  </Form.Item>
-                </Col>
+                  <Col span={12}>
+                    <Form.Item label="设备编号" {...formItemLayout}>
+                      {getFieldDecorator('devCode', {
+                        rules: [
+                          {
+                            required: true,
+                            message: '请输入设备编号',
+                          },
+                        ],
+                        initialValue: devCode,
+                      })(<Input placeholder={'请输入设备编号'} />)}
+                    </Form.Item>
+                  </Col>
 
-                <Col span={12}>
-                  <Form.Item label="部门" {...formItemLayout}>
-                    {getFieldDecorator('brand', {
-                      rules: [
-                        {
-                          required: true,
-                          message: '请选择品牌',
-                        },
-                      ],
-                    })(
-                      <Select placeholder="请选择品牌">
-                        <Option value="品牌1">品牌1</Option>
-                        <Option value="品牌2">品牌2</Option>
-                      </Select>,
-                    )}
-                  </Form.Item>
-                </Col>
+                  <Col span={12}>
+                    <Form.Item label="设备名称" {...formItemLayout}>
+                      {getFieldDecorator('devName', {
+                        rules: [
+                          {
+                            required: true,
+                            message: '请输入设备名称',
+                          },
+                        ],
+                        initialValue: devName,
+                      })(<Input placeholder={'请输入设备名称及编号'} />)}
+                    </Form.Item>
+                  </Col>
 
-                <Col span={12}>
-                  <Form.Item label="规格型号" {...formItemLayout}>
-                    {getFieldDecorator('specifications', {
-                      rules: [
-                        {
-                          required: true,
-                          message: '请输入规格型号',
-                        },
-                      ],
-                    })(<Input placeholder={'请输入规格型号'} />)}
-                  </Form.Item>{' '}
-                </Col>
+                  <Col span={12}>
+                    <Form.Item label="品牌" {...formItemLayout}>
+                      {getFieldDecorator('devBrand', {
+                        rules: [
+                          {
+                            required: true,
+                            message: '请输入品牌',
+                          },
+                        ],
+                        initialValue: devBrand,
+                      })(<Input placeholder={'请输入品牌'} />)}
+                    </Form.Item>
+                  </Col>
 
-                <Col span={12}>
-                  <Form.Item label="功率" {...formItemLayout}>
-                    {getFieldDecorator('power', {
-                      rules: [
-                        {
-                          required: true,
-                          message: '请输入功率',
-                        },
-                      ],
-                    })(<Input placeholder={'请输入功率'} />)}
-                  </Form.Item>
-                </Col>
+                  <Col span={12}>
+                    <Form.Item label="规格型号" {...formItemLayout}>
+                      {getFieldDecorator('devSpecifications', {
+                        rules: [
+                          {
+                            required: true,
+                            message: '请输入规格型号',
+                          },
+                        ],
+                        initialValue: devSpecifications,
+                      })(<Input placeholder={'请输入规格型号'} />)}
+                    </Form.Item>{' '}
+                  </Col>
 
-                <Col span={12}>
-                  <Form.Item label="设备类别" {...formItemLayout}>
-                    {getFieldDecorator('equipmentCategory', {
-                      rules: [
-                        {
-                          required: true,
-                          message: '请选择设备类别',
-                        },
-                      ],
-                    })(
-                      <Select placeholder="请选择设备类别">
-                        <Option value="类别1">类别1</Option>
-                        <Option value="类别2">类别2</Option>
-                      </Select>,
-                    )}
-                  </Form.Item>
-                </Col>
+                  <Col span={12}>
+                    <Form.Item label="功率" {...formItemLayout}>
+                      {getFieldDecorator('devPower', {
+                        rules: [
+                          {
+                            required: true,
+                            message: '请输入功率',
+                          },
+                        ],
+                        initialValue: devPower,
+                      })(<Input placeholder={'请输入功率'} />)}
+                    </Form.Item>
+                  </Col>
 
-                <Col span={12}>
-                  <Form.Item label="责任人" {...formItemLayout}>
-                    {getFieldDecorator('responsible', {
-                      rules: [
-                        {
-                          required: true,
-                          message: '请选择责任人',
-                        },
-                      ],
-                    })(
-                      <Select placeholder="请选择责任人">
-                        <Option value="你">你</Option>
-                        <Option value="我">我</Option>
-                        <Option value="他">他</Option>
-                      </Select>,
-                    )}
-                  </Form.Item>
-                </Col>
+                  <Col span={12}>
+                    <Form.Item label="设备类别" {...formItemLayout}>
+                      {getFieldDecorator('devCategoryId', {
+                        rules: [
+                          {
+                            required: true,
+                            message: '请选择设备类别',
+                          },
+                        ],
+                        initialValue: devCategoryId,
+                      })(
+                        <TreeSelect
+                          dropdownStyle={{ maxHeight: 320, overflow: 'auto' }}
+                          placeholder="请选择所属设备"
+                          treeDefaultExpandAll>
+                          {this.getTreeSelectNode(categoryList)}
+                        </TreeSelect>,
+                      )}
+                    </Form.Item>
+                  </Col>
 
-                <Col span={12}>
-                  <Form.Item label="生产厂商" {...formItemLayout}>
-                    {getFieldDecorator('manufacturer', {
-                      rules: [
-                        {
-                          required: true,
-                          message: '请选择生产厂商',
-                        },
-                      ],
-                    })(
-                      <Select placeholder="请选择生产厂商">
-                        <Option value="aa">aa</Option>
-                        <Option value="bb">bb</Option>
-                        <Option value="cc">cc</Option>
-                      </Select>,
-                    )}
-                  </Form.Item>
-                </Col>
+                  <Col span={12}>
+                    <Form.Item label="责任人" {...formItemLayout}>
+                      {getFieldDecorator('devPersonId', {
+                        rules: [
+                          {
+                            required: true,
+                            message: '请输入责任人',
+                          },
+                        ],
+                        initialValue: devPersonId,
+                      })(<Input placeholder={'请输入责任人'} />)}
+                    </Form.Item>
+                  </Col>
 
-                <Col span={12}>
-                  <Form.Item label="供应商" {...formItemLayout}>
-                    {getFieldDecorator('supplier', {
-                      rules: [
-                        {
-                          required: true,
-                          message: '请选择供应商',
-                        },
-                      ],
-                    })(
-                      <Select placeholder="请选择供应商">
-                        <Option value="qq">qq</Option>
-                        <Option value="ww">ww</Option>
-                        <Option value="ee">ee</Option>
-                      </Select>,
-                    )}
-                  </Form.Item>
-                </Col>
+                  <Col span={12}>
+                    <Form.Item label="生产厂商" {...formItemLayout}>
+                      {getFieldDecorator('devManufacturersName', {
+                        rules: [
+                          {
+                            required: true,
+                            message: '请输入生产厂商',
+                          },
+                        ],
+                        initialValue: devManufacturersName,
+                      })(<Input placeholder={'请输入生产厂商'} />)}
+                    </Form.Item>
+                  </Col>
 
-                <Col span={12}>
-                  <Form.Item label="备注" {...formItemLayout}>
-                    {getFieldDecorator('note', {})(<Input placeholder={'请输入备注'} />)}
-                  </Form.Item>
-                </Col>
-              </Row>
-            </Form>
+                  <Col span={12}>
+                    <Form.Item label="供应商" {...formItemLayout}>
+                      {getFieldDecorator('devSupplierName', {
+                        rules: [
+                          {
+                            required: true,
+                            message: '请输入供应商',
+                          },
+                        ],
+                        initialValue: devSupplierName,
+                      })(<Input placeholder={'请输入供应商'} />)}
+                    </Form.Item>
+                  </Col>
+
+                  <Col span={12}>
+                    <Form.Item label="出厂日期" {...formItemLayout}>
+                      {getFieldDecorator('devManufactureDate', {
+                        rules: [
+                          {
+                            required: true,
+                            message: '请选择出厂日期',
+                          },
+                        ],
+                        initialValue: moment(devManufactureDate),
+                      })(<DatePicker showTime style={{ width: '100%' }} format={dateFormat} />)}
+                    </Form.Item>
+                  </Col>
+
+                  <Col span={12}>
+                    <Form.Item label="使用日期" {...formItemLayout}>
+                      {getFieldDecorator('devUseDate', {
+                        rules: [
+                          {
+                            required: true,
+                            message: '请选择使用日期',
+                          },
+                        ],
+                        initialValue: moment(devUseDate),
+                      })(<DatePicker showTime style={{ width: '100%' }} format={dateFormat} />)}
+                    </Form.Item>
+                  </Col>
+
+                  <Col span={12}>
+                    <Form.Item label="设备状态	" {...formItemLayout}>
+                      {getFieldDecorator('devStatus', {
+                        rules: [
+                          {
+                            required: true,
+                            message: '请选择设备状态',
+                          },
+                        ],
+                        initialValue: devStatus,
+                      })(
+                        <Select placeholder="请选择设备状态">
+                          <Option value="使用中">使用中</Option>
+                          <Option value="停止">停止</Option>
+                          <Option value="报废">报废</Option>
+                          <Option value="保养">保养</Option>
+                          <Option value="维修">维修</Option>
+                        </Select>,
+                      )}
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Form.Item label="备注" {...formTextLayout}>
+                  {getFieldDecorator('devDesc', {
+                    initialValue: devDesc,
+                  })(<Input type="textarea" placeholder={'请输入备注'} />)}
+                </Form.Item>
+              </Form>
             )}
           </Modal>
+        )}
       </div>
     );
   }

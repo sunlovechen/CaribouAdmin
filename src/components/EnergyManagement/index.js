@@ -4,6 +4,7 @@ import WaterStatistics from './WaterStatistics';
 import CoalmakingStatistics from './CoalmakingStatistics';
 import ElectricityStatistics from './ElectricityStatistics';
 import GasStatistics from './GasStatistics';
+import Header from '../HeaderBlack';
 
 /**
  * 能源管理
@@ -11,11 +12,14 @@ import GasStatistics from './GasStatistics';
 class EnergyManagement extends React.PureComponent {
   render() {
     return (
-      <div className="energy-management">
-        <WaterStatistics />
-        <ElectricityStatistics />
-        <CoalmakingStatistics />
-        <GasStatistics />
+      <div>
+        <Header />
+        <div className="energy-management">
+          <WaterStatistics />
+          <ElectricityStatistics />
+          <CoalmakingStatistics />
+          <GasStatistics />
+        </div>
       </div>
     );
   }

@@ -89,10 +89,10 @@ class CoalmakingStatistics extends React.PureComponent {
 
   render() {
     return (
-      <div className="detail-content" style={{ height: '48vh' }}>
+      <div className="detail-content">
         <div className="child-title">{'炼煤统计'}</div>
         <div className="child-content">
-          <div id="CoalmakingStatistics" style={{ height: '42vh' }} />
+          <div id="CoalmakingStatistics" />
         </div>
       </div>
     );

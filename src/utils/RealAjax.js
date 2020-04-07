@@ -71,6 +71,48 @@ class Ajax {
   delCategory(detail) {
     return axios.post('/api/category/delCategory', detail);
   }
+
+  /**
+   * 设备故障列表
+   * @param pageNum
+   * @param pageSize
+   */
+  getFaults(detail) {
+    return axios.post('/api/fault/getFaults', detail);
+  }
+
+  /**
+   * 设备管理列表
+   * @param pageNum
+   * @param pageSize
+   * @param queryMap: { devName devCode }
+   */
+  getDevices(detail) {
+    return axios.post('/api/dev/getDevices', detail);
+  }
+
+   /**
+   * 添加设备
+   */
+  postDevice(detail) {
+    return axios.post('/api/dev/postDevice', detail);
+  }
+
+   /**
+   * 更新设备
+   */
+  putDeviceById(detail) {
+    return axios.post('/api/dev/putDeviceById', detail);
+  }
+
+   /**
+   * 修改设备状态 报废设备
+   * @param id
+   * @param devStatus
+   */
+  putDeviceStatusById(detail) {
+    return axios.post('/api/dev/putDeviceStatusById', detail);
+  }
 }
 
 export default Ajax;

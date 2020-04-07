@@ -3,6 +3,7 @@ import './index.less';
 import { Row, Col } from 'antd';
 import { Icon } from 'antd';
 import OilPlatform from './oilPlatform';
+import Header from '../HeaderBlack';
 
 const image = require('../../assets/kanban.png');
 /**
@@ -23,6 +24,7 @@ class Spectacular extends React.PureComponent {
   render() {
     return (
       <div className="spectacular">
+        <Header />
         <div className="main">
           <div className="left-main">
             <div className="spectacular-child">
@@ -181,18 +183,6 @@ class Spectacular extends React.PureComponent {
                 </p>
                 <p className="wait">
                   <Icon type="exclamation-circle" theme="filled" style={{ color: 'red' }} />
-                  &nbsp;&nbsp;仓库线路出现故障，要及时增派相关人员去现场
-                </p>
-                <p className="wait">
-                  <Icon type="exclamation-circle" theme="filled" style={{ color: 'red' }} />
-                  &nbsp;&nbsp;仓库线路出现故障，要及时增派相关人员去现场
-                </p>
-                <p className="wait">
-                  <Icon type="exclamation-circle" theme="filled" style={{ color: 'red' }} />
-                  &nbsp;&nbsp;仓库线路出现故障，要及时增派相关人员去现场
-                </p>
-                <p className="wait">
-                  <Icon type="clock-circle" theme="filled" style={{ color: '#66ccff' }} />
                   &nbsp;&nbsp;仓库线路出现故障，要及时增派相关人员去现场
                 </p>
                 <p className="wait">

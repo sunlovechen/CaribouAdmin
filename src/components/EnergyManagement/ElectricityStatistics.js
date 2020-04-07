@@ -123,12 +123,12 @@ class ElectricityStatistics extends React.PureComponent {
 
   render() {
     return (
-      <div className="detail-content" style={{ height: '48vh' }}>
+      <div className="detail-content">
         <div className="child-title">{'用电统计'}</div>
         <div className="child-content electricity-statistics-content">
           {
             this.state.list.map((_item, index) => {
-              return <div key={`ElectricityStatistics${index}`} id={`ElectricityStatistics${index}`} style={{ height: '20vh', width: '20vh' }} />
+              return <div className="ElectricityStatistics" key={`ElectricityStatistics${index}`} id={`ElectricityStatistics${index}`} />
             })
           }
         </div>

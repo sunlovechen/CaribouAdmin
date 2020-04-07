@@ -4,8 +4,8 @@ import { Tag } from 'antd';
 export const columns = showModal => {
   return [
     {
-      title: '名称',
-      dataIndex: 'username',
+      title: '故障名称',
+      dataIndex: 'faultCateName',
     },
     {
       title: '故障编号',

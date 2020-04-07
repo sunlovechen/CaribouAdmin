@@ -2,6 +2,7 @@ import React from 'react';
 import './index.less';
 import { Input, Button, Table, Modal, Form, Select, Row, Col } from 'antd';
 import { data, columns } from './constant';
+import ajax from '../../utils/ajax';
 
 const { Option } = Select;
 
@@ -15,8 +16,28 @@ class EquipmentFailureMain extends React.PureComponent {
       visible: false,
       title: '',
       item: {},
+      faultsList: [],
+      page: {
+        pageNum: 1,
+        pageSize: 10,
+      },
     };
   }
+
+  componentWillMount() {
+    this.getFaults();
+  }
+
+  // 设备故障列表
+  getFaults = async () => {
+    const { page } = this.state;
+    const res = await ajax.getFaults(page);
+    if (res.code === '10001') {
+      this.setState({
+        faultsList: res && res.data && res.data.list,
+      });
+    }
+  };
 
   showModal = (type, item = {}) => {
     let title = '修改故障设备'
@@ -67,7 +88,9 @@ class EquipmentFailureMain extends React.PureComponent {
       wrapperCol: { span: 20 },
     };
     const inputDisabled = true;
-    const { username, name, mail, phone, status, description } = this.state.item;
+    const { faultsList, item } = this.state;
+    const { username, name, mail, phone, status, description } = item;
+    window.console.log(`faultsList: ${faultsList}`);
     return (
       <div>
         <div className="equipment-failure">
@@ -85,7 +108,7 @@ class EquipmentFailureMain extends React.PureComponent {
           </div>
           <Table rowSelection={this.rowSelection}
             columns={columns(this.showModal)}
-            dataSource={data}
+            dataSource={faultsList}
           />
         </div>
         {

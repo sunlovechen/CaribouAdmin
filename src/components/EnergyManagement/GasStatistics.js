@@ -33,7 +33,7 @@ class GasStatistics extends React.PureComponent {
 
   render() {
     return (
-      <div className="detail-content" style={{ height: '48vh' }}>
+      <div className="detail-content">
         <div className="child-title">{'用电统计'}</div>
         <div className="child-content gas-statistics-content">
           {

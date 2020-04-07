@@ -1,103 +1,115 @@
 import React from 'react';
 import { Tag } from 'antd';
+import moment from 'moment';
 
-export const columns = [
-  {
-    title: '市公司',
-    dataIndex: 'companyName',
-    width: '100px',
-    fixed: 'left',
-  },
-  {
-    title: '油库',
-    dataIndex: 'oilDepot',
-    width: '100px',
-    fixed: 'left',
-  },
-  {
-    title: '设备编号',
-    dataIndex: 'deviceID',
-  },
-  {
-    title: '设备名称及编号',
-    dataIndex: 'equipment',
-  },
-  {
-    title: '品牌',
-    dataIndex: 'brand',
-    filters: [
-      {
-        text: '品牌1',
-        value: '品牌1',
+const dateFormat = 'YYYY-MM-DD HH:mm:ss';
+
+export const columns = (showModal, putDeviceStatusById) => {
+  return [
+    {
+      title: '市公司',
+      dataIndex: 'devCompanyName',
+      width: '100px',
+      fixed: 'left',
+    },
+    {
+      title: '油库',
+      dataIndex: 'devOilName',
+      width: '100px',
+      fixed: 'left',
+    },
+    {
+      title: '油库编号',
+      dataIndex: 'devOilCode',
+    },
+    {
+      title: '设备名称及编号',
+      dataIndex: 'devName',
+    },
+    {
+      title: '品牌',
+      dataIndex: 'devBrand',
+      // filters: [
+      //   {
+      //     text: '品牌1',
+      //     value: '品牌1',
+      //   },
+      //   {
+      //     text: '品牌2',
+      //     value: '品牌2',
+      //   },
+      // ],
+      // onFilter: (value, record) => record.brand.indexOf(value) === 0,
+    },
+    {
+      title: '规格型号',
+      dataIndex: 'devSpecifications',
+    },
+    {
+      title: '功率',
+      dataIndex: 'devPower',
+    },
+    {
+      title: '设备类别',
+      dataIndex: 'devCategoryName',
+    },
+    {
+      title: '责任人',
+      dataIndex: 'devPersonId',
+    },
+    {
+      title: '出厂日期',
+      dataIndex: 'devManufactureDate',
+      render: text => {
+        return <span>{moment(text).format(dateFormat)}</span>;
       },
-      {
-        text: '品牌2',
-        value: '品牌2',
+    },
+    {
+      title: '使用日期',
+      dataIndex: 'devUseDate',
+      render: text => {
+        return <span>{moment(text).format(dateFormat)}</span>;
       },
-    ],
-    onFilter: (value, record) => record.brand.indexOf(value) === 0,
-  },
-  {
-    title: '规格型号',
-    dataIndex: 'specifications',
-  },
-  {
-    title: '功率',
-    dataIndex: 'power',
-  },
-  {
-    title: '设备类别',
-    dataIndex: 'equipmentCategory',
-  },
-  {
-    title: '责任人',
-    dataIndex: 'responsible',
-  },
-  {
-    title: '出厂日期',
-    dataIndex: 'manufactureDate',
-  },
-  {
-    title: '使用日期',
-    dataIndex: 'useDate',
-  },
-  {
-    title: '生产厂商',
-    dataIndex: 'manufacturer',
-  },
-  {
-    title: '供应商',
-    dataIndex: 'supplier',
-  },
-  {
-    title: '设备状态',
-    dataIndex: 'deviceStatus',
-    render: text => {
-      return <Tag color={'blue'}>{text}</Tag>;
     },
-  },
-  {
-    title: '备注',
-    dataIndex: 'note',
-    width: '100px',
-    render: text => {
-      return (
-        <p className="hide-text" style={{ width: '100px' }} title={text}>
-          {text}
-        </p>
-      );
+    {
+      title: '生产厂商',
+      dataIndex: 'devManufacturersName',
     },
-  },
-  {
-    title: '操作',
-    dataIndex: 'operation',
-    width: '120px',
-    fixed: 'right',
-    render: () => {
-      return <div><a>修改 </a> <a> 报废</a></div>;
+    {
+      title: '供应商',
+      dataIndex: 'devSupplierName',
     },
-  },
-];
+    {
+      title: '设备状态',
+      dataIndex: 'devStatus',
+      render: text => {
+        return <Tag color={'blue'}>{text}</Tag>;
+      },
+    },
+    {
+      title: '备注',
+      dataIndex: 'devDesc',
+      width: '100px',
+      render: text => {
+        return (
+          <p className="hide-text" style={{ width: '100px' }} title={text}>
+            {text}
+          </p>
+        );
+      },
+    },
+    {
+      title: '操作',
+      dataIndex: 'id',
+      width: '120px',
+      fixed: 'right',
+      render: (text, record) => {
+        return <div><a onClick={() => showModal('修改设备信息', record)}>修改 </a>
+        <a onClick={() => putDeviceStatusById(text)}> 报废</a></div>;
+      },
+    },
+  ]
+};
 export const data = [
   {
     companyName: '市公司1',
