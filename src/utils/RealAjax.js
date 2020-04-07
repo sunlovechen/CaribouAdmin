@@ -2,6 +2,8 @@ import axios from 'axios';
 import globalConfig from '../config';
 import './interceptors';
 
+const api = globalConfig.getAPIPath();
+
 /**
  * 封装所有ajax逻辑, 为了配合async/await, 所有ajax请求都要返回promise对象
  */
@@ -12,7 +14,7 @@ class Ajax {
    * @returns {*}
    */
   testApi() {
-    return axios.get('/api/category/getCategorys');
+    return axios.get(`${api}/category/getCategorys`);
   }
 
   /**
@@ -22,17 +24,18 @@ class Ajax {
    * @param password
    */
   login(username, password) {
+    window.console.log(api);
     const data = new FormData();
     data.append('username', username);
     data.append('password', password);
-    return axios.post('/api/login', data);
+    return axios.post(`${api}/login`, data);
   }
 
   /**
    * 获取类别菜单
    */
   getCategorys() {
-    return axios.get('/api/category/getCategorys');
+    return axios.get(`${api}/category/getCategorys`);
   }
 
   /**
@@ -40,7 +43,7 @@ class Ajax {
    * @param id 设备id
    */
   getCategoryById(id) {
-    return axios.get(`/api/category/getCategoryById?id=${id}`);
+    return axios.get(`${api}/category/getCategoryById?id=${id}`);
   }
 
    /**
@@ -49,7 +52,7 @@ class Ajax {
    * @param categoryName
    */
   postCategory(detail) {
-    return axios.post('/api/category/postCategory', detail);
+    return axios.post(`${api}/category/postCategory`, detail);
   }
 
    /**
@@ -59,7 +62,7 @@ class Ajax {
    * @param categoryName
    */
   updateCategory(detail) {
-    return axios.post('/api/category/updateCategory', detail);
+    return axios.post(`${api}/category/updateCategory`, detail);
   }
 
 
@@ -69,7 +72,7 @@ class Ajax {
    * @param isdel
    */
   delCategory(detail) {
-    return axios.post('/api/category/delCategory', detail);
+    return axios.post(`${api}/category/delCategory`, detail);
   }
 
   /**
@@ -79,21 +82,21 @@ class Ajax {
    * @param queryMap: { devName devCode }
    */
   getDevices(detail) {
-    return axios.post('/api/dev/getDevices', detail);
+    return axios.post(`${api}/dev/getDevices`, detail);
   }
 
    /**
    * 添加设备
    */
   postDevice(detail) {
-    return axios.post('/api/dev/postDevice', detail);
+    return axios.post(`${api}/dev/postDevice`, detail);
   }
 
    /**
    * 更新设备
    */
   putDeviceById(detail) {
-    return axios.post('/api/dev/putDeviceById', detail);
+    return axios.post(`${api}/dev/putDeviceById`, detail);
   }
 
    /**
@@ -102,7 +105,7 @@ class Ajax {
    * @param devStatus
    */
   putDeviceStatusById(detail) {
-    return axios.post('/api/dev/putDeviceStatusById', detail);
+    return axios.post(`${api}/dev/putDeviceStatusById`, detail);
   }
 
   /**
@@ -111,7 +114,7 @@ class Ajax {
    * @param pageSize
    */
   getFaults(detail) {
-    return axios.post('/api/fault/getFaults', detail);
+    return axios.post(`${api}/fault/getFaults`, detail);
   }
 
   /**
@@ -121,7 +124,7 @@ class Ajax {
    * @param faultStatus
    */
   addFault(detail) {
-    return axios.post('/api/fault/addFault', detail);
+    return axios.post(`${api}/fault/addFault`, detail);
   }
 
   /**
@@ -133,7 +136,7 @@ class Ajax {
    * @param faultStatus
    */
   updateFault(detail) {
-    return axios.post('/api/fault/updateFault', detail);
+    return axios.post(`${api}/fault/updateFault`, detail);
   }
 
   /**
@@ -142,7 +145,7 @@ class Ajax {
    * @param isdel
    */
   getFaults(detail) {
-    return axios.post('/api/fault/delFaultRecord', detail);
+    return axios.post(`${api}/fault/delFaultRecord`, detail);
   }
 
   /**
@@ -152,14 +155,14 @@ class Ajax {
    * @param queryMap planType
    */
   planListPage(detail) {
-    return axios.post('/api/dev/plan/listPage', detail);
+    return axios.post(`${api}/dev/plan/listPage`, detail);
   }
 
   /**
    * 维修和保养 新增
    */
   planSave(detail) {
-    return axios.post('/api/dev/plan/save', detail);
+    return axios.post(`${api}/dev/plan/save`, detail);
   }
 
   /**
@@ -167,7 +170,7 @@ class Ajax {
    * @param id
    */
   planDetail(id) {
-    return axios.post('/api/dev/plan/detail', id);
+    return axios.post(`${api}/dev/plan/detail`, id);
   }
 
    /**
@@ -175,7 +178,7 @@ class Ajax {
    * @param id
    */
   planDel(id) {
-    return axios.post('/api/dev/plan/del', id);
+    return axios.post(`${api}/dev/plan/del`, id);
   }
 }
 

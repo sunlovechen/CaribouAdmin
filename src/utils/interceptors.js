@@ -1,6 +1,7 @@
 import axios from 'axios';
 import store from '../redux/store';
 import { changeSpinCreator } from '../redux/Spin';
+import { message } from 'antd';
 
 // 添加请求拦截器
 axios.interceptors.request.use(
@@ -21,6 +22,9 @@ axios.interceptors.response.use(
   response => {
     // 对响应数据做点什么
     store.dispatch(changeSpinCreator(false));
+    if (response && response.data && response.data.code !== '10001') {
+      message.error(response.data.msg);
+    }
     return response && response.data;
   },
   error => {
