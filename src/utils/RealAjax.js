@@ -144,7 +144,7 @@ class Ajax {
    * @param id
    * @param isdel
    */
-  getFaults(detail) {
+  delFaultRecord(detail) {
     return axios.post(`${api}/fault/delFaultRecord`, detail);
   }
 

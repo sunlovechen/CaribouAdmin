@@ -32,6 +32,7 @@ class DeviceListMain extends React.PureComponent {
       },
       devicesItem: {},
       categoryList: [],
+      propsItem: {},
     };
   }
 
@@ -91,10 +92,16 @@ class DeviceListMain extends React.PureComponent {
           title: '',
         });
         if (!id) {
-          this.postDevice(values);
+          const detail = Object.assign({}, values, {
+            devManufactureDate: moment(values.devManufactureDate).format(dateFormat),
+            devUseDate: moment(values.devUseDate).format(dateFormat),
+          });
+          this.postDevice(detail);
         } else {
           const detail = Object.assign({}, values, {
             id,
+            devManufactureDate: moment(values.devManufactureDate).format(dateFormat),
+            devUseDate: moment(values.devUseDate).format(dateFormat),
           });
           this.putDeviceById(detail);
         }
@@ -114,10 +121,13 @@ class DeviceListMain extends React.PureComponent {
   rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       window.console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      this.setState({
+        propsItem: selectedRows[0],
+      });
     },
     getCheckboxProps: record => ({
-      disabled: record.name === 'Disabled User', // Column configuration not to be checked
-      name: record.name,
+      disabled: record.devStatus !== '使用中', // Column configuration not to be checked
+      // name: record.name,
     }),
     type: 'radio',
   };
@@ -454,7 +464,7 @@ class DeviceListMain extends React.PureComponent {
                             message: '请选择出厂日期',
                           },
                         ],
-                        initialValue: moment(devManufactureDate),
+                        initialValue: devManufactureDate && moment(devManufactureDate),
                       })(<DatePicker showTime style={{ width: '100%' }} format={dateFormat} />)}
                     </Form.Item>
                   </Col>
@@ -468,7 +478,7 @@ class DeviceListMain extends React.PureComponent {
                             message: '请选择使用日期',
                           },
                         ],
-                        initialValue: moment(devUseDate),
+                        initialValue: devUseDate && moment(devUseDate),
                       })(<DatePicker showTime style={{ width: '100%' }} format={dateFormat} />)}
                     </Form.Item>
                   </Col>
@@ -505,7 +515,7 @@ class DeviceListMain extends React.PureComponent {
           </Modal>
         )}
 
-        <EquipmentService />
+        <EquipmentService deviceItem={this.state.propsItem} />
       </div>
     );
   }

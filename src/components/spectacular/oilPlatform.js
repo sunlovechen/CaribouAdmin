@@ -16,8 +16,8 @@ class OilPlatform extends React.PureComponent {
         width: '140px',
         height: '140px',
         background: `url(${imgUrl[this.props.id]})`,
-        'background-size': '100% 100%',
-        'background-position': 'top left',
+        backgroundSize: '100% 100%',
+        backgroundPosition: 'top left',
       },
     };
   }

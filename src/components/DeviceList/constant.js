@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tag } from 'antd';
+// import { Tag } from 'antd';
 import moment from 'moment';
 
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
@@ -82,9 +82,9 @@ export const columns = (showModal, putDeviceStatusById) => {
     {
       title: '设备状态',
       dataIndex: 'devStatus',
-      render: text => {
-        return <Tag color={'blue'}>{text}</Tag>;
-      },
+      // render: text => {
+      //   return <Tag color={'blue'}>{text}</Tag>;
+      // },
     },
     {
       title: '备注',

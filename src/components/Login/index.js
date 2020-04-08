@@ -39,7 +39,7 @@ class Login extends React.PureComponent {
     // async可以配合箭头函数
     e.preventDefault(); // 这个很重要, 防止跳转
     this.setState({ requesting: true });
-    // const hide = message.loading('正在验证...', 0);
+    const hide = message.loading('正在验证...', 0);
 
     const username = this.state.username;
     const password = this.state.password;
@@ -47,7 +47,7 @@ class Login extends React.PureComponent {
 
     // 服务端验证
     const res = await ajax.login(username, password);
-    // hide();
+    hide();
     logger.debug('login validate return: result %o', res);
 
     if (res.code === '10001') {

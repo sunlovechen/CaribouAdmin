@@ -44,7 +44,8 @@ class Header extends React.PureComponent {
       <MenuItem key="logout">
         <Icon type="logout" />
         {/* <a href={`${globalConfig.getAPIPath()}/login`}>注销</a> */}
-        <a href={'http://localhost:8080/'}>注销</a>
+        {/* <a href={`${globalConfig.login.logout}/#/login`}>注销</a> */}
+        <Link to={'/login'}>注销</Link>
       </MenuItem>
     );
 
@@ -138,9 +139,9 @@ class Header extends React.PureComponent {
           </span>
         }
       >
-        {userMenuItems && userMenuItems[0] ? userMenuItems : null}
+        {/* {userMenuItems && userMenuItems[0] ? userMenuItems : null}
         <Menu.Divider />
-        {logoutMenuItem}
+        {logoutMenuItem} */}
       </SubMenu>
     );
 

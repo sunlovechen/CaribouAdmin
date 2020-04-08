@@ -3,6 +3,8 @@ import store from '../redux/store';
 import { changeSpinCreator } from '../redux/Spin';
 import { message } from 'antd';
 
+axios.defaults.withCredentials = true;
+
 // 添加请求拦截器
 axios.interceptors.request.use(
   config => {
@@ -22,6 +24,7 @@ axios.interceptors.response.use(
   response => {
     // 对响应数据做点什么
     store.dispatch(changeSpinCreator(false));
+    window.console.log('response', response, document.cookie, 'response');
     if (response && response.data && response.data.code !== '10001') {
       message.error(response.data.msg);
     }
