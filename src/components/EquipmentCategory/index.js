@@ -242,7 +242,7 @@ class EquipmentCategoryMain extends React.Component {
                       dropdownStyle={{ maxHeight: 320, overflow: 'auto' }}
                       placeholder="请选择所属设备"
                       treeDefaultExpandAll>
-                      <TreeSelectNode value={0} title={'父级设备'} key={0}>
+                      <TreeSelectNode value={'0'} title={'父级设备'} key={0}>
                         {this.getTreeSelectNode(categoryList)}
                       </TreeSelectNode>
                     </TreeSelect>,

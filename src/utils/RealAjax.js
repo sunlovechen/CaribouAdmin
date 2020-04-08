@@ -165,6 +165,13 @@ class Ajax {
     return axios.post(`${api}/dev/plan/save`, detail);
   }
 
+    /**
+   * 维修和保养 修改
+   */
+  planUpdate(detail) {
+    return axios.post(`${api}/dev/plan/update`, detail);
+  }
+
   /**
    * 计划详情
    * @param id

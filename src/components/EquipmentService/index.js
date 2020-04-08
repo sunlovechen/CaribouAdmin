@@ -12,8 +12,7 @@ const { TabPane } = Tabs;
 class EquipmentService extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
   render() {
@@ -21,19 +20,27 @@ class EquipmentService extends React.PureComponent {
       <div className="equipment-service">
         <Tabs defaultActiveKey="1">
           <TabPane tab="保养计划" key="1">
-            {/* <MaintenancePlan /> */}
-            保养计划
+            <MaintenancePlan deviceItem={this.props.deviceItem} />
           </TabPane>
           <TabPane tab="保养记录" key="2">
-              保养记录
+            保养记录
           </TabPane>
-          <TabPane tab="维修计划" key="3">
+          <TabPane tab="被动保养记录" key="3">
+            被动保养记录
+          </TabPane>
+          <TabPane tab="维修计划" key="4">
             维修计划
           </TabPane>
-          <TabPane tab="维修记录" key="4">
+          <TabPane tab="维修记录" key="5">
             维修记录
           </TabPane>
-          <TabPane tab="设备故障" key="5">
+          <TabPane tab="被动维修记录" key="6">
+            被动维修记录
+          </TabPane>
+          <TabPane tab="被动计划" key="7">
+            被动计划
+          </TabPane>
+          <TabPane tab="设备故障" key="8">
             <EquipmentFailure deviceItem={this.props.deviceItem} />
           </TabPane>
         </Tabs>
