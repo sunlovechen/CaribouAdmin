@@ -18,6 +18,7 @@ import EquipmentCategory from './components/EquipmentCategory';
 import DepartmentManagement from './components/DepartmentManagement';
 import JobManagement from './components/JobManagement';
 import RoleManagement from './components/RoleManagement';
+import WorkProcessList from './components/WorkProcessList';
 
 import './index.less';
 
@@ -42,6 +43,9 @@ const routes = (
         <Route path="equipment">
           <Route path="deviceList" component={DeviceList} />
           <Route path="equipmentCategory" component={EquipmentCategory} />
+        </Route>
+        <Route path="workProcess">
+          <Route path="workProcessList" component={WorkProcessList} />
         </Route>
 
         <Route path="*" component={Error} />

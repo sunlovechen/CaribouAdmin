@@ -50,6 +50,17 @@ const sidebarMenu = [
       },
     ],
   },
+  {
+    key: 'workProcess',
+    name: '工作流程管理',
+    child: [
+      {
+        key: 'workProcessList',
+        name: '工作流程列表',
+      },
+
+    ],
+  },
 ];
 
 export default sidebarMenu;
