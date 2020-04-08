@@ -154,7 +154,7 @@ class MaintenancePlanMain extends React.PureComponent {
         page: pagination,
       },
       () => {
-        this.getDevices();
+        this.planListPage();
       },
     );
   };

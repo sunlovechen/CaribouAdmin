@@ -9,9 +9,9 @@ const { Option } = Select;
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
 /**
- * 保养记录
+ * 维修记录
  */
-class MaintenanceRecordsMain extends React.PureComponent {
+class ServiceRecordsMain extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,7 +26,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
         total: 0,
       },
       queryMap: {
-        recordType: 1,
+        recordType: 3,
       },
       recordDetail: {},
     };
@@ -36,7 +36,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
     this.recordListPage();
   }
 
-  // 设备保养记录
+  // 设备维修记录
   recordListPage = async () => {
     const { page, queryMap } = this.state;
     const detail = {
@@ -58,9 +58,9 @@ class MaintenanceRecordsMain extends React.PureComponent {
   };
 
   showModal = (type, recordItem = {}) => {
-    let title = '修改保养记录';
+    let title = '修改维修记录';
     if (type === 'add') {
-      title = '新增保养记录';
+      title = '新增维修记录';
     }
     this.setState({
       visible: true,
@@ -99,7 +99,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
     });
   };
 
-  // 添加保养记录
+  // 添加维修记录
   recordSave = async detail => {
     const res = await ajax.recordSave(detail);
     if (res.code === '10001') {
@@ -107,7 +107,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
     }
   };
 
-  // 更新保养记录
+  // 更新维修记录
   recordUpdate = async detail => {
     const res = await ajax.recordUpdate(detail);
     if (res.code === '10001') {
@@ -115,7 +115,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
     }
   };
 
-  // 删除保养记录
+  // 删除维修记录
   recordDel = async id => {
     const detail = {
       id,
@@ -191,7 +191,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
     window.console.log(`recordList: ${recordList}`);
     return (
       <div>
-        <div className="equipment-failure">
+        <div className="service-records">
           <div className="title">
             {/* <Input className="title-input" placeholder="用户名字/显示名字" />
             <Button className="title-query" type="ghost">
@@ -359,6 +359,6 @@ class MaintenanceRecordsMain extends React.PureComponent {
   }
 }
 
-const MaintenanceRecords = Form.create()(MaintenanceRecordsMain);
+const ServiceRecords = Form.create()(ServiceRecordsMain);
 
-export default MaintenanceRecords;
+export default ServiceRecords;

@@ -6,6 +6,9 @@ import EquipmentFailure from './EquipmentFailure';
 import PassivePlan from './PassivePlan';
 import MaintenanceRecords from './MaintenanceRecords';
 import ServicePlan from './ServicePlan';
+import ServiceRecords from './ServiceRecords';
+import PassiveMaintenanceRecord from './PassiveMaintenanceRecord';
+import PassiveServiceRecords from './PassiveServiceRecords';
 
 const { TabPane } = Tabs;
 
@@ -39,19 +42,19 @@ class EquipmentService extends React.PureComponent {
             <MaintenanceRecords planItem={this.state.maintenancePlan} />
           </TabPane>
           <TabPane tab="被动保养记录" key="3">
-            被动保养记录
+            <PassiveMaintenanceRecord planItem={this.state.passivePlan} />
           </TabPane>
           <TabPane tab="维修计划" key="4">
             <ServicePlan deviceItem={this.props.deviceItem} changeState={this.changeState} />
           </TabPane>
           <TabPane tab="维修记录" key="5">
-            维修记录
+            <ServiceRecords planItem={this.state.servicePlan} />
           </TabPane>
           <TabPane tab="被动维修记录" key="6">
-            被动维修记录
+            <PassiveServiceRecords planItem={this.state.passivePlan} />
           </TabPane>
           <TabPane tab="被动计划" key="7">
-            <PassivePlan deviceItem={this.props.deviceItem} />
+            <PassivePlan deviceItem={this.props.deviceItem} changeState={this.changeState} />
           </TabPane>
           <TabPane tab="设备故障" key="8">
             <EquipmentFailure deviceItem={this.props.deviceItem} />

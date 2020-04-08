@@ -120,7 +120,7 @@ class EquipmentFailureMain extends React.PureComponent {
         page: pagination,
       },
       () => {
-        this.getDevices();
+        this.getFaults();
       },
     );
   };

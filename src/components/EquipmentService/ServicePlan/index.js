@@ -154,7 +154,7 @@ class ServicePlanMain extends React.PureComponent {
         page: pagination,
       },
       () => {
-        this.getDevices();
+        this.planListPage();
       },
     );
   };
@@ -207,7 +207,7 @@ class ServicePlanMain extends React.PureComponent {
     } = planItem;
     window.console.log(`planList: ${planList}`);
     return (
-      <div className="Service-plan">
+      <div className="service-plan">
         <div>
           <div className="title">
             {/* <Input className="title-input" placeholder="用户名字/显示名字" />

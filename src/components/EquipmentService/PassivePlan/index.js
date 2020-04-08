@@ -123,7 +123,7 @@ class PassivePlanMain extends React.PureComponent {
         page: pagination,
       },
       () => {
-        this.getDevices();
+        this.passiveListPage();
       },
     );
   };
@@ -134,6 +134,18 @@ class PassivePlanMain extends React.PureComponent {
       visible: false,
       title: '',
     });
+  };
+
+  rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      window.console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      this.props.changeState('passivePlan', selectedRows[0]);
+    },
+    // getCheckboxProps: record => ({
+    //   disabled: record.devStatus !== '使用中', // Column configuration not to be checked
+    //   // name: record.name,
+    // }),
+    type: 'radio',
   };
 
   render() {
@@ -171,6 +183,7 @@ class PassivePlanMain extends React.PureComponent {
             dataSource={passiveList}
             pagination={page}
             onChange={this.pageChange}
+            rowSelection={this.rowSelection}
           />
         </div>
         {this.state.visible && (

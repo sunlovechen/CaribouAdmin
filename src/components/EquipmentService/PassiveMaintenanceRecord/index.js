@@ -9,9 +9,9 @@ const { Option } = Select;
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
 /**
- * 保养记录
+ * 被动保养记录
  */
-class MaintenanceRecordsMain extends React.PureComponent {
+class PassiveMaintenanceRecordsMain extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,7 +26,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
         total: 0,
       },
       queryMap: {
-        recordType: 1,
+        recordType: 2,
       },
       recordDetail: {},
     };
@@ -36,7 +36,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
     this.recordListPage();
   }
 
-  // 设备保养记录
+  // 设备被动保养记录
   recordListPage = async () => {
     const { page, queryMap } = this.state;
     const detail = {
@@ -58,9 +58,9 @@ class MaintenanceRecordsMain extends React.PureComponent {
   };
 
   showModal = (type, recordItem = {}) => {
-    let title = '修改保养记录';
+    let title = '修改被动保养记录';
     if (type === 'add') {
-      title = '新增保养记录';
+      title = '新增被动保养记录';
     }
     this.setState({
       visible: true,
@@ -99,7 +99,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
     });
   };
 
-  // 添加保养记录
+  // 添加被动保养记录
   recordSave = async detail => {
     const res = await ajax.recordSave(detail);
     if (res.code === '10001') {
@@ -107,7 +107,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
     }
   };
 
-  // 更新保养记录
+  // 更新被动保养记录
   recordUpdate = async detail => {
     const res = await ajax.recordUpdate(detail);
     if (res.code === '10001') {
@@ -115,7 +115,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
     }
   };
 
-  // 删除保养记录
+  // 删除被动保养记录
   recordDel = async id => {
     const detail = {
       id,
@@ -359,6 +359,6 @@ class MaintenanceRecordsMain extends React.PureComponent {
   }
 }
 
-const MaintenanceRecords = Form.create()(MaintenanceRecordsMain);
+const PassiveMaintenanceRecords = Form.create()(PassiveMaintenanceRecordsMain);
 
-export default MaintenanceRecords;
+export default PassiveMaintenanceRecords;
