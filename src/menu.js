@@ -58,7 +58,10 @@ const sidebarMenu = [
         key: 'workProcessList',
         name: '工作流程列表',
       },
-
+      {
+        key: 'workOrder',
+        name: '工单',
+      },
     ],
   },
 ];
