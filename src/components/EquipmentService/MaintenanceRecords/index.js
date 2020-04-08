@@ -18,7 +18,8 @@ class MaintenanceRecordsMain extends React.PureComponent {
       visible: false,
       detailVisible: false,
       title: '',
-      planItem: {},
+      recordItem: {},
+      recordList: [],
       planList: [],
       page: {
         current: 1,
@@ -28,13 +29,30 @@ class MaintenanceRecordsMain extends React.PureComponent {
       queryMap: {
         planType: 1,
       },
-      planDetail: {},
+      recordDetail: {},
     };
   }
 
   componentWillMount() {
     this.recordListPage();
+    this.planListPage();
   }
+
+  // 设备计划
+  planListPage = async () => {
+    const { queryMap } = this.state;
+    const detail = {
+      pageNum: 1,
+      pageSize: 100,
+      queryMap,
+    };
+    const res = await ajax.planListPage(detail);
+    if (res.code === '10001') {
+      this.setState({
+        planList: res && res.data && res.data.list,
+      });
+    }
+  };
 
   // 设备保养记录
   recordListPage = async () => {
@@ -47,7 +65,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
     const res = await ajax.recordListPage(detail);
     if (res.code === '10001') {
       this.setState({
-        planList: res && res.data && res.data.list,
+        recordList: res && res.data && res.data.list,
         page: {
           current: page.current,
           pageSize: page.pageSize,
@@ -57,7 +75,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
     }
   };
 
-  showModal = (type, planItem = {}) => {
+  showModal = (type, recordItem = {}) => {
     let title = '修改保养记录';
     if (type === 'add') {
       title = '新增保养记录';
@@ -65,13 +83,13 @@ class MaintenanceRecordsMain extends React.PureComponent {
     this.setState({
       visible: true,
       title,
-      planItem,
+      recordItem,
     });
   };
 
   handleOk = () => {
     const { form, deviceItem } = this.props;
-    const { id } = this.state.planItem;
+    const { id } = this.state.recordItem;
     const { queryMap } = this.state;
     form.validateFieldsAndScroll((error, values) => {
       if (!error) {
@@ -82,19 +100,15 @@ class MaintenanceRecordsMain extends React.PureComponent {
         if (!id) {
           // 新增
           const detail = Object.assign({}, values, {
-            planDevId: deviceItem.id,
-            planType: queryMap.planType,
-            planStartDate: moment(values.planStartDate).format(dateFormat),
-            planEndDate: moment(values.planEndDate).format(dateFormat),
+            recordDevId: deviceItem.id,
+            recordType: queryMap.planType,
           });
           this.planSave(detail);
         } else {
           // 修改
           const detail = Object.assign({}, values, {
             id,
-            planType: queryMap.planType,
-            planStartDate: moment(values.planStartDate).format(dateFormat),
-            planEndDate: moment(values.planEndDate).format(dateFormat),
+            recordType: queryMap.planType,
           });
           this.planUpdate(detail);
         }
@@ -104,45 +118,45 @@ class MaintenanceRecordsMain extends React.PureComponent {
   };
 
   // 添加保养记录
-  planSave = async detail => {
-    const res = await ajax.planSave(detail);
+  recordSave = async detail => {
+    const res = await ajax.recordSave(detail);
     if (res.code === '10001') {
       this.recordListPage();
     }
   };
 
   // 更新保养记录
-  planUpdate = async detail => {
-    const res = await ajax.planUpdate(detail);
+  recordUpdate = async detail => {
+    const res = await ajax.recordUpdate(detail);
     if (res.code === '10001') {
       this.recordListPage();
     }
   };
 
   // 删除保养记录
-  planDel = async id => {
+  recordDel = async id => {
     const detail = {
       id,
       isdel: 1,
     };
-    const res = await ajax.planDel(detail);
+    const res = await ajax.recordDel(detail);
     if (res.code === '10001') {
       this.recordListPage();
     }
   };
 
   // 记录详情
-  planDetail = async id => {
-    const res = await ajax.planDetail({ id });
+  recordDetail = async id => {
+    const res = await ajax.recordDetail({ id });
     if (res.code === '10001') {
       this.setState({
         detailVisible: true,
-        planDetail: res.data,
+        recordDetail: res.data,
       });
     }
   };
 
-  planDetailCancel = e => {
+  recordDetailCancel = e => {
     this.setState({
       detailVisible: false,
     });
@@ -168,32 +182,31 @@ class MaintenanceRecordsMain extends React.PureComponent {
   };
 
   render() {
-    window.console.log('deviceItem', this.props.deviceItem, this.state.planDetail);
+    window.console.log('deviceItem', this.props.deviceItem, this.state.recordDetail);
     const { deviceItem } = this.props;
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 16 },
     };
+    const formTextLayout = {
+      labelCol: { span: 3 },
+      wrapperCol: { span: 20 },
+    };
     const inputDisabled = true;
-    const { planList, planItem, page, planDetail } = this.state;
+    const { recordList, recordItem, page, recordDetail, planList } = this.state;
     const {
-      planName,
-      planCode,
-      planGroupId,
-      planLevel,
-      planMode,
-      planPosition,
-      planStatus,
-      planStandard,
-      planCycleNum,
-      planCycleType,
-      planStartDate,
-      planEndDate,
-      planDesc,
       id,
-    } = planItem;
-    window.console.log(`planList: ${planList}`);
+      recordCode,
+      recordPlanId,
+      recodeShutdownType,
+      recodeShutdownTime,
+      recordUserName,
+      recodeMoney,
+      recodeDesc,
+      recodeContent,
+    } = recordItem;
+    window.console.log(`recordList: ${recordList}`);
     return (
       <div>
         <div className="equipment-failure">
@@ -202,11 +215,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
             <Button className="title-query" type="ghost">
               {'查询'}
             </Button> */}
-            <Button
-              className="title-add"
-              type="primary"
-              onClick={() => this.showModal('add', {})}
-              disabled={!deviceItem.id}>
+            <Button className="title-add" type="primary" onClick={() => this.showModal('add', {})}>
               {'新增'}
             </Button>
             {/* <Button className="title-delete" type="primary">
@@ -214,8 +223,8 @@ class MaintenanceRecordsMain extends React.PureComponent {
             </Button> */}
           </div>
           <Table
-            columns={columns(this.showModal, this.planDetail, this.planDel)}
-            dataSource={planList}
+            columns={columns(this.showModal, this.recordDetail, this.recordDel)}
+            dataSource={recordList}
             pagination={page}
             onChange={this.pageChange}
             scroll={{
@@ -234,213 +243,118 @@ class MaintenanceRecordsMain extends React.PureComponent {
             <Form>
               <Row>
                 <Col span={12}>
-                  <Form.Item label="计划名字" {...formItemLayout}>
-                    {getFieldDecorator('planName', {
+                  <Form.Item label="记录编号" {...formItemLayout}>
+                    {getFieldDecorator('recordCode', {
+                      initialValue: recordCode,
+                    })(<Input placeholder="自动生成记录编号" disabled={inputDisabled} />)}
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item label="保养计划" {...formItemLayout}>
+                    {getFieldDecorator('recordPlanId', {
                       rules: [
                         {
                           required: true,
-                          message: '请输入计划名字',
+                          message: '请选择保养计划',
                         },
                       ],
-                      initialValue: planName,
-                    })(<Input placeholder="请输入计划名字" />)}
-                  </Form.Item>
-                </Col>
-
-                <Col span={12}>
-                  <Form.Item label="计划编号" {...formItemLayout}>
-                    {getFieldDecorator('planCode', {
-                      initialValue: planCode,
-                    })(<Input placeholder="自动生成计划编号" disabled={inputDisabled} />)}
-                  </Form.Item>
-                </Col>
-
-                <Col span={12}>
-                  <Form.Item label="计划等级" {...formItemLayout}>
-                    {getFieldDecorator('planLevel', {
-                      rules: [
-                        {
-                          required: true,
-                          message: '请选择计划等级',
-                        },
-                      ],
-                      initialValue: planLevel,
+                      initialValue: recordPlanId,
                     })(
-                      <Select placeholder="请选择计划等级">
-                        <Option value={0}>{'日常保养'}</Option>
+                      <Select placeholder="请选择保养计划">
+                        {planList.map(item => {
+                          return (
+                            <Option key={item.planCode} value={item.id}>
+                              {item.planName}
+                            </Option>
+                          );
+                        })}
                       </Select>,
                     )}
                   </Form.Item>
                 </Col>
-
-                <Col span={12}>
-                  <Form.Item label="计划组" {...formItemLayout}>
-                    {getFieldDecorator('planGroupId', {
-                      rules: [
-                        {
-                          required: true,
-                          message: '请选择计划组',
-                        },
-                      ],
-                      initialValue: planGroupId,
-                    })(
-                      <Select placeholder="请选择计划组">
-                        <Option value={1}>{'计划组1'}</Option>
-                      </Select>,
-                    )}
-                  </Form.Item>
-                </Col>
-
-                <Col span={12}>
-                  <Form.Item label="部位" {...formItemLayout}>
-                    {getFieldDecorator('planPosition', {
-                      rules: [
-                        {
-                          required: true,
-                          message: '请输入部位',
-                        },
-                      ],
-                      initialValue: planPosition,
-                    })(<Input placeholder="请输入部位" />)}
-                  </Form.Item>
-                </Col>
-
-                <Col span={12}>
-                  <Form.Item label="标准" {...formItemLayout}>
-                    {getFieldDecorator('planStandard', {
-                      rules: [
-                        {
-                          required: true,
-                          message: '请选择标准',
-                        },
-                      ],
-                      initialValue: planStandard,
-                    })(
-                      <Select placeholder="请选择标准">
-                        <Option value={'正常标准'}>{'正常标准'}</Option>
-                      </Select>,
-                    )}
-                  </Form.Item>
-                </Col>
-
                 <Col span={12} style={{ margin: '-1px 0' }}>
-                  <Form.Item label="循环方式" {...formItemLayout}>
-                    {getFieldDecorator('planMode', {
+                  <Form.Item label="是否停机" {...formItemLayout}>
+                    {getFieldDecorator('recodeShutdownType', {
                       rules: [
                         {
                           required: true,
-                          message: '请选择循环方式',
+                          message: '请选择是否停机',
                         },
                       ],
-                      initialValue: planMode,
+                      initialValue: recodeShutdownType,
                     })(
                       <Radio.Group>
-                        <Radio value={0}>单次</Radio>
-                        <Radio value={1}>多次</Radio>
+                        <Radio value={1}>是</Radio>
+                        <Radio value={2}>否</Radio>
                       </Radio.Group>,
                     )}
                   </Form.Item>
                 </Col>
-
                 <Col span={12}>
-                  <Row>
-                    <Col span={14}>
-                      <Form.Item label="保养周期" labelCol={{ span: 10 }} wrapperCol={{ span: 12 }}>
-                        {getFieldDecorator('planCycleNum', {
-                          rules: [
-                            {
-                              required: true,
-                              message: '请输入周期时间',
-                            },
-                          ],
-                          initialValue: planCycleNum,
-                        })(<InputNumber placeholder=" " />)}
-                      </Form.Item>
-                    </Col>
-                    <Col span={8}>
-                      <Form.Item wrapperCol={{ span: 24 }}>
-                        {getFieldDecorator('planCycleType', {
-                          rules: [
-                            {
-                              required: true,
-                              message: '请选择周期类型',
-                            },
-                          ],
-                          initialValue: planCycleType,
-                        })(
-                          <Select placeholder="请选择周期类型">
-                            <Option value={1}>{'天'}</Option>
-                            <Option value={2}>{'周'}</Option>
-                            <Option value={3}>{'月'}</Option>
-                            <Option value={4}>{'年'}</Option>
-                          </Select>,
-                        )}
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                </Col>
-
-                <Col span={12}>
-                  <Form.Item label="计划描述" {...formItemLayout}>
-                    {getFieldDecorator('planDesc', {
+                  <Form.Item label="停机时长" {...formItemLayout}>
+                    {getFieldDecorator('recodeShutdownTime', {
                       rules: [
                         {
                           required: true,
-                          message: '请输入计划描述',
+                          message: '请输入停机时长',
                         },
                       ],
-                      initialValue: planDesc,
-                    })(<Input placeholder="请输入计划描述" />)}
+                      initialValue: recodeShutdownTime,
+                    })(<Input placeholder="请输入停机时长" />)}
                   </Form.Item>
                 </Col>
-
                 <Col span={12}>
-                  <Form.Item label="状态" {...formItemLayout}>
-                    {getFieldDecorator('planStatus', {
+                  <Form.Item label="负责人" {...formItemLayout}>
+                    {getFieldDecorator('recordUserName', {
                       rules: [
                         {
                           required: true,
-                          message: '请选择状态',
+                          message: '请输入负责人',
                         },
                       ],
-                      initialValue: planStatus,
-                    })(
-                      <Select placeholder="请选择状态">
-                        <Option value={1}>{'有效'}</Option>
-                        <Option value={2}>{'无效'}</Option>
-                      </Select>,
-                    )}
+                      initialValue: recordUserName,
+                    })(<Input placeholder="请输入负责人" />)}
                   </Form.Item>
                 </Col>
-
                 <Col span={12}>
-                  <Form.Item label="计划开始时间" {...formItemLayout}>
-                    {getFieldDecorator('planStartDate', {
+                  <Form.Item label="费用" {...formItemLayout}>
+                    {getFieldDecorator('recodeMoney', {
                       rules: [
                         {
                           required: true,
-                          message: '请选择计划开始时间',
+                          message: '请输入费用',
                         },
                       ],
-                      initialValue: planStartDate && moment(planStartDate),
-                    })(<DatePicker showTime style={{ width: '100%' }} format={dateFormat} />)}
+                      initialValue: recodeMoney,
+                    })(<Input placeholder="请输入费用" />)}
                   </Form.Item>
                 </Col>
-
                 <Col span={12}>
-                  <Form.Item label="计划结束时间" {...formItemLayout}>
-                    {getFieldDecorator('planEndDate', {
+                  <Form.Item label="记录内容" {...formItemLayout}>
+                    {getFieldDecorator('recodeContent', {
                       rules: [
                         {
                           required: true,
-                          message: '请选择计划结束时间',
+                          message: '请输入记录内容',
                         },
                       ],
-                      initialValue: planEndDate && moment(planEndDate),
-                    })(<DatePicker showTime style={{ width: '100%' }} format={dateFormat} />)}
+                      initialValue: recodeContent,
+                    })(<Input placeholder="请输入记录内容" />)}
                   </Form.Item>
                 </Col>
               </Row>
+
+              <Form.Item label="记录描述" {...formTextLayout}>
+                {getFieldDecorator('recodeDesc', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入记录描述',
+                    },
+                  ],
+                  initialValue: recodeDesc,
+                })(<Input type="textarea" placeholder="请输入记录描述" />)}
+              </Form.Item>
             </Form>
           </Modal>
         )}
@@ -449,60 +363,60 @@ class MaintenanceRecordsMain extends React.PureComponent {
           <Modal
             title={'计划详情'}
             visible={this.state.detailVisible}
-            onOk={this.planDetailCancel}
+            onOk={this.recordDetailCancel}
             maskClosable={false}
-            onCancel={this.planDetailCancel}
+            onCancel={this.recordDetailCancel}
             width={'668px'}>
             <Row>
               <Col span={12}>
                 <label>保养计划名称：</label>
-                <span>{planDetail.planName}</span>
+                <span>{recordDetail.planName}</span>
               </Col>
               <Col span={12}>
                 <label>保养计划编号：</label>
-                <span>{planDetail.planCode}</span>
+                <span>{recordDetail.planCode}</span>
               </Col>
               <Col span={12}>
                 <label>计划等级：</label>
-                <span>{PlanLevel[planDetail.planLevel]}</span>
+                <span>{PlanLevel[recordDetail.planLevel]}</span>
               </Col>
               <Col span={12}>
                 <label>计划组：</label>
-                <span>{PlanGroupId[planDetail.planGroupId]}</span>
+                <span>{PlanGroupId[recordDetail.planGroupId]}</span>
               </Col>
               <Col span={12}>
                 <label>部位：</label>
-                <span>{planDetail.planPosition}</span>
+                <span>{recordDetail.planPosition}</span>
               </Col>
               <Col span={12}>
                 <label>标准：</label>
-                <span>{planDetail.planStandard}</span>
+                <span>{recordDetail.planStandard}</span>
               </Col>
               <Col span={12}>
                 <label>循环方式：</label>
-                <span>{PlanMode[planDetail.planMode]}</span>
+                <span>{PlanMode[recordDetail.planMode]}</span>
               </Col>
               <Col span={12}>
                 <label>保养周期：</label>
                 <span>
-                  {planDetail.planCycleNum} {PlanCycleType[planDetail.planCycleType]}
+                  {recordDetail.planCycleNum} {PlanCycleType[recordDetail.planCycleType]}
                 </span>
               </Col>
               <Col span={12}>
                 <label>状态：</label>
-                <span>{PlanStatus[planDetail.planStatus]}</span>
+                <span>{PlanStatus[recordDetail.planStatus]}</span>
               </Col>
               <Col span={12}>
                 <label>计划开始时间：</label>
-                <span>{moment(planDetail.planStartDate).format(dateFormat)}</span>
+                <span>{moment(recordDetail.planStartDate).format(dateFormat)}</span>
               </Col>
               <Col span={12}>
                 <label>计划结束时间：</label>
-                <span>{moment(planDetail.planEndDate).format(dateFormat)}</span>
+                <span>{moment(recordDetail.planEndDate).format(dateFormat)}</span>
               </Col>
               <Col span={12}>
                 <label>计划描述：</label>
-                <span>{planDetail.planDesc}</span>
+                <span>{recordDetail.planDesc}</span>
               </Col>
             </Row>
           </Modal>
