@@ -187,6 +187,43 @@ class Ajax {
   planDel(id) {
     return axios.post(`${api}/dev/plan/del`, id);
   }
+
+
+ /**
+   * 被动计划列表
+   * @param pageNum
+   * @param pageSize
+   */
+  passiveListPage(detail) {
+    return axios.post(`${api}/passive/listPage`, detail);
+  }
+
+   /**
+   * 被动计划修改
+   */
+  passiveUpdatePassive(detail) {
+    return axios.post(`${api}/passive/updatePassive`, detail);
+  }
+
+   /**
+   * 被动计划新增
+   */
+  passiveSavePassive(detail) {
+    return axios.post(`${api}/passive/savePassive`, detail);
+  }
+
+   /**
+   * 删除被动计划
+   * @param id
+   */
+  passiveDeletePassive(detail) {
+    return axios.post(`${api}/passive/deletePassive`, detail);
+  }
+
+
+
+
+
 }
 
 export default Ajax;

@@ -61,23 +61,3 @@ export const columns = (showModal, delFaultRecord) => {
     },
   ]
 };
-export const data = [
-  {
-    id: 1,
-    username: '用户名1',
-    name: '故障编号1',
-    mail: '故障等级2',
-    phone: '故障类别1',
-    status: '故障状态1',
-    description: '描述12345678',
-  },
-  {
-    id: 2,
-    username: '用户名2',
-    name: '故障编号2',
-    mail: '故障等级2',
-    phone: '故障类别2',
-    status: '故障状态2',
-    description: '描述0987654345678',
-  },
-];

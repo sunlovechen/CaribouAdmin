@@ -3,6 +3,7 @@ import './index.less';
 import { Tabs } from 'antd';
 import MaintenancePlan from './MaintenancePlan';
 import EquipmentFailure from './EquipmentFailure';
+import PassivePlan from './PassivePlan';
 
 const { TabPane } = Tabs;
 
@@ -38,7 +39,7 @@ class EquipmentService extends React.PureComponent {
             被动维修记录
           </TabPane>
           <TabPane tab="被动计划" key="7">
-            被动计划
+            <PassivePlan deviceItem={this.props.deviceItem} />
           </TabPane>
           <TabPane tab="设备故障" key="8">
             <EquipmentFailure deviceItem={this.props.deviceItem} />
