@@ -14,7 +14,17 @@ const { TabPane } = Tabs;
 class EquipmentService extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      maintenancePlan: {}, // 保养计划
+      servicePlan: {}, // 维修计划
+      passivePlan: {}, // 被动计划
+    };
+  }
+
+  changeState = (key, value) => {
+    const detail = {};
+    detail[key] = value;
+    this.setState(detail);
   }
 
   render() {
@@ -22,10 +32,10 @@ class EquipmentService extends React.PureComponent {
       <div className="equipment-service">
         <Tabs defaultActiveKey="1">
           <TabPane tab="保养计划" key="1">
-            <MaintenancePlan deviceItem={this.props.deviceItem} />
+            <MaintenancePlan deviceItem={this.props.deviceItem} changeState={this.changeState} />
           </TabPane>
           <TabPane tab="保养记录" key="2">
-            <MaintenanceRecords deviceItem={this.props.deviceItem} />
+            <MaintenanceRecords planItem={this.state.maintenancePlan} />
           </TabPane>
           <TabPane tab="被动保养记录" key="3">
             被动保养记录

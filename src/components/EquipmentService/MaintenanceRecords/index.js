@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.less';
 import { Input, Button, Table, Modal, Form, Select, Row, Col, Radio, InputNumber, DatePicker } from 'antd';
-import { columns, PlanStatus, PlanLevel, PlanGroupId, PlanMode, PlanCycleType } from './constant';
+import { columns, RecodeShutdownType, RecordType } from './constant';
 import ajax from '../../../utils/ajax';
 import moment from 'moment';
 
@@ -20,7 +20,6 @@ class MaintenanceRecordsMain extends React.PureComponent {
       title: '',
       recordItem: {},
       recordList: [],
-      planList: [],
       page: {
         current: 1,
         pageSize: 10,
@@ -35,24 +34,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
 
   componentWillMount() {
     this.recordListPage();
-    this.planListPage();
   }
-
-  // 设备计划
-  planListPage = async () => {
-    const { queryMap } = this.state;
-    const detail = {
-      pageNum: 1,
-      pageSize: 100,
-      queryMap,
-    };
-    const res = await ajax.planListPage(detail);
-    if (res.code === '10001') {
-      this.setState({
-        planList: res && res.data && res.data.list,
-      });
-    }
-  };
 
   // 设备保养记录
   recordListPage = async () => {
@@ -88,7 +70,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
   };
 
   handleOk = () => {
-    const { form, deviceItem } = this.props;
+    const { form, planItem } = this.props;
     const { id } = this.state.recordItem;
     const { queryMap } = this.state;
     form.validateFieldsAndScroll((error, values) => {
@@ -100,17 +82,17 @@ class MaintenanceRecordsMain extends React.PureComponent {
         if (!id) {
           // 新增
           const detail = Object.assign({}, values, {
-            recordDevId: deviceItem.id,
+            recodeDevId: planItem.id,
             recordType: queryMap.planType,
           });
-          this.planSave(detail);
+          this.recordSave(detail);
         } else {
           // 修改
           const detail = Object.assign({}, values, {
             id,
             recordType: queryMap.planType,
           });
-          this.planUpdate(detail);
+          this.recordUpdate(detail);
         }
       }
       window.console.log(error, values);
@@ -168,7 +150,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
         page: pagination,
       },
       () => {
-        this.getDevices();
+        this.recordListPage();
       },
     );
   };
@@ -182,8 +164,8 @@ class MaintenanceRecordsMain extends React.PureComponent {
   };
 
   render() {
-    window.console.log('deviceItem', this.props.deviceItem, this.state.recordDetail);
-    const { deviceItem } = this.props;
+    window.console.log('planItem', this.props.planItem, this.state.recordDetail);
+    const { planItem } = this.props;
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol: { span: 6 },
@@ -194,7 +176,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
       wrapperCol: { span: 20 },
     };
     const inputDisabled = true;
-    const { recordList, recordItem, page, recordDetail, planList } = this.state;
+    const { recordList, recordItem, page, recordDetail } = this.state;
     const {
       id,
       recordCode,
@@ -215,7 +197,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
             <Button className="title-query" type="ghost">
               {'查询'}
             </Button> */}
-            <Button className="title-add" type="primary" onClick={() => this.showModal('add', {})}>
+            <Button disabled={!planItem.id} className="title-add" type="primary" onClick={() => this.showModal('add', {})}>
               {'新增'}
             </Button>
             {/* <Button className="title-delete" type="primary">
@@ -249,29 +231,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
                     })(<Input placeholder="自动生成记录编号" disabled={inputDisabled} />)}
                   </Form.Item>
                 </Col>
-                <Col span={12}>
-                  <Form.Item label="保养计划" {...formItemLayout}>
-                    {getFieldDecorator('recordPlanId', {
-                      rules: [
-                        {
-                          required: true,
-                          message: '请选择保养计划',
-                        },
-                      ],
-                      initialValue: recordPlanId,
-                    })(
-                      <Select placeholder="请选择保养计划">
-                        {planList.map(item => {
-                          return (
-                            <Option key={item.planCode} value={item.id}>
-                              {item.planName}
-                            </Option>
-                          );
-                        })}
-                      </Select>,
-                    )}
-                  </Form.Item>
-                </Col>
+
                 <Col span={12} style={{ margin: '-1px 0' }}>
                   <Form.Item label="是否停机" {...formItemLayout}>
                     {getFieldDecorator('recodeShutdownType', {
@@ -303,7 +263,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
                     })(<Input placeholder="请输入停机时长" />)}
                   </Form.Item>
                 </Col>
-                <Col span={12}>
+                {/* <Col span={12}>
                   <Form.Item label="负责人" {...formItemLayout}>
                     {getFieldDecorator('recordUserName', {
                       rules: [
@@ -315,7 +275,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
                       initialValue: recordUserName,
                     })(<Input placeholder="请输入负责人" />)}
                   </Form.Item>
-                </Col>
+                </Col> */}
                 <Col span={12}>
                   <Form.Item label="费用" {...formItemLayout}>
                     {getFieldDecorator('recodeMoney', {
@@ -346,12 +306,6 @@ class MaintenanceRecordsMain extends React.PureComponent {
 
               <Form.Item label="记录描述" {...formTextLayout}>
                 {getFieldDecorator('recodeDesc', {
-                  rules: [
-                    {
-                      required: true,
-                      message: '请输入记录描述',
-                    },
-                  ],
                   initialValue: recodeDesc,
                 })(<Input type="textarea" placeholder="请输入记录描述" />)}
               </Form.Item>
@@ -361,62 +315,41 @@ class MaintenanceRecordsMain extends React.PureComponent {
 
         {this.state.detailVisible && (
           <Modal
-            title={'计划详情'}
+            title={'记录详情'}
             visible={this.state.detailVisible}
             onOk={this.recordDetailCancel}
             maskClosable={false}
             onCancel={this.recordDetailCancel}
-            width={'668px'}>
+            width={'668px'}
+            className="plan-detail">
             <Row>
               <Col span={12}>
-                <label>保养计划名称：</label>
-                <span>{recordDetail.planName}</span>
+                <label>记录编号：</label>
+                <span>{recordDetail.recordCode}</span>
               </Col>
               <Col span={12}>
-                <label>保养计划编号：</label>
-                <span>{recordDetail.planCode}</span>
+                <label>是否停机：</label>
+                <span>{RecodeShutdownType[recordDetail.recodeShutdownType]}</span>
               </Col>
               <Col span={12}>
-                <label>计划等级：</label>
-                <span>{PlanLevel[recordDetail.planLevel]}</span>
+                <label>停机时长：</label>
+                <span>{recordDetail.recodeShutdownTime}</span>
               </Col>
               <Col span={12}>
-                <label>计划组：</label>
-                <span>{PlanGroupId[recordDetail.planGroupId]}</span>
+                <label>创建者：</label>
+                <span>{recordDetail.createdUserName}</span>
               </Col>
               <Col span={12}>
-                <label>部位：</label>
-                <span>{recordDetail.planPosition}</span>
+                <label>费用：</label>
+                <span>{recordDetail.recodeMoney}</span>
               </Col>
               <Col span={12}>
-                <label>标准：</label>
-                <span>{recordDetail.planStandard}</span>
+                <label>记录内容：</label>
+                <span>{recordDetail.recodeContent}</span>
               </Col>
               <Col span={12}>
-                <label>循环方式：</label>
-                <span>{PlanMode[recordDetail.planMode]}</span>
-              </Col>
-              <Col span={12}>
-                <label>保养周期：</label>
-                <span>
-                  {recordDetail.planCycleNum} {PlanCycleType[recordDetail.planCycleType]}
-                </span>
-              </Col>
-              <Col span={12}>
-                <label>状态：</label>
-                <span>{PlanStatus[recordDetail.planStatus]}</span>
-              </Col>
-              <Col span={12}>
-                <label>计划开始时间：</label>
-                <span>{moment(recordDetail.planStartDate).format(dateFormat)}</span>
-              </Col>
-              <Col span={12}>
-                <label>计划结束时间：</label>
-                <span>{moment(recordDetail.planEndDate).format(dateFormat)}</span>
-              </Col>
-              <Col span={12}>
-                <label>计划描述：</label>
-                <span>{recordDetail.planDesc}</span>
+                <label>记录描述：</label>
+                <span>{recordDetail.recodeDesc}</span>
               </Col>
             </Row>
           </Modal>

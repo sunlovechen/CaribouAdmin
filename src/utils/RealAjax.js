@@ -251,16 +251,20 @@ class Ajax {
    * 设备记录 详情
    * @param id
    */
-  recordDetail(id) {
-    return axios.post(`${api}/dev/record/detail`, id);
+  recordDetail(detail) {
+    const data = new FormData();
+    data.append('id', detail.id);
+    return axios.post(`${api}/dev/record/detail`, data);
   }
 
    /**
    * 设备记录 删除
    * @param id
    */
-  recordDel(id) {
-    return axios.post(`${api}/dev/record/del`, id);
+  recordDel(detail) {
+    const data = new FormData();
+    data.append('id', detail.id);
+    return axios.post(`${api}/dev/record/del`, data);
   }
 
 }

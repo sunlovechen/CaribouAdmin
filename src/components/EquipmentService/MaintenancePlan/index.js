@@ -167,6 +167,18 @@ class MaintenancePlanMain extends React.PureComponent {
     });
   };
 
+  rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      window.console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      this.props.changeState('maintenancePlan', selectedRows[0]);
+    },
+    // getCheckboxProps: record => ({
+    //   disabled: record.devStatus !== '使用中', // Column configuration not to be checked
+    //   // name: record.name,
+    // }),
+    type: 'radio',
+  };
+
   render() {
     window.console.log('deviceItem', this.props.deviceItem, this.state.planDetail);
     const { deviceItem } = this.props;
@@ -215,6 +227,7 @@ class MaintenancePlanMain extends React.PureComponent {
           </div>
           <Table
             columns={columns(this.showModal, this.planDetail, this.planDel)}
+            rowSelection={this.rowSelection}
             dataSource={planList}
             pagination={page}
             onChange={this.pageChange}
