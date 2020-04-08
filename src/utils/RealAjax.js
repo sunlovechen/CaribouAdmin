@@ -24,7 +24,6 @@ class Ajax {
    * @param password
    */
   login(username, password) {
-    window.console.log(api);
     const data = new FormData();
     data.append('username', username);
     data.append('password', password);
@@ -177,17 +176,21 @@ class Ajax {
    * @param id
    */
   planDetail(id) {
-    return axios.post(`${api}/dev/plan/detail`, id);
+    const data = new FormData();
+    data.append('id', id);
+    return axios.post(`${api}/dev/plan/detail`, data);
   }
 
    /**
    * 计划删除
    * @param id
    */
-  planDel(id) {
-    return axios.post(`${api}/dev/plan/del`, id);
+  planDel(detail) {
+    const data = new FormData();
+    data.append('id', detail.id);
+    data.append('isdel', detail.isdel);
+    return axios.post(`${api}/dev/plan/del`, data);
   }
-
 
  /**
    * 被动计划列表
@@ -220,9 +223,45 @@ class Ajax {
     return axios.post(`${api}/passive/deletePassive`, detail);
   }
 
+    /**
+   * 设备记录 列表信息
+   * @param pageSize
+   * @param pageNo
+   * @param queryMap planType
+   */
+  recordListPage(detail) {
+    return axios.post(`${api}/dev/record/listPage`, detail);
+  }
 
+  /**
+   * 设备记录 新增
+   */
+  recordSave(detail) {
+    return axios.post(`${api}/dev/record/save`, detail);
+  }
 
+    /**
+   * 设备记录 修改
+   */
+  recordUpdate(detail) {
+    return axios.post(`${api}/dev/record/update`, detail);
+  }
 
+  /**
+   * 设备记录 详情
+   * @param id
+   */
+  recordDetail(id) {
+    return axios.post(`${api}/dev/record/detail`, id);
+  }
+
+   /**
+   * 设备记录 删除
+   * @param id
+   */
+  recordDel(id) {
+    return axios.post(`${api}/dev/record/del`, id);
+  }
 
 }
 

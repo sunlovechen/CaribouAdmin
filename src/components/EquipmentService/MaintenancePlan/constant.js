@@ -5,7 +5,7 @@ const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
 export const PlanStatus = ['', '有效', '无效'];
 export const PlanLevel = ['日常保养'];
-export const PlanGroupId = ['计划组1'];
+export const PlanGroupId = ['计划组1', '计划组2'];
 export const PlanMode = ['单次', '多次'];
 export const PlanCycleType = ['', '天', '周', '月', '年'];
 

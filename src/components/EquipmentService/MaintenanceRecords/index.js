@@ -9,9 +9,9 @@ const { Option } = Select;
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
 /**
- * 保养计划
+ * 保养记录
  */
-class MaintenancePlanMain extends React.PureComponent {
+class MaintenanceRecordsMain extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,18 +33,18 @@ class MaintenancePlanMain extends React.PureComponent {
   }
 
   componentWillMount() {
-    this.planListPage();
+    this.recordListPage();
   }
 
-  // 设备保养计划
-  planListPage = async () => {
+  // 设备保养记录
+  recordListPage = async () => {
     const { page, queryMap } = this.state;
     const detail = {
       pageNum: page.current,
       pageSize: page.pageSize,
       queryMap,
     };
-    const res = await ajax.planListPage(detail);
+    const res = await ajax.recordListPage(detail);
     if (res.code === '10001') {
       this.setState({
         planList: res && res.data && res.data.list,
@@ -58,9 +58,9 @@ class MaintenancePlanMain extends React.PureComponent {
   };
 
   showModal = (type, planItem = {}) => {
-    let title = '修改保养计划';
+    let title = '修改保养记录';
     if (type === 'add') {
-      title = '新增保养计划';
+      title = '新增保养记录';
     }
     this.setState({
       visible: true,
@@ -103,23 +103,23 @@ class MaintenancePlanMain extends React.PureComponent {
     });
   };
 
-  // 添加保养计划
+  // 添加保养记录
   planSave = async detail => {
     const res = await ajax.planSave(detail);
     if (res.code === '10001') {
-      this.planListPage();
+      this.recordListPage();
     }
   };
 
-  // 更新保养计划
+  // 更新保养记录
   planUpdate = async detail => {
     const res = await ajax.planUpdate(detail);
     if (res.code === '10001') {
-      this.planListPage();
+      this.recordListPage();
     }
   };
 
-  // 删除保养计划
+  // 删除保养记录
   planDel = async id => {
     const detail = {
       id,
@@ -127,13 +127,13 @@ class MaintenancePlanMain extends React.PureComponent {
     };
     const res = await ajax.planDel(detail);
     if (res.code === '10001') {
-      this.planListPage();
+      this.recordListPage();
     }
   };
 
-  // 计划详情
+  // 记录详情
   planDetail = async id => {
-    const res = await ajax.planDetail(id);
+    const res = await ajax.planDetail({ id });
     if (res.code === '10001') {
       this.setState({
         detailVisible: true,
@@ -195,8 +195,8 @@ class MaintenancePlanMain extends React.PureComponent {
     } = planItem;
     window.console.log(`planList: ${planList}`);
     return (
-      <div className="maintenance-plan">
-        <div>
+      <div>
+        <div className="equipment-failure">
           <div className="title">
             {/* <Input className="title-input" placeholder="用户名字/显示名字" />
             <Button className="title-query" type="ghost">
@@ -219,7 +219,7 @@ class MaintenancePlanMain extends React.PureComponent {
             pagination={page}
             onChange={this.pageChange}
             scroll={{
-              x: 2600,
+              x: 1800,
             }}
           />
         </div>
@@ -452,8 +452,7 @@ class MaintenancePlanMain extends React.PureComponent {
             onOk={this.planDetailCancel}
             maskClosable={false}
             onCancel={this.planDetailCancel}
-            width={'668px'}
-            className="plan-detail">
+            width={'668px'}>
             <Row>
               <Col span={12}>
                 <label>保养计划名称：</label>
@@ -513,6 +512,6 @@ class MaintenancePlanMain extends React.PureComponent {
   }
 }
 
-const MaintenancePlan = Form.create()(MaintenancePlanMain);
+const MaintenanceRecords = Form.create()(MaintenanceRecordsMain);
 
-export default MaintenancePlan;
+export default MaintenanceRecords;

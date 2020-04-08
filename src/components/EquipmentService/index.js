@@ -4,6 +4,7 @@ import { Tabs } from 'antd';
 import MaintenancePlan from './MaintenancePlan';
 import EquipmentFailure from './EquipmentFailure';
 import PassivePlan from './PassivePlan';
+import MaintenanceRecords from './MaintenanceRecords';
 
 const { TabPane } = Tabs;
 
@@ -24,7 +25,7 @@ class EquipmentService extends React.PureComponent {
             <MaintenancePlan deviceItem={this.props.deviceItem} />
           </TabPane>
           <TabPane tab="保养记录" key="2">
-            保养记录
+            <MaintenanceRecords deviceItem={this.props.deviceItem} />
           </TabPane>
           <TabPane tab="被动保养记录" key="3">
             被动保养记录
