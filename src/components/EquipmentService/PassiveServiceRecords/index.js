@@ -210,7 +210,7 @@ class PassiveServicesMain extends React.PureComponent {
             pagination={page}
             onChange={this.pageChange}
             scroll={{
-              x: 1800,
+              x: 1200,
             }}
           />
         </div>
@@ -232,7 +232,7 @@ class PassiveServicesMain extends React.PureComponent {
                   </Form.Item>
                 </Col>
 
-                <Col span={12} style={{ margin: '-1px 0' }}>
+                <Col span={12}>
                   <Form.Item label="是否停机" {...formItemLayout}>
                     {getFieldDecorator('recodeShutdownType', {
                       rules: [

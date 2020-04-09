@@ -96,10 +96,10 @@ export const columns = (showModal, planDetail, planDel) => {
         return <span>{text && moment(text).format(dateFormat)}</span>;
       },
     },
-    {
-      title: '修改人Id',
-      dataIndex: 'updatedId',
-    },
+    // {
+    //   title: '修改人Id',
+    //   dataIndex: 'updatedId',
+    // },
     {
       title: '修改时间',
       dataIndex: 'updatedDate',

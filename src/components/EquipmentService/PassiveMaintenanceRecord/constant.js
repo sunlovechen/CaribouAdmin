@@ -23,10 +23,10 @@ export const columns = (showModal, planDetail, planDel) => {
         return <span>{RecordType[text]}</span>;
       },
     },
-    {
-      title: '负责人',
-      dataIndex: 'recordUserName',
-    },
+    // {
+    //   title: '负责人',
+    //   dataIndex: 'recordUserName',
+    // },
     {
       title: '是否停机',
       dataIndex: 'recodeShutdownType',
@@ -50,28 +50,28 @@ export const columns = (showModal, planDetail, planDel) => {
       title: '创建人',
       dataIndex: 'createdUserName',
     },
-    {
-      title: '创建时间',
-      dataIndex: 'planStartDate',
-      render: text => {
-        return <span>{text && moment(text).format(dateFormat)}</span>;
-      },
-    },
-    {
-      title: '修改人',
-      dataIndex: 'updatedUserName',
-    },
-    {
-      title: '修改时间',
-      dataIndex: 'planEndDate',
-      render: text => {
-        return <span>{text && moment(text).format(dateFormat)}</span>;
-      },
-    },
-    {
-      title: '负责人',
-      dataIndex: 'planUserId',
-    },
+    // {
+    //   title: '创建时间',
+    //   dataIndex: 'planStartDate',
+    //   render: text => {
+    //     return <span>{text && moment(text).format(dateFormat)}</span>;
+    //   },
+    // },
+    // {
+    //   title: '修改人',
+    //   dataIndex: 'updatedUserName',
+    // },
+    // {
+    //   title: '修改时间',
+    //   dataIndex: 'planEndDate',
+    //   render: text => {
+    //     return <span>{text && moment(text).format(dateFormat)}</span>;
+    //   },
+    // },
+    // {
+    //   title: '负责人',
+    //   dataIndex: 'planUserId',
+    // },
     {
       title: '记录描述',
       dataIndex: 'recodeDesc',

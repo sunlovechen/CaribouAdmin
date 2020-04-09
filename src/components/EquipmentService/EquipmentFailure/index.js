@@ -72,12 +72,13 @@ class EquipmentFailureMain extends React.PureComponent {
         });
         if (!id) { // 新增
           const detail = Object.assign({}, values, {
-            id: deviceItem.id,
+            faultDevId: deviceItem.id,
           });
           this.addFault(detail);
         } else {  // 修改
           const detail = Object.assign({}, values, {
             id,
+            faultDevId: deviceItem.id,
           });
           this.updateFault(detail);
         }
@@ -206,7 +207,7 @@ class EquipmentFailureMain extends React.PureComponent {
                     })(
                       <Select placeholder="请选择故障等级">
                         {FaultLevel.map((faultLevelItem, index) => {
-                          return <Option value={index}>{faultLevelItem}</Option>;
+                          return <Option value={parseFloat(index)}>{faultLevelItem}</Option>;
                         })}
                       </Select>,
                     )}
