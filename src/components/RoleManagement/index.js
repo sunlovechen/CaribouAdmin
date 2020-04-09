@@ -23,14 +23,12 @@ class RoleManage extends React.PureComponent {
   };
 
   handleOk = () => {
-    window.console.log(this.props.form.getFieldsValue());
     this.setState({
       visible: false,
     });
   };
 
   handleCancel = e => {
-    window.console.log(e);
     this.setState({
       visible: false,
     });
@@ -44,9 +42,7 @@ class RoleManage extends React.PureComponent {
   };
 
   deleteConfirm = (e) => {
-    window.console.log(e);
     message.success('删除成功');
-    message.error('删除失败');
   }
   deleteCancel = (e) => {
     window.console.log(e);

@@ -24,7 +24,6 @@ axios.interceptors.response.use(
   response => {
     // 对响应数据做点什么
     store.dispatch(changeSpinCreator(false));
-    window.console.log('response', response, document.cookie, 'response');
     if (response && response.data && response.data.code !== '10001') {
       message.error(response.data.msg);
     }

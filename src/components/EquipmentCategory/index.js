@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.less';
-import { Tree, Form, Input, Row, Col, Button, Select, TreeSelect } from 'antd';
+import { Tree, Form, Input, Row, Col, Button, Select, TreeSelect, message } from 'antd';
 import ajax from '../../utils/ajax';
 
 const { TreeNode } = Tree;
@@ -41,12 +41,9 @@ class EquipmentCategoryMain extends React.Component {
         addOrEdit: 'add',
       });
     }
-
-    window.console.log('selected', selectedKeys, info);
   };
 
   onTreeSelectChange = e => {
-    window.console.log(e);
     const { categoryDetail } = this.state;
     const { categoryName } = categoryDetail;
     this.setState({
@@ -95,7 +92,6 @@ class EquipmentCategoryMain extends React.Component {
     form.validateFieldsAndScroll(async (error, values) => {
       if (!error) {
         const { categoryDetail } = this.state;
-        window.console.log(this.props.form.getFieldsValue(), categoryDetail);
         const fromContent = this.props.form.getFieldsValue();
         const detail = Object.assign({}, fromContent, {
           id: categoryDetail.id,
@@ -114,7 +110,6 @@ class EquipmentCategoryMain extends React.Component {
     const { form } = this.props;
     form.validateFieldsAndScroll(async (error, values) => {
       if (!error) {
-        window.console.log(this.props.form.getFieldsValue());
         const fromContent = this.props.form.getFieldsValue();
         const detail = {
           categoryPid: fromContent.categoryPid,
@@ -142,6 +137,7 @@ class EquipmentCategoryMain extends React.Component {
         const res = await ajax.delCategory(detail);
         if (res.code === '10001') {
           this.getCategorys();
+          message.success('删除成功');
           this.props.form.resetFields();
         }
       }
@@ -157,7 +153,6 @@ class EquipmentCategoryMain extends React.Component {
     const { getFieldDecorator } = this.props.form;
     const { categoryList, categoryDetail, addOrEdit } = this.state;
     const { categoryPid, categoryName } = categoryDetail;
-    window.console.log('asd', categoryList, categoryDetail);
     return (
       <div className="equipment-category">
         <div>

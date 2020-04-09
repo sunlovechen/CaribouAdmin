@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.less';
-import { Input, Button, Table, Modal, Form, Select, Row, Col } from 'antd';
+import { Input, Button, Table, Modal, Form, Select, Row, Col, message } from 'antd';
 import { columns, FaultLevel } from './constant';
 import ajax from '../../../utils/ajax';
 
@@ -83,7 +83,6 @@ class EquipmentFailureMain extends React.PureComponent {
           this.updateFault(detail);
         }
       }
-      window.console.log(error, values);
     });
   };
 
@@ -111,6 +110,7 @@ class EquipmentFailureMain extends React.PureComponent {
     };
     const res = await ajax.delFaultRecord(detail);
     if (res.code === '10001') {
+      message.success('删除成功');
       this.getFaults();
     }
   };
@@ -127,7 +127,6 @@ class EquipmentFailureMain extends React.PureComponent {
   };
 
   handleCancel = e => {
-    window.console.log(e);
     this.setState({
       visible: false,
       title: '',
@@ -135,7 +134,6 @@ class EquipmentFailureMain extends React.PureComponent {
   };
 
   render() {
-    window.console.log('deviceItem', this.props.deviceItem);
     const { deviceItem } = this.props;
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -145,7 +143,6 @@ class EquipmentFailureMain extends React.PureComponent {
     const inputDisabled = true;
     const { faultsList, faultsItem, page } = this.state;
     const { faultCateId, faultLevel, faultStatus, faultCode, id } = faultsItem;
-    window.console.log(`faultsList: ${faultsList}`);
     return (
       <div>
         <div className="equipment-failure">

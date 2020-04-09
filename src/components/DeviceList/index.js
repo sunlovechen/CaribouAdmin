@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.less';
-import { Input, Button, Table, Modal, Form, Select, Row, Col, TreeSelect, DatePicker } from 'antd';
+import { Input, Button, Table, Modal, Form, Select, Row, Col, TreeSelect, DatePicker, message } from 'antd';
 import { columns } from './constant';
 import ajax from '../../utils/ajax';
 import moment from 'moment';
@@ -106,12 +106,10 @@ class DeviceListMain extends React.PureComponent {
           this.putDeviceById(detail);
         }
       }
-      window.console.log(error, values);
     });
   };
 
   handleCancel = e => {
-    window.console.log(e);
     this.setState({
       visible: false,
       title: '',
@@ -120,7 +118,6 @@ class DeviceListMain extends React.PureComponent {
 
   rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      window.console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
       this.setState({
         propsItem: selectedRows[0],
       });
@@ -198,6 +195,7 @@ class DeviceListMain extends React.PureComponent {
     };
     const res = await ajax.putDeviceStatusById(detail);
     if (res.code === '10001') {
+      message.success('报废成功');
       this.getDevices();
     }
   };
@@ -231,7 +229,6 @@ class DeviceListMain extends React.PureComponent {
       devUseDate,
       devManufactureDate,
     } = devicesItem;
-    window.console.log(this.state.devicesList);
     return (
       <div>
         <div className="device-list">

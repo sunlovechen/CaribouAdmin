@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.less';
-import { Input, Button, Table, Modal, Form, Select, Row, Col, Radio, InputNumber, DatePicker } from 'antd';
+import { Input, Button, Table, Modal, Form, Select, Row, Col, Radio, InputNumber, DatePicker, message } from 'antd';
 import { columns, PlanStatus, PlanLevel, PlanGroupId, PlanMode, PlanCycleType } from './constant';
 import ajax from '../../../utils/ajax';
 import moment from 'moment';
@@ -99,7 +99,6 @@ class ServicePlanMain extends React.PureComponent {
           this.planUpdate(detail);
         }
       }
-      window.console.log(error, values);
     });
   };
 
@@ -127,6 +126,7 @@ class ServicePlanMain extends React.PureComponent {
     };
     const res = await ajax.planDel(detail);
     if (res.code === '10001') {
+      message.success('删除成功');
       this.planListPage();
     }
   };
@@ -160,7 +160,6 @@ class ServicePlanMain extends React.PureComponent {
   };
 
   handleCancel = e => {
-    window.console.log(e);
     this.setState({
       visible: false,
       title: '',
@@ -180,7 +179,6 @@ class ServicePlanMain extends React.PureComponent {
   };
 
   render() {
-    window.console.log('deviceItem', this.props.deviceItem, this.state.planDetail);
     const { deviceItem } = this.props;
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -205,7 +203,6 @@ class ServicePlanMain extends React.PureComponent {
       planDesc,
       id,
     } = planItem;
-    window.console.log(`planList: ${planList}`);
     return (
       <div className="service-plan">
         <div>

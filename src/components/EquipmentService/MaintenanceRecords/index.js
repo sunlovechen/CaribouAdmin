@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.less';
-import { Input, Button, Table, Modal, Form, Select, Row, Col, Radio, InputNumber, DatePicker } from 'antd';
+import { Input, Button, Table, Modal, Form, Select, Row, Col, Radio, message } from 'antd';
 import { columns, RecodeShutdownType, RecordType } from './constant';
 import ajax from '../../../utils/ajax';
 import moment from 'moment';
@@ -95,7 +95,6 @@ class MaintenanceRecordsMain extends React.PureComponent {
           this.recordUpdate(detail);
         }
       }
-      window.console.log(error, values);
     });
   };
 
@@ -123,6 +122,7 @@ class MaintenanceRecordsMain extends React.PureComponent {
     };
     const res = await ajax.recordDel(detail);
     if (res.code === '10001') {
+      message.success('删除成功');
       this.recordListPage();
     }
   };
@@ -156,7 +156,6 @@ class MaintenanceRecordsMain extends React.PureComponent {
   };
 
   handleCancel = e => {
-    window.console.log(e);
     this.setState({
       visible: false,
       title: '',
@@ -164,7 +163,6 @@ class MaintenanceRecordsMain extends React.PureComponent {
   };
 
   render() {
-    window.console.log('planItem', this.props.planItem, this.state.recordDetail);
     const { planItem } = this.props;
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -188,7 +186,6 @@ class MaintenanceRecordsMain extends React.PureComponent {
       recodeDesc,
       recodeContent,
     } = recordItem;
-    window.console.log(`recordList: ${recordList}`);
     return (
       <div>
         <div className="equipment-failure">

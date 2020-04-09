@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.less';
-import { Input, Button, Table, Modal, Form, Select, Row, Col } from 'antd';
+import { Input, Button, Table, Modal, Form, Select, message } from 'antd';
 import { columns, PassiveStatus, PassiveType } from './constant';
 import ajax from '../../../utils/ajax';
 
@@ -85,7 +85,6 @@ class PassivePlanMain extends React.PureComponent {
           this.passiveUpdatePassive(detail);
         }
       }
-      window.console.log(error, values);
     });
   };
 
@@ -113,6 +112,7 @@ class PassivePlanMain extends React.PureComponent {
     };
     const res = await ajax.passiveDeletePassive(detail);
     if (res.code === '10001') {
+      message.success('删除成功');
       this.passiveListPage();
     }
   };
@@ -129,7 +129,6 @@ class PassivePlanMain extends React.PureComponent {
   };
 
   handleCancel = e => {
-    window.console.log(e);
     this.setState({
       visible: false,
       title: '',
@@ -138,7 +137,6 @@ class PassivePlanMain extends React.PureComponent {
 
   rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      window.console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
       this.props.changeState('passivePlan', selectedRows[0]);
     },
     // getCheckboxProps: record => ({
@@ -149,7 +147,6 @@ class PassivePlanMain extends React.PureComponent {
   };
 
   render() {
-    window.console.log('deviceItem', this.props.deviceItem);
     const { deviceItem } = this.props;
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -158,7 +155,6 @@ class PassivePlanMain extends React.PureComponent {
     };
     const { passiveList, passiveItem, page } = this.state;
     const { passiveType, passiveStatus } = passiveItem;
-    window.console.log(`passiveList: ${passiveList}`);
     return (
       <div>
         <div className="equipment-failure">
