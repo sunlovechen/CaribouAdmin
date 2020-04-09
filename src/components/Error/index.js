@@ -1,5 +1,5 @@
 import React from 'react';
-import {Icon} from 'antd';
+import { Icon } from 'antd';
 import './index.less';
 
 /**
@@ -11,8 +11,8 @@ class Error extends React.PureComponent {
   render() {
     return (
       <div className="not-found">
-        <div style={{ fontSize:32 }}><Icon type="frown-o"/></div>
-        <h1>{this.props.errorMsg || '404 Not Found'}</h1>
+        <div style={{ fontSize: '32px' }}><Icon type="smile-o" /></div>
+        <h1>{this.props.errorMsg || '努力开发中，敬请期待'}</h1>
       </div>
     );
   }

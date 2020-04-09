@@ -11,8 +11,8 @@
 // 定义siderbar菜单
 const sidebarMenu = [
   {
-    key: 'home',  // route时url中的值
-    name: '首页',  // 在菜单中显示的名称
+    key: 'home', // route时url中的值
+    name: '首页', // 在菜单中显示的名称
   },
   {
     key: 'organization',
@@ -60,7 +60,199 @@ const sidebarMenu = [
       },
       {
         key: 'workOrder',
-        name: '工单',
+        name: '作业许可',
+      },
+    ],
+  },
+  {
+    key: 'safety',
+    name: '安全管理制度',
+    child: [
+      {
+        key: 'lawsRegulations',
+        name: '法律法规和标准',
+      },
+      {
+        key: 'workSafety',
+        name: '安全生产规章制度',
+      },
+      {
+        key: 'jobSafety',
+        name: '作业安全',
+        child: [
+          {
+            key: 'construction',
+            name: '施工管理',
+          },
+        ],
+      },
+      {
+        key: 'document',
+        name: '文档管理',
+      },
+      {
+        key: 'accidentEmergency',
+        name: '事故与应急管理',
+      },
+    ],
+  },
+  {
+    key: 'training',
+    name: '培训管理',
+  },
+  {
+    key: 'exam',
+    name: '考试管理',
+  },
+  {
+    key: 'dynamic',
+    name: '动态通知',
+  },
+  {
+    key: 'site',
+    name: '现场管理',
+    child: [
+      {
+        key: 'equipment',
+        name: '设备管理',
+      },
+      {
+        key: 'oil',
+        name: '发油管理',
+      },
+      {
+        key: 'measurement',
+        name: '计量管理',
+      },
+      {
+        key: 'video',
+        name: '视频管理',
+      },
+      {
+        key: 'power',
+        name: '电力管理',
+      },
+      {
+        key: 'security',
+        name: '安防管理',
+        child: [
+          {
+            key: 'world',
+            name: '周界',
+          },
+          {
+            key: 'accessCtrl',
+            name: '门禁管理',
+          },
+          {
+            key: 'video',
+            name: '视频管理',
+          },
+          {
+            key: 'vehicle',
+            name: '车辆管理',
+          },
+          {
+            key: 'equipment',
+            name: '设备巡检',
+          },
+          {
+            key: 'firePre',
+            name: '火灾预防',
+          },
+        ],
+      },
+      {
+        key: 'OilRecovery',
+        name: '油气回收',
+      },
+      {
+        key: 'facilitiesAndProcess',
+        name: '生产设施及工艺安全',
+      },
+      {
+        key: 'personnelPatrol',
+        name: '人员巡更',
+      },
+    ],
+  },
+  {
+    key: 'energy',
+    name: '能耗管理',
+  },
+  {
+    key: 'emergency',
+    name: '应急管理',
+  },
+  {
+    key: 'report',
+    name: '报表管理',
+  },
+  {
+    key: 'occupational',
+    name: '职业健康',
+    child: [
+      {
+        key: 'occupationalHazards',
+        name: '职业病危害',
+      },
+    ],
+  },
+  {
+    key: 'risk',
+    name: '风险管理',
+    child: [
+      {
+        key: 'governanceLedger',
+        name: '治理台账',
+      },
+      {
+        key: 'majorHazards',
+        name: '重大危险源',
+      },
+      {
+        key: 'change',
+        name: '变更',
+      },
+    ],
+  },
+  {
+    key: 'hazardousChemicals',
+    name: '危险化学品管理',
+  },
+  {
+    key: 'staffStructure',
+    name: '人员架构管理',
+    child: [
+      {
+        key: 'institutions',
+        name: '机构和职责',
+      },
+      {
+        key: 'inspectionAndSelf',
+        name: '检查与自评管理',
+      },
+    ],
+  },
+  {
+    key: 'system',
+    name: '系统管理',
+    child: [
+      {
+        key: 'role',
+        name: '角色管理',
+      },
+      {
+        key: 'permission',
+        name: '权限分配',
+      },
+      {
+        key: 'password',
+        name: '密码设置',
+      },
+      {
+        key: 'other',
+        name: '其他',
       },
     ],
   },
