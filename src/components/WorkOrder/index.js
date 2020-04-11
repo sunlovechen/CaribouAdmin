@@ -1,9 +1,8 @@
 import React from 'react';
 import './index.less';
-import { Input, Button, Table, Modal, Form, Select, Radio, Row, Col, message, TextArea } from 'antd';
+import { Input, Table, Modal, Form, Select, message } from 'antd';
 import { data, columns } from './constant';
-
-const { Option } = Select;
+import DetailOrder from './detailOrder';
 
 /**
  * 工单
@@ -14,6 +13,8 @@ class WorkOrderMain extends React.PureComponent {
     this.state = {
       visible: false,
       item: {},
+      detailVisible: false,
+      detailItem: {},
     };
   }
 
@@ -23,6 +24,7 @@ class WorkOrderMain extends React.PureComponent {
       item: value,
     })
   };
+
   handleOk = () => {
     this.setState({
       visible: false,
@@ -37,9 +39,6 @@ class WorkOrderMain extends React.PureComponent {
   deleteConfirm = (e) => {
     message.success('删除成功');
   }
-  deleteCancel = (e) => {
-    window.console.log(e);
-  }
 
   rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -51,6 +50,13 @@ class WorkOrderMain extends React.PureComponent {
     }),
   };
 
+  showDetail = (item, visible) => {
+    this.setState({
+      detailVisible: visible,
+      detailItem: item,
+    });
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -61,19 +67,10 @@ class WorkOrderMain extends React.PureComponent {
     return (
       <div>
         <div className="user-management">
-          {/* <div className="title">
-            <Input className="title-input" placeholder="流程名/流程编号" />
-            <Button className="title-query" type="ghost">
-              {'查询'}
-            </Button>
-            <Button className="title-add" type="primary" onClick={() => this.showModal()}>
-              {'新增'}
-            </Button>
-            <Button className="title-delete" type="danger">
-              {'批量删除'}
-            </Button>
-          </div> */}
-          <Table columns={columns(this.deleteConfirm, this.deleteCancel, this.showModal)} dataSource={data} />
+          <Table
+            columns={columns(this.deleteConfirm, this.showDetail, this.showModal)}
+            dataSource={data}
+          />
         </div>
         {this.state.visible &&
           <Modal
@@ -99,6 +96,19 @@ class WorkOrderMain extends React.PureComponent {
             </Form>
           </Modal>
         }
+
+        {this.state.detailVisible && (
+          <Modal
+            title={'申请详情'}
+            visible={this.state.detailVisible}
+            onOk={() => this.showDetail({}, false)}
+            maskClosable={false}
+            onCancel={() => this.showDetail({}, false)}
+            width={'668px'}
+          >
+            <DetailOrder detailItem={this.state.detailItem} />
+          </Modal>
+        )}
       </div>
     );
   }

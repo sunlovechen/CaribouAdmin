@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tag, Popconfirm } from 'antd';
 
-export const columns = (deleteConfirm, deleteCancel, showModal) => {
+export const columns = (deleteConfirm, showDetail, showModal) => {
   return [
     {
       title: '标题',
@@ -30,6 +30,7 @@ export const columns = (deleteConfirm, deleteCancel, showModal) => {
             ) : (
               <a onClick={() => showModal(item)}>审批</a>
             )}
+            <a onClick={() => showDetail(item, true)} style={{ marginLeft: '14px' }}>详情</a>
           </div>
         );
       },
