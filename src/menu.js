@@ -220,20 +220,20 @@ const sidebarMenu = [
     key: 'hazardousChemicals',
     name: '危险化学品管理',
   },
-  {
-    key: 'staffStructure',
-    name: '人员架构管理',
-    child: [
-      {
-        key: 'institutions',
-        name: '机构和职责',
-      },
-      {
-        key: 'inspectionAndSelf',
-        name: '检查与自评管理',
-      },
-    ],
-  },
+  // {
+  //   key: 'staffStructure',
+  //   name: '人员架构管理',
+  //   child: [
+  //     {
+  //       key: 'institutions',
+  //       name: '机构和职责',
+  //     },
+  //     {
+  //       key: 'inspectionAndSelf',
+  //       name: '检查与自评管理',
+  //     },
+  //   ],
+  // },
   {
     key: 'system',
     name: '系统管理',

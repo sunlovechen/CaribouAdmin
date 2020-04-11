@@ -1,7 +1,8 @@
 import React from 'react';
 import './index.less';
-import { Input, Button, Table, Modal, Form, Select, Row, Col, TreeSelect, DatePicker, message } from 'antd';
-import { columns } from './constant';
+import { Input, Button, Table, Modal, Form,
+  Select, Row, Col, TreeSelect, DatePicker, message } from 'antd';
+import { columns, typeList } from './constant';
 import ajax from '../../utils/ajax';
 import moment from 'moment';
 import EquipmentService from '../EquipmentService';
@@ -33,6 +34,7 @@ class DeviceListMain extends React.PureComponent {
       devicesItem: {},
       categoryList: [],
       propsItem: {},
+      type: 'oilTank', // 默认类型设备
     };
   }
 
@@ -200,6 +202,12 @@ class DeviceListMain extends React.PureComponent {
     }
   };
 
+  changeType = value => {
+    this.setState({
+      type: value,
+    });
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -210,7 +218,7 @@ class DeviceListMain extends React.PureComponent {
       labelCol: { span: 4 },
       wrapperCol: { span: 20 },
     };
-    const { devicesList, queryMap, page, title, devicesItem, categoryList } = this.state;
+    const { devicesList, queryMap, page, title, devicesItem, categoryList, type } = this.state;
     const {
       devCompanyName,
       devOilName,
@@ -229,10 +237,18 @@ class DeviceListMain extends React.PureComponent {
       devUseDate,
       devManufactureDate,
     } = devicesItem;
+    const allDisabled = title === '设备详情';
     return (
       <div>
         <div className="device-list">
           <div className="title">
+            <Select value={type} onChange={this.changeType} className="title-select">
+              {
+                typeList.map(item => {
+                  return <Option value={item.key} key={item.key}>{item.value}</Option>
+                })
+              }
+            </Select>
             <Input
               className="title-input"
               placeholder="设备名"
@@ -257,7 +273,7 @@ class DeviceListMain extends React.PureComponent {
           </div>
           <Table
             rowSelection={this.rowSelection}
-            columns={columns(this.showModal, this.putDeviceStatusById)}
+            columns={columns(this.showModal, this.putDeviceStatusById, type)}
             dataSource={devicesList}
             pagination={page}
             onChange={this.pageChange}
@@ -270,10 +286,11 @@ class DeviceListMain extends React.PureComponent {
           <Modal
             title={title}
             visible={this.state.visible}
-            onOk={this.handleOk}
+            onOk={allDisabled ? this.handleCancel : this.handleOk}
             maskClosable={false}
             width={'728px'}
-            onCancel={this.handleCancel}>
+            onCancel={this.handleCancel}
+          >
             {this.state.visible && (
               <Form>
                 <Row className="device-list-row-flex">
@@ -287,7 +304,7 @@ class DeviceListMain extends React.PureComponent {
                           },
                         ],
                         initialValue: devCompanyName,
-                      })(<Input placeholder={'请输入市公司'} />)}
+                      })(<Input disabled={allDisabled} placeholder={'请输入市公司'} />)}
                     </Form.Item>
                   </Col>
 
@@ -301,7 +318,7 @@ class DeviceListMain extends React.PureComponent {
                           },
                         ],
                         initialValue: devOilName,
-                      })(<Input placeholder={'请输入油库'} />)}
+                      })(<Input disabled={allDisabled} placeholder={'请输入油库'} />)}
                     </Form.Item>
                   </Col>
 
@@ -315,7 +332,7 @@ class DeviceListMain extends React.PureComponent {
                           },
                         ],
                         initialValue: devOilCode,
-                      })(<Input placeholder={'请输入设备编号'} />)}
+                      })(<Input disabled={allDisabled} placeholder={'请输入设备编号'} />)}
                     </Form.Item>
                   </Col>
 
@@ -329,7 +346,7 @@ class DeviceListMain extends React.PureComponent {
                           },
                         ],
                         initialValue: devCode,
-                      })(<Input placeholder={'请输入设备编号'} />)}
+                      })(<Input disabled={allDisabled} placeholder={'请输入设备编号'} />)}
                     </Form.Item>
                   </Col>
 
@@ -343,7 +360,7 @@ class DeviceListMain extends React.PureComponent {
                           },
                         ],
                         initialValue: devName,
-                      })(<Input placeholder={'请输入设备名称及编号'} />)}
+                      })(<Input disabled={allDisabled} placeholder={'请输入设备名称及编号'} />)}
                     </Form.Item>
                   </Col>
 
@@ -357,7 +374,7 @@ class DeviceListMain extends React.PureComponent {
                           },
                         ],
                         initialValue: devBrand,
-                      })(<Input placeholder={'请输入品牌'} />)}
+                      })(<Input disabled={allDisabled} placeholder={'请输入品牌'} />)}
                     </Form.Item>
                   </Col>
 
@@ -371,7 +388,7 @@ class DeviceListMain extends React.PureComponent {
                           },
                         ],
                         initialValue: devSpecifications,
-                      })(<Input placeholder={'请输入规格型号'} />)}
+                      })(<Input disabled={allDisabled} placeholder={'请输入规格型号'} />)}
                     </Form.Item>{' '}
                   </Col>
 
@@ -385,7 +402,7 @@ class DeviceListMain extends React.PureComponent {
                           },
                         ],
                         initialValue: devPower,
-                      })(<Input placeholder={'请输入功率'} />)}
+                      })(<Input disabled={allDisabled} placeholder={'请输入功率'} />)}
                     </Form.Item>
                   </Col>
 
@@ -403,7 +420,9 @@ class DeviceListMain extends React.PureComponent {
                         <TreeSelect
                           dropdownStyle={{ maxHeight: 320, overflow: 'auto' }}
                           placeholder="请选择所属设备"
-                          treeDefaultExpandAll>
+                          treeDefaultExpandAll
+                          disabled={allDisabled}
+                        >
                           {this.getTreeSelectNode(categoryList)}
                         </TreeSelect>,
                       )}
@@ -420,7 +439,7 @@ class DeviceListMain extends React.PureComponent {
                           },
                         ],
                         initialValue: devPersonId,
-                      })(<Input placeholder={'请输入责任人'} />)}
+                      })(<Input disabled={allDisabled} placeholder={'请输入责任人'} />)}
                     </Form.Item>
                   </Col>
 
@@ -434,7 +453,7 @@ class DeviceListMain extends React.PureComponent {
                           },
                         ],
                         initialValue: devManufacturersName,
-                      })(<Input placeholder={'请输入生产厂商'} />)}
+                      })(<Input disabled={allDisabled} placeholder={'请输入生产厂商'} />)}
                     </Form.Item>
                   </Col>
 
@@ -448,7 +467,7 @@ class DeviceListMain extends React.PureComponent {
                           },
                         ],
                         initialValue: devSupplierName,
-                      })(<Input placeholder={'请输入供应商'} />)}
+                      })(<Input disabled={allDisabled} placeholder={'请输入供应商'} />)}
                     </Form.Item>
                   </Col>
 
@@ -462,7 +481,7 @@ class DeviceListMain extends React.PureComponent {
                           },
                         ],
                         initialValue: devManufactureDate && moment(devManufactureDate),
-                      })(<DatePicker showTime style={{ width: '100%' }} format={dateFormat} />)}
+                      })(<DatePicker disabled={allDisabled} showTime style={{ width: '100%' }} format={dateFormat} />)}
                     </Form.Item>
                   </Col>
 
@@ -476,7 +495,7 @@ class DeviceListMain extends React.PureComponent {
                           },
                         ],
                         initialValue: devUseDate && moment(devUseDate),
-                      })(<DatePicker showTime style={{ width: '100%' }} format={dateFormat} />)}
+                      })(<DatePicker disabled={allDisabled} showTime style={{ width: '100%' }} format={dateFormat} />)}
                     </Form.Item>
                   </Col>
 
@@ -491,7 +510,7 @@ class DeviceListMain extends React.PureComponent {
                         ],
                         initialValue: devStatus,
                       })(
-                        <Select placeholder="请选择设备状态">
+                        <Select disabled={allDisabled} placeholder="请选择设备状态">
                           <Option value="使用中">使用中</Option>
                           <Option value="停止">停止</Option>
                           <Option value="报废">报废</Option>
@@ -505,7 +524,7 @@ class DeviceListMain extends React.PureComponent {
                 <Form.Item label="备注" {...formTextLayout}>
                   {getFieldDecorator('devDesc', {
                     initialValue: devDesc,
-                  })(<Input type="textarea" placeholder={'请输入备注'} />)}
+                  })(<Input disabled={allDisabled} type="textarea" placeholder={'请输入备注'} />)}
                 </Form.Item>
               </Form>
             )}
