@@ -1,0 +1,99 @@
+@main-back: #171e31;
+@title-back: #323644;
+@text-color: #a1a1a1;
+@text-content: #dddddd;
+
+.report-management {
+  min-height: calc(~"100vh - 52px");
+  width: calc(~"100vw - 224px");
+
+  .detail-content {
+    width: calc(~"50vw - 12px");
+    height: calc(~"50vh - 30px");
+    padding: 3px;
+    border: 1px solid #e9e9e9;
+    margin: 6px;
+
+    #WaterStatistics {
+      height: calc(~"50vh - 80px");
+    }
+
+    .ElectricityStatistics {
+      height: calc(~"25vh - 32px");
+      width: calc(~"12.5vw - 18px");
+    }
+
+    #CoalmakingStatistics {
+      height: calc(~"50vh - 80px");
+    }
+
+    .child-title {
+      background: @title-back;
+      color: @text-color;
+      height: 25px;
+      line-height: 25px;
+      padding-left: 7px;
+    }
+
+    .child-content {
+      padding: 10px 5px;
+    }
+
+    .electricity-statistics-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 0;
+    }
+
+    .gas-statistics-content {
+      display: flex;
+      justify-content: space-around;
+
+      .gas-detail {
+        width: 20px;
+        .gas-detail-content {
+          text-align: center;
+          height: calc(~"50vh - 120px");
+          margin-bottom: 6px;
+
+          .gas-progress {
+            height: 100%;
+            width:8px;
+            margin: 0 auto;
+
+            .warn {
+              background: #ffc041;
+              height: 33%;
+              margin: 2px 0;
+            }
+            .normal {
+              background: #2287d7;
+              height: 33%;
+              margin: 2px 0;
+            }
+            .low {
+              background: #00eeff;
+              height: 33%;
+              margin: 2px 0;
+            }
+          }
+
+          .gas-progress-icon {
+            color: white;
+            display: flex;
+            font-size: 10px;
+
+            .anticon-caret-left {
+              margin-left: 16px;
+            }
+
+            .anticon-caret-right {
+              margin-left: -8px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

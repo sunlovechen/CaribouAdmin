@@ -20,6 +20,7 @@ import JobManagement from './components/JobManagement';
 import RoleManagement from './components/RoleManagement';
 import WorkProcessList from './components/WorkProcessList';
 import WorkOrder from './components/WorkOrder';
+import ReportManagement from './components/ReportManagement';
 
 import './index.less';
 
@@ -49,6 +50,8 @@ const routes = (
           <Route path="workProcessList" component={WorkProcessList} />
           <Route path="workOrder" component={WorkOrder} />
         </Route>
+
+        <Route path="ReportManagement" component={ReportManagement} />
 
         <Route path="*" component={Error} />
       </Route>

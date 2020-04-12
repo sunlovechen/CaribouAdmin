@@ -214,7 +214,7 @@ class Spectacular extends React.PureComponent {
                 {this.state.list.map(_item => {
                   return <OilPlatform id={1} />;
                 })}
-                 <OilPlatform id={0} />;
+                 <OilPlatform id={0} />
               </div>
             </div>
           </div>

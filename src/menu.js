@@ -65,6 +65,10 @@ const sidebarMenu = [
     ],
   },
   {
+    key: 'reportManagement',
+    name: '报表管理',
+  },
+  {
     key: 'safety',
     name: '安全管理制度',
     child: [
@@ -183,10 +187,6 @@ const sidebarMenu = [
   {
     key: 'emergency',
     name: '应急管理',
-  },
-  {
-    key: 'report',
-    name: '报表管理',
   },
   {
     key: 'occupational',

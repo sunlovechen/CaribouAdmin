@@ -55,13 +55,14 @@ class DeviceListMain extends React.PureComponent {
 
   // 设备故障列表
   getDevices = async () => {
-    const { page, queryMap } = this.state;
+    const { page, queryMap, type } = this.state;
     const pageDetail = {
       pageNum: page.current,
       pageSize: page.pageSize,
     };
     const detail = Object.assign({}, pageDetail, {
       queryMap,
+      devTyp: '1',
     });
     const res = await ajax.getDevices(detail);
     if (res.code === '10001') {

@@ -206,11 +206,11 @@ class DetailOrder extends React.PureComponent {
             </Col>
             <Col span={12}>
               <label>申请单位：</label>
-              <span>{'单位名字'}</span>
+              <span>{'江苏油库'}</span>
             </Col>
             <Col span={12}>
               <label>施工单位：</label>
-              <span>{'单位名字'}</span>
+              <span>{'江苏油库'}</span>
             </Col>
             <Col span={12}>
               <label>施工单位负责人：</label>
@@ -332,7 +332,7 @@ class DetailOrder extends React.PureComponent {
             </Col>
             <Col span={12}>
               <label>申请单位：</label>
-              <span>{'单位名字'}</span>
+              <span>{'江苏油库'}</span>
             </Col>
             <Col span={12}>
               <label>作业地点：</label>
