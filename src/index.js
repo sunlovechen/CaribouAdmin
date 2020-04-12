@@ -51,7 +51,7 @@ const routes = (
           <Route path="workOrder" component={WorkOrder} />
         </Route>
 
-        <Route path="ReportManagement" component={ReportManagement} />
+        <Route path="reportManagement" component={ReportManagement} />
 
         <Route path="*" component={Error} />
       </Route>

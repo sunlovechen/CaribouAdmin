@@ -286,7 +286,7 @@ class App extends React.Component {
           <div id="main-content-div" className={this.props.collapse ? 'ant-layout-main-collapse' : 'ant-layout-main'}>
             <Header userName={this.props.userName} />
             {this.renderBody()}
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </div>
       </Spin>
