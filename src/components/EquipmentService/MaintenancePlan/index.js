@@ -6,7 +6,7 @@ import ajax from '../../../utils/ajax';
 import moment from 'moment';
 
 const { Option } = Select;
-const dateFormat = 'YYYY-MM-DD HH:mm:ss';
+const dateFormat = 'YYYY-MM-DD';
 
 /**
  * 保养计划
@@ -432,7 +432,7 @@ class MaintenancePlanMain extends React.PureComponent {
                         },
                       ],
                       initialValue: planStartDate && moment(planStartDate),
-                    })(<DatePicker showTime style={{ width: '100%' }} format={dateFormat} />)}
+                    })(<DatePicker style={{ width: '100%' }} format={dateFormat} />)}
                   </Form.Item>
                 </Col>
 
@@ -446,7 +446,7 @@ class MaintenancePlanMain extends React.PureComponent {
                         },
                       ],
                       initialValue: planEndDate && moment(planEndDate),
-                    })(<DatePicker showTime style={{ width: '100%' }} format={dateFormat} />)}
+                    })(<DatePicker style={{ width: '100%' }} format={dateFormat} />)}
                   </Form.Item>
                 </Col>
               </Row>

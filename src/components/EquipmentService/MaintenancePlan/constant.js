@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-const dateFormat = 'YYYY-MM-DD HH:mm:ss';
+const dateFormat = 'YYYY-MM-DD';
 
 export const PlanStatus = ['', '有效', '无效'];
 export const PlanLevel = ['日常保养'];

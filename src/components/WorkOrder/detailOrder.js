@@ -3,7 +3,7 @@ import { Row, Col } from 'antd';
 import './index.less';
 import moment from 'moment';
 
-const dateFormat = 'YYYY-MM-DD HH:mm:ss';
+const dateFormat = 'YYYY-MM-DD';
 
 /**
  * 详情

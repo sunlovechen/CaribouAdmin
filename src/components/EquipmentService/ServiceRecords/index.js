@@ -6,7 +6,7 @@ import ajax from '../../../utils/ajax';
 import moment from 'moment';
 
 const { Option } = Select;
-const dateFormat = 'YYYY-MM-DD HH:mm:ss';
+const dateFormat = 'YYYY-MM-DD';
 
 /**
  * 维修记录

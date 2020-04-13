@@ -2,7 +2,7 @@ import React from 'react';
 // import { Tag } from 'antd';
 import moment from 'moment';
 
-const dateFormat = 'YYYY-MM-DD HH:mm:ss';
+const dateFormat = 'YYYY-MM-DD';
 
 export const devPersonIdList = {
   1: '是',

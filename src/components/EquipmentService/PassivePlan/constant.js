@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-const dateFormat = 'YYYY-MM-DD HH:mm:ss';
+const dateFormat = 'YYYY-MM-DD';
 
 export const FaultLevel = ['一般', '紧急', '严重'];
 const FaultStatus = ['正常', '不正常'];

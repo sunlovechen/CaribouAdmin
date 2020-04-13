@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-const dateFormat = 'YYYY-MM-DD HH:mm:ss';
+const dateFormat = 'YYYY-MM-DD';
 
 export const RecodeShutdownType = ['', '是', '否'];
 export const RecordType = ['', '保养', '被动保养', '维修', '被动维修'];

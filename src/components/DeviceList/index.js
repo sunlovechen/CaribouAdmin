@@ -24,7 +24,7 @@ import EquipmentService from '../EquipmentService';
 const { Option } = Select;
 const TreeSelectNode = TreeSelect.TreeNode;
 
-const dateFormat = 'YYYY-MM-DD HH:mm:ss';
+const dateFormat = 'YYYY-MM-DD';
 
 /**
  * 用户管理
@@ -553,7 +553,7 @@ class DeviceListMain extends React.PureComponent {
                             devicesItem[devManufactureDateChange[type].key] &&
                             moment(devicesItem[devManufactureDateChange[type].key]),
                         })(
-                          <DatePicker disabled={allDisabled} showTime style={{ width: '100%' }} format={dateFormat} />,
+                          <DatePicker disabled={allDisabled} style={{ width: '100%' }} format={dateFormat} />,
                         )}
                       </Form.Item>
                     </Col>
@@ -569,7 +569,7 @@ class DeviceListMain extends React.PureComponent {
                           },
                         ],
                         initialValue: devProductUsedDate && moment(devProductUsedDate),
-                      })(<DatePicker disabled={allDisabled} showTime style={{ width: '100%' }} format={dateFormat} />)}
+                      })(<DatePicker disabled={allDisabled} style={{ width: '100%' }} format={dateFormat} />)}
                     </Form.Item>
                   </Col>
 
@@ -601,7 +601,7 @@ class DeviceListMain extends React.PureComponent {
                           ],
                           initialValue: devCleanSoilDate && moment(devCleanSoilDate),
                         })(
-                          <DatePicker disabled={allDisabled} showTime style={{ width: '100%' }} format={dateFormat} />,
+                          <DatePicker disabled={allDisabled} style={{ width: '100%' }} format={dateFormat} />,
                         )}
                       </Form.Item>
                     </Col>
