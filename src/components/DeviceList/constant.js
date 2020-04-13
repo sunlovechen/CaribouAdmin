@@ -114,6 +114,35 @@ export const typeList = [
   },
 ];
 
+export const typeValueList = {
+  flowmeter: '1',
+  oilTank: '2',
+  submersibleOilPump: '3',
+  craneTube: '4',
+  videoSurveillance: '5',
+  distributionCabinet: '6',
+  transformer: '7',
+  generator: '8',
+  canopy: '9',
+  floorOrFence: '10',
+  oilPipeline: '11',
+  extinguiserPool: '12',
+  centrifugalPump: '13',
+  pipelinePump: '14',
+  rotorPump: '15',
+  motor: '16',
+  railwayTrestle: '17',
+  oilSpillElectrostaticProtector: '18',
+  explosionProofSolenoidValve: '19',
+  filter: '20',
+  checkValve: '21',
+  valve: '22',
+  electronicScale: '23',
+  combustibleGasAlarm: '24',
+  fireTruck: '25',
+  fireExtinguisher: '26',
+};
+
 /**
  * 油库编码
  */
@@ -491,7 +520,7 @@ export const columns = (showModal, putDeviceStatusById, type) => {
     dataIndex: 'devName',
   });
 
-  if (devOilCodeChange[type]) {
+  if (devBrandChange[type]) {
     defauitList.push({
       title: devBrandChange[type],
       dataIndex: 'devBrand',

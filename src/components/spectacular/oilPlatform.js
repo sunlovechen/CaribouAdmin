@@ -43,7 +43,7 @@ class OilPlatform extends React.PureComponent {
 
           <div className="content-left">{'瞬时流量'}</div>
           <div className="content-right">
-            <Progress strokeColor="#0ff" className="ontime-pro" percent={60} status="active" />
+            <Progress className="ontime-pro" percent={60} status="active" />
           </div>
 
           <div className="content-left">{'预质量'}</div>

@@ -4,6 +4,7 @@ import { Row, Col } from 'antd';
 import { Icon } from 'antd';
 import OilPlatform from './oilPlatform';
 import Header from '../HeaderBlack';
+import CanvasSquare from './canvasSquare';
 
 const image = require('../../assets/kanban.png');
 /**
@@ -24,6 +25,7 @@ class Spectacular extends React.PureComponent {
   render() {
     return (
       <div className="spectacular">
+        {/* <CanvasSquare /> */}
         <Header />
         <div className="main">
           <div className="left-main">
@@ -69,7 +71,7 @@ class Spectacular extends React.PureComponent {
                   <Col span={8}>
                     <p>
                       危险源异常&nbsp;&nbsp;
-                      <Icon type="bulb" style={{ color: 'red' }} theme="twoTone" />
+                      <Icon type="bulb" style={{ color: 'red' }} />
                     </p>
                     <p className="bottom-line">
                       <i style={{ background: 'red' }}></i>
@@ -80,7 +82,7 @@ class Spectacular extends React.PureComponent {
                   <Col span={8}>
                     <p>
                       危险源异常&nbsp;&nbsp;
-                      <Icon type="bulb" style={{ color: 'red' }} theme="twoTone" />
+                      <Icon type="bulb" style={{ color: 'red' }} />
                     </p>
                     <p className="bottom-line">
                       <i style={{ background: 'red' }}></i>
@@ -91,7 +93,7 @@ class Spectacular extends React.PureComponent {
                   <Col span={8}>
                     <p>
                       危险源异常&nbsp;&nbsp;
-                      <Icon type="bulb" style={{ color: 'red' }} theme="twoTone" />
+                      <Icon type="bulb" style={{ color: 'red' }} />
                     </p>
                     <p className="bottom-line">
                       <i style={{ background: 'red' }}></i>
@@ -102,7 +104,7 @@ class Spectacular extends React.PureComponent {
                   <Col span={8}>
                     <p>
                       危险源异常&nbsp;&nbsp;
-                      <Icon type="bulb" style={{ color: '#eaaa00' }} theme="twoTone" />
+                      <Icon type="bulb" style={{ color: '#eaaa00' }} />
                     </p>
                     <p className="bottom-line">
                       <i style={{ background: '#eaaa00' }}></i>
@@ -113,7 +115,7 @@ class Spectacular extends React.PureComponent {
                   <Col span={8}>
                     <p>
                       危险源异常&nbsp;&nbsp;
-                      <Icon type="bulb" style={{ color: '#eaaa00' }} theme="twoTone" />
+                      <Icon type="bulb" style={{ color: '#eaaa00' }} />
                     </p>
                     <p className="bottom-line">
                       <i style={{ background: '#eaaa00' }}></i>
@@ -124,7 +126,7 @@ class Spectacular extends React.PureComponent {
                   <Col span={8}>
                     <p>
                       危险源异常&nbsp;&nbsp;
-                      <Icon type="bulb" style={{ color: '#eaaa00' }} theme="twoTone" />
+                      <Icon type="bulb" style={{ color: '#eaaa00' }} />
                     </p>
                     <p className="bottom-line">
                       <i style={{ background: '#eaaa00' }}></i>
@@ -135,7 +137,7 @@ class Spectacular extends React.PureComponent {
                   <Col span={8}>
                     <p>
                       危险源异常&nbsp;&nbsp;
-                      <Icon type="bulb" style={{ color: '#eaaa00' }} theme="twoTone" />
+                      <Icon type="bulb" style={{ color: '#eaaa00' }} />
                     </p>
                     <p className="bottom-line">
                       <i style={{ background: '#eaaa00' }}></i>
@@ -146,7 +148,7 @@ class Spectacular extends React.PureComponent {
                   <Col span={8}>
                     <p>
                       危险源异常&nbsp;&nbsp;
-                      <Icon type="bulb" style={{ color: '#eaaa00' }} theme="twoTone" />
+                      <Icon type="bulb" style={{ color: '#eaaa00' }} />
                     </p>
                     <p className="bottom-line">
                       <i style={{ background: '#eaaa00' }}></i>
@@ -157,7 +159,7 @@ class Spectacular extends React.PureComponent {
                   <Col span={8}>
                     <p>
                       危险源异常&nbsp;&nbsp;
-                      <Icon type="bulb" style={{ color: '#eaaa00' }} theme="twoTone" />
+                      <Icon type="bulb" style={{ color: '#eaaa00' }} />
                     </p>
                     <p className="bottom-line">
                       <i style={{ background: '#eaaa00' }}></i>
@@ -211,10 +213,10 @@ class Spectacular extends React.PureComponent {
             <div className="spectacular-child">
               <div className="child-title">{'发油台'}</div>
               <div className="child-content">
-                {this.state.list.map(_item => {
-                  return <OilPlatform id={1} />;
+                {this.state.list.map((_item, index) => {
+                  return <OilPlatform id={1} key={index} />;
                 })}
-                 <OilPlatform id={0} />
+                <OilPlatform id={0} />
               </div>
             </div>
           </div>
