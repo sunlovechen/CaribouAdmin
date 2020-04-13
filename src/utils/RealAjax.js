@@ -80,23 +80,48 @@ class Ajax {
    * @param pageSize
    * @param queryMap: { devName devCode }
    */
+  // getDevices(detail) {
+  //   return axios.post(`${api}/dev/getDevices`, detail);
+  // }
+
+  //  /**
+  //  * 添加设备
+  //  */
+  // postDevice(detail) {
+  //   return axios.post(`${api}/dev/postDevice`, detail);
+  // }
+
+  //  /**
+  //  * 更新设备
+  //  */
+  // putDeviceById(detail) {
+  //   return axios.post(`${api}/dev/putDeviceById`, detail);
+  // }
+
+   /**
+   * 设备管理列表
+   * @param pageNum
+   * @param pageSize
+   * @param queryMap: { devName devCode }
+   */
   getDevices(detail) {
-    return axios.post(`${api}/dev/getDevices`, detail);
+    return axios.post(`${api}/dev/menu/listPage`, detail);
   }
 
    /**
    * 添加设备
    */
   postDevice(detail) {
-    return axios.post(`${api}/dev/postDevice`, detail);
+    return axios.post(`${api}/dev/menu/save`, detail);
   }
 
    /**
    * 更新设备
    */
   putDeviceById(detail) {
-    return axios.post(`${api}/dev/putDeviceById`, detail);
+    return axios.post(`${api}/dev/menu/update`, detail);
   }
+
 
    /**
    * 修改设备状态 报废设备

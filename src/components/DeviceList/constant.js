@@ -4,6 +4,21 @@ import moment from 'moment';
 
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
+export const devPersonIdList = {
+  1: '是',
+  2: '否',
+};
+
+export const devStatusList = {
+  1: '是',
+  2: '否',
+};
+
+export const devRkslList = {
+  1: '单',
+  2: '双',
+};
+
 /**
  * 设备类型
  */
@@ -115,64 +130,64 @@ export const typeList = [
 ];
 
 export const typeValueList = {
-  flowmeter: '1',
-  oilTank: '2',
-  submersibleOilPump: '3',
-  craneTube: '4',
-  videoSurveillance: '5',
-  distributionCabinet: '6',
-  transformer: '7',
-  generator: '8',
-  canopy: '9',
-  floorOrFence: '10',
-  oilPipeline: '11',
-  extinguiserPool: '12',
-  centrifugalPump: '13',
-  pipelinePump: '14',
-  rotorPump: '15',
-  motor: '16',
-  railwayTrestle: '17',
-  oilSpillElectrostaticProtector: '18',
-  explosionProofSolenoidValve: '19',
-  filter: '20',
-  checkValve: '21',
-  valve: '22',
-  electronicScale: '23',
-  combustibleGasAlarm: '24',
-  fireTruck: '25',
-  fireExtinguisher: '26',
+  flowmeter: 1,
+  oilTank: 2,
+  submersibleOilPump: 3,
+  craneTube: 4,
+  videoSurveillance: 5,
+  distributionCabinet: 6,
+  transformer: 7,
+  generator: 8,
+  canopy: 9,
+  floorOrFence: 10,
+  oilPipeline: 11,
+  extinguiserPool: 12,
+  centrifugalPump: 13,
+  pipelinePump: 14,
+  rotorPump: 15,
+  motor: 16,
+  railwayTrestle: 17,
+  oilSpillElectrostaticProtector: 18,
+  explosionProofSolenoidValve: 19,
+  filter: 20,
+  checkValve: 21,
+  valve: 22,
+  electronicScale: 23,
+  combustibleGasAlarm: 24,
+  fireTruck: 25,
+  fireExtinguisher: 26,
 };
 
 /**
  * 油库编码
  */
-export const devOilCodeChange = {
-  flowmeter: '油库编码',
-  oilTank: '油库编码',
-  submersibleOilPump: '油库编码',
-  craneTube: '油库编码',
-  videoSurveillance: '油库编码',
-  distributionCabinet: '油库编码',
-  transformer: '油库编码',
-  generator: '油库编码',
-  canopy: '油库编码',
-  floorOrFence: '加油站编码',
-  oilPipeline: '油库编码',
-  extinguiserPool: '加油站编码',
-  centrifugalPump: '油库编码',
-  pipelinePump: '油库编码',
-  rotorPump: '油库编码',
-  motor: '油库编码',
-  railwayTrestle: '油库编码',
-  oilSpillElectrostaticProtector: '油库编码',
-  explosionProofSolenoidValve: '油库编码',
-  filter: '油库编码',
-  checkValve: '油库编码',
-  valve: '油库编码',
-  electronicScale: '油库编码',
-  combustibleGasAlarm: '油库编码',
-  fireTruck: '油库编码',
-  fireExtinguisher: '油库编码',
+export const devSoilCodeChange = {
+  flowmeter: { key: 'devSoilCode', value: '油库编码' },
+  oilTank: { key: 'devSoilCode', value: '油库编码' },
+  submersibleOilPump: { key: 'devSoilCode', value: '油库编码' },
+  craneTube: { key: 'devSoilCode', value: '油库编码' },
+  videoSurveillance: { key: 'devSoilCode', value: '油库编码' },
+  distributionCabinet: { key: 'devSoilCode', value: '油库编码' },
+  transformer: { key: 'devSoilCode', value: '油库编码' },
+  generator: { key: 'devSoilCode', value: '油库编码' },
+  canopy: { key: 'devSoilCode', value: '油库编码' },
+  floorOrFence: { key: 'devJqzCode', value: '加油站编码' },
+  oilPipeline: { key: 'devSoilCode', value: '油库编码' },
+  extinguiserPool: { key: 'devJqzCode', value: '加油站编码' },
+  centrifugalPump: { key: 'devSoilCode', value: '油库编码' },
+  pipelinePump: { key: 'devSoilCode', value: '油库编码' },
+  rotorPump: { key: 'devSoilCode', value: '油库编码' },
+  motor: { key: 'devSoilCode', value: '油库编码' },
+  railwayTrestle: { key: 'devSoilCode', value: '油库编码' },
+  oilSpillElectrostaticProtector: { key: 'devSoilCode', value: '油库编码' },
+  explosionProofSolenoidValve: { key: 'devSoilCode', value: '油库编码' },
+  filter: { key: 'devSoilCode', value: '油库编码' },
+  checkValve: { key: 'devSoilCode', value: '油库编码' },
+  valve: { key: 'devSoilCode', value: '油库编码' },
+  electronicScale: { key: 'devSoilCode', value: '油库编码' },
+  combustibleGasAlarm: { key: 'devSoilCode', value: '油库编码' },
+  fireTruck: { key: 'devSoilCode', value: '油库编码' },
+  fireExtinguisher: { key: 'devSoilCode', value: '油库编码' },
 };
 
 /**
@@ -188,7 +203,7 @@ export const devNameChange = {
   transformer: '设备名称及编号',
   generator: '设备名称及编号',
   canopy: '设备名称及编号',
-  floorOrFence: '加油站编码',
+  floorOrFence: '设备名称及编号',
   oilPipeline: '名称及编号',
   extinguiserPool: '名称及编号',
   centrifugalPump: '设备名称及编号',
@@ -211,164 +226,126 @@ export const devNameChange = {
  * 品牌
  */
 export const devBrandChange = {
-  flowmeter: '品牌',
-  oilTank: '油罐形式',
-  submersibleOilPump: '品牌',
-  craneTube: '品牌',
-  videoSurveillance: '品牌',
-  distributionCabinet: '品牌',
-  transformer: '品牌',
-  generator: '品牌',
-  canopy: '檐口形式',
-  floorOrFence: '围墙样式',
-  oilPipeline: '',
-  extinguiserPool: '',
-  centrifugalPump: '品牌',
-  pipelinePump: '品牌',
-  rotorPump: '品牌',
-  motor: '品牌',
-  railwayTrestle: '品牌',
-  oilSpillElectrostaticProtector: '品牌',
-  explosionProofSolenoidValve: '品牌',
-  filter: '品牌',
-  checkValve: '品牌',
-  valve: '品牌',
-  electronicScale: '品牌',
-  combustibleGasAlarm: '品牌',
-  fireTruck: '品牌',
-  fireExtinguisher: '品牌',
+  flowmeter: { key: 'devBrand', value: '品牌' },
+  oilTank: { key: 'devSoilMode', value: '油罐形式' },
+  submersibleOilPump: { key: 'devBrand', value: '品牌' },
+  craneTube: { key: 'devBrand', value: '品牌' },
+  videoSurveillance: { key: 'devBrand', value: '品牌' },
+  distributionCabinet: { key: 'devBrand', value: '品牌' },
+  transformer: { key: 'devBrand', value: '品牌' },
+  generator: { key: 'devBrand', value: '品牌' },
+  canopy: { key: 'devYkxs', value: '檐口形式' },
+  floorOrFence: { key: 'devWqxs', value: '围墙样式' },
+  centrifugalPump: { key: 'devBrand', value: '品牌' },
+  pipelinePump: { key: 'devBrand', value: '品牌' },
+  rotorPump: { key: 'devBrand', value: '品牌' },
+  motor: { key: 'devBrand', value: '品牌' },
+  railwayTrestle: { key: 'devBrand', value: '品牌' },
+  oilSpillElectrostaticProtector: { key: 'devBrand', value: '品牌' },
+  explosionProofSolenoidValve: { key: 'devBrand', value: '品牌' },
+  filter: { key: 'devBrand', value: '品牌' },
+  checkValve: { key: 'devBrand', value: '品牌' },
+  valve: { key: 'devBrand', value: '品牌' },
+  electronicScale: { key: 'devBrand', value: '品牌' },
+  combustibleGasAlarm: { key: 'devBrand', value: '品牌' },
+  fireTruck: { key: 'devBrand', value: '品牌' },
+  fireExtinguisher: { key: 'devBrand', value: '品牌' },
 };
 
 /**
  * 规格型号
  */
-export const devSpecificationsChange = {
-  flowmeter: '规格型号',
-  oilTank: '容积(立方米)',
-  submersibleOilPump: '规格型号',
-  craneTube: '规格型号',
-  videoSurveillance: '规格型号',
-  distributionCabinet: '规格型号',
-  transformer: '规格型号',
-  generator: '规格型号',
-  canopy: '面积(平方米)',
-  floorOrFence: '面积(平方米)',
-  oilPipeline: '规格型号',
-  extinguiserPool: '面积',
-  centrifugalPump: '规格型号',
-  pipelinePump: '规格型号',
-  rotorPump: '规格型号',
-  motor: '规格型号',
-  railwayTrestle: '规格型号',
-  oilSpillElectrostaticProtector: '规格型号',
-  explosionProofSolenoidValve: '规格型号',
-  filter: '规格型号',
-  checkValve: '规格型号',
-  valve: '规格型号',
-  electronicScale: '规格型号',
-  combustibleGasAlarm: '规格型号',
-  fireTruck: '规格型号',
-  fireExtinguisher: '规格型号',
+export const devStandardsChange = {
+  flowmeter: { key: 'devStandards', value: '规格型号' },
+  oilTank: { key: 'devVolume', value: '容积(立方米)' },
+  submersibleOilPump: { key: 'devStandards', value: '规格型号' },
+  craneTube: { key: 'devStandards', value: '规格型号' },
+  videoSurveillance: { key: 'devStandards', value: '规格型号' },
+  distributionCabinet: { key: 'devStandards', value: '规格型号' },
+  transformer: { key: 'devStandards', value: '规格型号' },
+  generator: { key: 'devStandards', value: '规格型号' },
+  canopy: { key: 'devArea', value: '面积(平方米)' },
+  floorOrFence: { key: 'devArea', value: '面积(平方米)' },
+  oilPipeline: { key: 'devStandards', value: '规格型号' },
+  extinguiserPool: { key: 'devArea', value: '面积(平方米)' },
+  centrifugalPump: { key: 'devStandards', value: '规格型号' },
+  pipelinePump: { key: 'devStandards', value: '规格型号' },
+  rotorPump: { key: 'devStandards', value: '规格型号' },
+  motor: { key: 'devStandards', value: '规格型号' },
+  railwayTrestle: { key: 'devStandards', value: '规格型号' },
+  oilSpillElectrostaticProtector: { key: 'devStandards', value: '规格型号' },
+  explosionProofSolenoidValve: { key: 'devStandards', value: '规格型号' },
+  filter: { key: 'devStandards', value: '规格型号' },
+  checkValve: { key: 'devStandards', value: '规格型号' },
+  valve: { key: 'devStandards', value: '规格型号' },
+  electronicScale: { key: 'devStandards', value: '规格型号' },
+  combustibleGasAlarm: { key: 'devStandards', value: '规格型号' },
+  fireTruck: { key: 'devStandards', value: '规格型号' },
+  fireExtinguisher: { key: 'devStandards', value: '规格型号' },
 };
 
 /**
  * 生产厂商
  */
 export const devManufacturersNameChange = {
-  flowmeter: '等级',
-  oilTank: '安装位置',
-  submersibleOilPump: '',
-  craneTube: '口径',
-  videoSurveillance: '室外探头',
-  distributionCabinet: '安装位置',
-  transformer: '安装方式',
-  generator: '安装位置',
-  canopy: '结构',
-  floorOrFence: '围墙高度（米）',
-  oilPipeline: '数量',
-  extinguiserPool: '',
-  centrifugalPump: '',
-  pipelinePump: '',
-  rotorPump: '',
-  motor: '',
-  railwayTrestle: '',
-  oilSpillElectrostaticProtector: '',
-  explosionProofSolenoidValve: '',
-  filter: '',
-  checkValve: '',
-  valve: '',
-  electronicScale: '',
-  combustibleGasAlarm: '',
-  fireTruck: '',
-  fireExtinguisher: '',
+  flowmeter: { key: 'devLevel', value: '等级' },
+  oilTank: { key: 'devSitePosition', value: '安装位置' },
+  craneTube: { key: 'devCaliber', value: '口径' },
+  videoSurveillance: { key: 'devSwtt', value: '室外探头' },
+  distributionCabinet: { key: 'devSitePosition', value: '安装位置' },
+  transformer: { key: 'devSetMode', value: '安装方式' },
+  generator: { key: 'devSitePosition', value: '安装位置' },
+  canopy: { key: 'devStructure', value: '结构' },
+  floorOrFence: { key: 'devWqgd', value: '围墙高度（米）' },
+  oilPipeline: { key: 'devNums', value: '数量' },
 };
 
 /**
  * 功率（KW)
  */
 export const devPowerChange = {
-  flowmeter: '公称压力',
-  oilTank: '人孔数量（单、双）',
-  submersibleOilPump: '功率(KW)',
-  craneTube: '',
-  videoSurveillance: '',
-  distributionCabinet: '',
-  transformer: '容量(KVA)',
-  generator: '功率(KW)',
-  canopy: '',
-  floorOrFence: '围墙长度（米）',
-  oilPipeline: '',
-  extinguiserPool: '',
-  centrifugalPump: '功率(KW)',
-  pipelinePump: '功率(KW)',
-  rotorPump: '功率(KW)',
-  motor: '功率(KW)',
-  railwayTrestle: '',
-  oilSpillElectrostaticProtector: '',
-  explosionProofSolenoidValve: '',
-  filter: '',
-  checkValve: '',
-  valve: '',
-  electronicScale: '',
-  combustibleGasAlarm: '',
-  fireTruck: '',
-  fireExtinguisher: '',
+  flowmeter: { key: 'devGcyl', value: '公称压力' },
+  oilTank: { key: 'devRksl', value: '入孔数量' },
+  submersibleOilPump: { key: 'devSoilPower', value: '功率(KW)' },
+  transformer: { key: 'devRlkwa', value: '容量(KVA)' },
+  generator: { key: 'devSoilPower', value: '功率(KW)' },
+  floorOrFence: { key: 'devWqcd', value: '围墙长度（米）' },
+  centrifugalPump: { key: 'devSoilPower', value: '功率(KW)' },
+  pipelinePump: { key: 'devSoilPower', value: '功率(KW)' },
+  rotorPump: { key: 'devSoilPower', value: '功率(KW)' },
+  motor: { key: 'devSoilPower', value: '功率(KW)' },
 };
 
 /**
  * 出厂日期
  */
 export const devManufactureDateChange = {
-  flowmeter: '出厂日期',
-  oilTank: '出厂日期',
-  submersibleOilPump: '出厂日期',
-  craneTube: '出厂日期',
-  videoSurveillance: '出厂日期',
-  distributionCabinet: '出厂日期',
-  transformer: '',
-  generator: '出厂日期',
-  canopy: '出厂日期',
-  floorOrFence: '',
-  oilPipeline: '',
-  extinguiserPool: '',
-  centrifugalPump: '出厂日期',
-  pipelinePump: '出厂日期',
-  rotorPump: '出厂日期',
-  motor: '出厂日期',
-  railwayTrestle: '出厂日期',
-  oilSpillElectrostaticProtector: '出厂日期',
-  explosionProofSolenoidValve: '出厂日期',
-  filter: '出厂日期',
-  checkValve: '出厂日期',
-  valve: '出厂日期',
-  electronicScale: '出厂日期',
-  combustibleGasAlarm: '出厂日期',
-  fireTruck: '出厂日期',
-  fireExtinguisher: '出厂日期',
+  flowmeter: { key: 'devProductDate', value: '出厂日期' },
+  oilTank: { key: 'devProductDate', value: '出厂日期' },
+  submersibleOilPump: { key: 'devProductDate', value: '出厂日期' },
+  craneTube: { key: 'devProductDate', value: '出厂日期' },
+  videoSurveillance: { key: 'devProductDate', value: '出厂日期' },
+  distributionCabinet: { key: 'devProductDate', value: '出厂日期' },
+  generator: { key: 'devProductUsedDate', value: '生产日期' },
+  canopy: { key: 'devProductUsedDate', value: '安装日期' },
+  centrifugalPump: { key: 'devProductDate', value: '出厂日期' },
+  pipelinePump: { key: 'devProductDate', value: '出厂日期' },
+  rotorPump: { key: 'devProductDate', value: '出厂日期' },
+  motor: { key: 'devProductDate', value: '出厂日期' },
+  railwayTrestle: { key: 'devProductDate', value: '出厂日期' },
+  oilSpillElectrostaticProtector: { key: 'devProductDate', value: '出厂日期' },
+  explosionProofSolenoidValve: { key: 'devProductDate', value: '出厂日期' },
+  filter: { key: 'devProductDate', value: '出厂日期' },
+  checkValve: { key: 'devProductDate', value: '出厂日期' },
+  valve: { key: 'devProductDate', value: '出厂日期' },
+  electronicScale: { key: 'devProductDate', value: '出厂日期' },
+  combustibleGasAlarm: { key: 'devProductDate', value: '出厂日期' },
+  fireTruck: { key: 'devProductDate', value: '出厂日期' },
+  fireExtinguisher: { key: 'devProductDate', value: '出厂日期' },
 };
 
 /**
- * 是否完好 (责任人)
+ * 是否完好 (原责任人)
  */
 export const devPersonIdChange = {
   flowmeter: '是否完好',
@@ -379,10 +356,6 @@ export const devPersonIdChange = {
   distributionCabinet: '是否完好',
   transformer: '是否完好',
   generator: '是否完好',
-  canopy: '',
-  floorOrFence: '',
-  oilPipeline: '',
-  extinguiserPool: '',
   centrifugalPump: '是否完好',
   pipelinePump: '是否完好',
   rotorPump: '是否完好',
@@ -443,10 +416,6 @@ export const devStatusChange = {
   distributionCabinet: '是否停用',
   transformer: '是否停用',
   generator: '是否停用',
-  canopy: '',
-  floorOrFence: '',
-  oilPipeline: '',
-  extinguiserPool: '',
   centrifugalPump: '是否停用',
   pipelinePump: '是否停用',
   rotorPump: '是否停用',
@@ -475,10 +444,6 @@ export const devSupplierNameChange = {
   distributionCabinet: '停用原因',
   transformer: '停用原因',
   generator: '停用原因',
-  canopy: '',
-  floorOrFence: '',
-  oilPipeline: '',
-  extinguiserPool: '',
   centrifugalPump: '停用原因',
   pipelinePump: '停用原因',
   rotorPump: '停用原因',
@@ -499,57 +464,60 @@ export const columns = (showModal, putDeviceStatusById, type) => {
   const defauitList = [
     {
       title: '市公司',
-      dataIndex: 'devCompanyName',
+      dataIndex: 'devCityCompany',
       width: '100px',
       fixed: 'left',
     },
     {
       title: '油库',
-      dataIndex: 'devOilName',
+      dataIndex: 'devSoilName',
       width: '100px',
       fixed: 'left',
     },
   ];
 
   defauitList.push({
-    title: devOilCodeChange[type],
-    dataIndex: 'devOilCode',
+    title: devSoilCodeChange[type].value,
+    dataIndex: devSoilCodeChange[type].key,
   });
   defauitList.push({
     title: devNameChange[type],
-    dataIndex: 'devName',
+    dataIndex: 'devNameCode',
   });
 
   if (devBrandChange[type]) {
     defauitList.push({
-      title: devBrandChange[type],
-      dataIndex: 'devBrand',
+      title: devBrandChange[type].value,
+      dataIndex: devBrandChange[type].key,
     });
   }
 
   defauitList.push({
-    title: devSpecificationsChange[type],
-    dataIndex: 'devSpecifications',
+    title: devStandardsChange[type].value,
+    dataIndex: devStandardsChange[type].key,
   });
 
   if (devManufacturersNameChange[type]) {
     defauitList.push({
-      title: devManufacturersNameChange[type],
-      dataIndex: 'devManufacturersName',
+      title: devManufacturersNameChange[type].value,
+      dataIndex: devManufacturersNameChange[type].key,
     });
   }
 
   if (devPowerChange[type]) {
     defauitList.push({
-      title: devPowerChange[type],
-      dataIndex: 'devPower',
+      title: devPowerChange[type].value,
+      dataIndex: devPowerChange[type].key,
+      render: text => {
+        return <span>{devPowerChange[type].key === 'devRksl' ? devRkslList[text] : text}</span>
+      },
     });
   }
 
   if (devManufactureDateChange[type]) {
     defauitList.push({
-      title: devManufactureDateChange[type],
-      dataIndex: 'devManufactureDate',
+      title: devManufactureDateChange[type].value,
+      dataIndex: devManufactureDateChange[type].key,
       render: text => {
         return <span>{moment(text).format(dateFormat)}</span>;
       },
@@ -559,14 +527,17 @@ export const columns = (showModal, putDeviceStatusById, type) => {
   if (devPersonIdChange[type]) {
     defauitList.push({
       title: devPersonIdChange[type],
-      dataIndex: 'devPersonId',
+      dataIndex: 'devIsOk',
+      render: text => {
+        return <span>{devPersonIdList[text]}</span>;
+      },
     });
   }
 
   if (devUseDateChange[type]) {
     defauitList.push({
       title: devUseDateChange[type],
-      dataIndex: 'devUseDate',
+      dataIndex: 'devProductUsedDate',
       render: text => {
         return <span>{moment(text).format(dateFormat)}</span>;
       },
@@ -577,13 +548,16 @@ export const columns = (showModal, putDeviceStatusById, type) => {
     defauitList.push({
       title: devStatusChange[type],
       dataIndex: 'devStatus',
+      render: text => {
+        return <span>{devStatusList[text]}</span>
+      },
     });
   }
 
   if (devSupplierNameChange[type]) {
     defauitList.push({
       title: devSupplierNameChange[type],
-      dataIndex: 'devSupplierName',
+      dataIndex: 'devPauseDesc',
     });
   }
 
@@ -603,7 +577,7 @@ export const columns = (showModal, putDeviceStatusById, type) => {
 
   defauitList.push({
     title: '备注',
-    dataIndex: 'devDesc',
+    dataIndex: 'devMemorial',
     width: '100px',
     render: text => {
       return (
@@ -619,9 +593,13 @@ export const columns = (showModal, putDeviceStatusById, type) => {
     width: '120px',
     fixed: 'right',
     render: (text, record) => {
-      return <div><a onClick={() => showModal('修改设备信息', record)}>修改 </a>
-        <a onClick={() => showModal('设备详情', record)}>详情 </a>
-        <a onClick={() => putDeviceStatusById(text)}> 报废</a></div>;
+      return (
+        <div>
+          <a onClick={() => showModal('修改设备信息', record)}>修改 </a>
+          <a onClick={() => showModal('设备详情', record)}>详情 </a>
+          <a onClick={() => putDeviceStatusById(text)}> 报废</a>
+        </div>
+      );
     },
   });
 

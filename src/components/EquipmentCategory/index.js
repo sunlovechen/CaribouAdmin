@@ -30,12 +30,20 @@ class EquipmentCategoryMain extends React.Component {
     if (selectedKeys[0]) {
       const res = await ajax.getCategoryById(selectedKeys);
       if (res.code === '10001') {
+        this.props.form.setFieldsValue({
+          categoryPid: res && res.data.categoryPid,
+          categoryName: res && res.data.categoryName,
+        });
         this.setState({
           categoryDetail: res && res.data,
           addOrEdit: 'edit',
         });
       }
     } else {
+      this.props.form.setFieldsValue({
+        categoryPid: null,
+        categoryName: null,
+      });
       this.setState({
         categoryDetail: {},
         addOrEdit: 'add',
@@ -51,6 +59,16 @@ class EquipmentCategoryMain extends React.Component {
         categoryName,
         categoryPid: e,
       },
+    });
+  };
+
+  // 清空form
+  setFieldsValue = () => {
+    window.console.log('666');
+    // this.props.form.resetFields();
+    this.props.form.setFieldsValue({
+      categoryPid: null,
+      categoryName: null,
     });
   };
 
@@ -99,7 +117,7 @@ class EquipmentCategoryMain extends React.Component {
         const res = await ajax.updateCategory(detail);
         if (res.code === '10001') {
           this.getCategorys();
-          this.props.form.resetFields();
+          message.success('修改成功');
         }
       }
     });
@@ -118,7 +136,7 @@ class EquipmentCategoryMain extends React.Component {
         const res = await ajax.postCategory(detail);
         if (res.code === '10001') {
           this.getCategorys();
-          this.props.form.resetFields();
+          message.success('新增成功');
         }
       }
     });
@@ -138,7 +156,7 @@ class EquipmentCategoryMain extends React.Component {
         if (res.code === '10001') {
           this.getCategorys();
           message.success('删除成功');
-          this.props.form.resetFields();
+          this.setFieldsValue();
         }
       }
     });
@@ -161,8 +179,7 @@ class EquipmentCategoryMain extends React.Component {
             defaultExpandAll={defaultExpandAll}
             className="equipment-category-tree"
             defaultExpandedKeys={this.state.expandedKeys}
-            onSelect={this.onSelect}
-          >
+            onSelect={this.onSelect}>
             {this.getTreeNode(categoryList)}
           </Tree>
         </div>
