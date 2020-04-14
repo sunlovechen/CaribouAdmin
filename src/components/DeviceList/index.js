@@ -150,10 +150,10 @@ class DeviceListMain extends React.PureComponent {
         propsItem: selectedRows[0],
       });
     },
-    getCheckboxProps: record => ({
-      disabled: record.devStatus !== '使用中', // Column configuration not to be checked
-      // name: record.name,
-    }),
+    // getCheckboxProps: record => ({
+    //   disabled: record.devStatus !== '使用中', // Column configuration not to be checked
+    //   // name: record.name,
+    // }),
     type: 'radio',
   };
 
