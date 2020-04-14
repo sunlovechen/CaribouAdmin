@@ -37,7 +37,7 @@ class ServiceRecordsMain extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.deviceItem.id !== this.props.deviceItem.id) {
+    if (prevProps.planItem.id !== this.props.planItem.id) {
       this.recordListPage();
     }
   }
