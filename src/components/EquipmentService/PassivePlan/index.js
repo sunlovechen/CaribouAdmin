@@ -43,7 +43,8 @@ class PassivePlanMain extends React.PureComponent {
       pageNum: page.current,
       pageSize: page.pageSize,
       queryMap: {
-        planDevId: parseInt(deviceItem.id),
+        // eslint-disable-next-line radix
+        passiveDevId: parseInt(deviceItem.id),
       },
     };
     const res = await ajax.passiveListPage(pageDetail);

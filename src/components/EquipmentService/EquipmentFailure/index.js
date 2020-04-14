@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import './index.less';
 import { Input, Button, Table, Modal, Form, Select, Row, Col, message } from 'antd';
@@ -43,7 +44,8 @@ class EquipmentFailureMain extends React.PureComponent {
       pageNum: page.current,
       pageSize: page.pageSize,
       queryMap: {
-        planDevId: parseInt(deviceItem.id),
+        // eslint-disable-next-line radix
+        faultDevId: parseInt(deviceItem.id),
       },
     };
     const res = await ajax.getFaults(pageDetail);
@@ -183,6 +185,7 @@ class EquipmentFailureMain extends React.PureComponent {
             onOk={this.handleOk}
             maskClosable={false}
             onCancel={this.handleCancel}
+            // eslint-disable-next-line react/jsx-closing-bracket-location
             width={'688px'}>
             <Form>
               <Row>
