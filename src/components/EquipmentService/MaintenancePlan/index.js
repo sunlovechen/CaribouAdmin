@@ -36,13 +36,23 @@ class MaintenancePlanMain extends React.PureComponent {
     this.planListPage();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.deviceItem.id !== this.props.deviceItem.id) {
+      this.planListPage();
+    }
+  }
+
   // 设备保养计划
   planListPage = async () => {
     const { page, queryMap } = this.state;
+    const { deviceItem } = this.props;
+    const queryMaps = Object.assign({}, queryMap, {
+      planDevId: parseInt(deviceItem.id),
+    });
     const detail = {
       pageNum: page.current,
       pageSize: page.pageSize,
-      queryMap,
+      queryMap: queryMaps,
     };
     const res = await ajax.planListPage(detail);
     if (res.code === '10001') {

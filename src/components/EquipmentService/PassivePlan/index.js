@@ -29,12 +29,22 @@ class PassivePlanMain extends React.PureComponent {
     this.passiveListPage();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.deviceItem.id !== this.props.deviceItem.id) {
+      this.passiveListPage();
+    }
+  }
+
   // 设备被动计划列表
   passiveListPage = async () => {
     const { page } = this.state;
+    const { deviceItem } = this.props;
     const pageDetail = {
       pageNum: page.current,
       pageSize: page.pageSize,
+      queryMap: {
+        planDevId: parseInt(deviceItem.id),
+      },
     };
     const res = await ajax.passiveListPage(pageDetail);
     if (res.code === '10001') {

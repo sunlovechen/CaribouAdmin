@@ -36,13 +36,23 @@ class PassiveServicesMain extends React.PureComponent {
     this.recordListPage();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.deviceItem.id !== this.props.deviceItem.id) {
+      this.recordListPage();
+    }
+  }
+
   // 设备被动维修记录
   recordListPage = async () => {
     const { page, queryMap } = this.state;
+    const { planItem } = this.props;
+    const queryMaps = Object.assign({}, queryMap, {
+      recodeDevId: parseInt(planItem.id),
+    });
     const detail = {
       pageNum: page.current,
       pageSize: page.pageSize,
-      queryMap,
+      queryMap: queryMaps,
     };
     const res = await ajax.recordListPage(detail);
     if (res.code === '10001') {
@@ -195,7 +205,11 @@ class PassiveServicesMain extends React.PureComponent {
             <Button className="title-query" type="ghost">
               {'查询'}
             </Button> */}
-            <Button disabled={!planItem.id} className="title-add" type="primary" onClick={() => this.showModal('add', {})}>
+            <Button
+              disabled={!planItem.id}
+              className="title-add"
+              type="primary"
+              onClick={() => this.showModal('add', {})}>
               {'新增'}
             </Button>
             {/* <Button className="title-delete" type="primary">

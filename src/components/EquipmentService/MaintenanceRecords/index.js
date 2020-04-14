@@ -36,13 +36,23 @@ class MaintenanceRecordsMain extends React.PureComponent {
     this.recordListPage();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.deviceItem.id !== this.props.deviceItem.id) {
+      this.recordListPage();
+    }
+  }
+
   // 设备保养记录
   recordListPage = async () => {
     const { page, queryMap } = this.state;
+    const { planItem } = this.props;
+    const queryMaps = Object.assign({}, queryMap, {
+      recodeDevId: parseInt(planItem.id),
+    });
     const detail = {
       pageNum: page.current,
       pageSize: page.pageSize,
-      queryMap,
+      queryMap: queryMaps,
     };
     const res = await ajax.recordListPage(detail);
     if (res.code === '10001') {

@@ -29,12 +29,22 @@ class EquipmentFailureMain extends React.PureComponent {
     this.getFaults();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.deviceItem.id !== this.props.deviceItem.id) {
+      this.getFaults();
+    }
+  }
+
   // 设备故障列表
   getFaults = async () => {
     const { page } = this.state;
+    const { deviceItem } = this.props;
     const pageDetail = {
       pageNum: page.current,
       pageSize: page.pageSize,
+      queryMap: {
+        planDevId: parseInt(deviceItem.id),
+      },
     };
     const res = await ajax.getFaults(pageDetail);
     if (res.code === '10001') {
