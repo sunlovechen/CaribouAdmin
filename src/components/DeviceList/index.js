@@ -240,7 +240,6 @@ class DeviceListMain extends React.PureComponent {
     };
     const rowSelection = {
       onChange: (selectedRowKeys, selectedRows) => {
-        window.console.log(selectedRowKeys, selectedRows, [this.state && this.state.propsItem && this.state.propsItem.id]);
         this.setState({
           propsItem: selectedRows[0],
         });

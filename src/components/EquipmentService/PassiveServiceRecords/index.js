@@ -61,7 +61,7 @@ class PassiveServicesMain extends React.PureComponent {
         page: {
           current: page.current,
           pageSize: page.pageSize,
-          total: res.data.total,
+          total: parseInt(res.data.total),
         },
       });
     }

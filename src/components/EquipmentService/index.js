@@ -36,7 +36,7 @@ class EquipmentService extends React.PureComponent {
       <div className="equipment-service">
         <Tabs defaultActiveKey="1">
           <TabPane tab="保养计划" key="1">
-            <MaintenancePlan deviceItem={this.props.deviceItem} changeState={this.changeState} />
+            <MaintenancePlan planItem={this.state.maintenancePlan} deviceItem={this.props.deviceItem} changeState={this.changeState} />
           </TabPane>
           <TabPane tab="保养记录" key="2">
             <MaintenanceRecords planItem={this.state.maintenancePlan} />
@@ -45,7 +45,7 @@ class EquipmentService extends React.PureComponent {
             <PassiveMaintenanceRecord planItem={this.state.passivePlan} />
           </TabPane>
           <TabPane tab="维修计划" key="4">
-            <ServicePlan deviceItem={this.props.deviceItem} changeState={this.changeState} />
+            <ServicePlan planItem={this.state.servicePlan} deviceItem={this.props.deviceItem} changeState={this.changeState} />
           </TabPane>
           <TabPane tab="维修记录" key="5">
             <ServiceRecords planItem={this.state.servicePlan} />
@@ -54,7 +54,7 @@ class EquipmentService extends React.PureComponent {
             <PassiveServiceRecords planItem={this.state.passivePlan} />
           </TabPane>
           <TabPane tab="被动计划" key="7">
-            <PassivePlan deviceItem={this.props.deviceItem} changeState={this.changeState} />
+            <PassivePlan planItem={this.state.passivePlan} deviceItem={this.props.deviceItem} changeState={this.changeState} />
           </TabPane>
           <TabPane tab="设备故障" key="8">
             <EquipmentFailure deviceItem={this.props.deviceItem} />

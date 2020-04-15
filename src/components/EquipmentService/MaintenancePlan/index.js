@@ -38,6 +38,7 @@ class MaintenancePlanMain extends React.PureComponent {
 
   componentDidUpdate(prevProps) {
     if (prevProps.deviceItem.id !== this.props.deviceItem.id) {
+      this.props.changeState('maintenancePlan', {});
       this.planListPage();
     }
   }
@@ -61,7 +62,7 @@ class MaintenancePlanMain extends React.PureComponent {
         page: {
           current: page.current,
           pageSize: page.pageSize,
-          total: res.data.total,
+          total: parseInt(res.data.total),
         },
       });
     }
@@ -176,23 +177,19 @@ class MaintenancePlanMain extends React.PureComponent {
     });
   };
 
-  rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      this.props.changeState('maintenancePlan', selectedRows[0]);
-    },
-    // getCheckboxProps: record => ({
-    //   disabled: record.devStatus !== '使用中', // Column configuration not to be checked
-    //   // name: record.name,
-    // }),
-    type: 'radio',
-  };
-
   render() {
     const { deviceItem } = this.props;
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 16 },
+    };
+    const rowSelection = {
+      onChange: (selectedRowKeys, selectedRows) => {
+        this.props.changeState('maintenancePlan', selectedRows[0]);
+      },
+      selectedRowKeys: [this.props && this.props.planItem && this.props.planItem.id],
+      type: 'radio',
     };
     const inputDisabled = true;
     const { planList, planItem, page, planDetail } = this.state;
@@ -233,10 +230,11 @@ class MaintenancePlanMain extends React.PureComponent {
           </div>
           <Table
             columns={columns(this.showModal, this.planDetail, this.planDel)}
-            rowSelection={this.rowSelection}
+            rowSelection={rowSelection}
             dataSource={planList}
             pagination={page}
             onChange={this.pageChange}
+            rowKey="id"
             scroll={{
               x: 2600,
             }}
