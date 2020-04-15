@@ -87,7 +87,7 @@ class DeviceListMain extends React.PureComponent {
         page: {
           current: page.current,
           pageSize: page.pageSize,
-          total: res.data.total,
+          total: parseInt(res.data.total),
         },
       });
     }
@@ -144,18 +144,6 @@ class DeviceListMain extends React.PureComponent {
     });
   };
 
-  rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      this.setState({
-        propsItem: selectedRows[0],
-      });
-    },
-    // getCheckboxProps: record => ({
-    //   disabled: record.devStatus !== '使用中', // Column configuration not to be checked
-    //   // name: record.name,
-    // }),
-    type: 'radio',
-  };
 
   changeDevName = e => {
     const { queryMap } = this.state;
@@ -232,6 +220,7 @@ class DeviceListMain extends React.PureComponent {
     this.setState(
       {
         type: value,
+        propsItem: {},
       },
       () => {
         this.getDevices();
@@ -248,6 +237,16 @@ class DeviceListMain extends React.PureComponent {
     const formTextLayout = {
       labelCol: { span: 4 },
       wrapperCol: { span: 20 },
+    };
+    const rowSelection = {
+      onChange: (selectedRowKeys, selectedRows) => {
+        window.console.log(selectedRowKeys, selectedRows, [this.state && this.state.propsItem && this.state.propsItem.id]);
+        this.setState({
+          propsItem: selectedRows[0],
+        });
+      },
+      selectedRowKeys: [this.state && this.state.propsItem && this.state.propsItem.id],
+      type: 'radio',
     };
     const { devicesList, queryMap, page, title, devicesItem, categoryList, type } = this.state;
     const {
@@ -300,7 +299,7 @@ class DeviceListMain extends React.PureComponent {
             </Button> */}
           </div>
           <Table
-            rowSelection={this.rowSelection}
+            rowSelection={rowSelection}
             columns={columns(this.showModal, this.putDeviceStatusById, type)}
             dataSource={devicesList}
             rowKey="id"
